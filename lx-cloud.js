@@ -8,11 +8,11 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.0 于 2026-09-28 10:36:33 自动生成
+ * 由 ql-lx-source 1.3.0 于 2026-09-28 13:00:04 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 星海音乐源（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:128k/网易云:flac24bit/咪咕:flac，42.5分）
- *   2. 星海音乐源（实测 酷我:flac/酷狗:flac24bit/QQ音乐:128k/网易云:flac24bit/咪咕:flac，39分）
- *   3. HYWmusic_beta_公益测试（实测 酷我:flac/酷狗:flac/QQ音乐:flac24bit/网易云:flac24bit，37.2分）
+ *   1. 星海音乐源（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac，48.5分）
+ *   2. 星海音乐源（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac，47分）
+ *   3. HYWmusic_beta_公益测试（实测 酷我:flac/酷狗:flac/QQ音乐:flac24bit/网易云:flac24bit，37.1分）
  */
 'use strict';
 (function () {
@@ -25,7 +25,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"星海音乐源","v":"v3.2.11","a":"万去了了","s":42.5,"caps":{"kw":4,"kg":4,"tx":1,"wy":4,"mg":3}},{"n":"星海音乐源","v":"v3.2.13","a":"万去了了","s":39.01,"caps":{"kw":3,"kg":4,"tx":1,"wy":4,"mg":3}},{"n":"HYWmusic_beta_公益测试","v":"v0.74.0","a":"Ryn","s":37.19,"caps":{"kw":3,"kg":3,"tx":4,"wy":4}}];
+  var MEMBERS = [{"n":"星海音乐源","v":"v3.2.11","a":"万去了了","s":48.5,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":3}},{"n":"星海音乐源","v":"v3.2.13","a":"万去了了","s":46.95,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":3}},{"n":"HYWmusic_beta_公益测试","v":"v0.74.0","a":"Ryn","s":37.14,"caps":{"kw":3,"kg":3,"tx":4,"wy":4}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -1120,6 +1120,7 @@ send(EVENT_NAMES.inited, {
   openDevTools: DEV_ENABLE,
   sources: musicSources,
 })
+
       }).call(sb, lx, sb, sb, sb, sb, sb.console);
     } catch (e) { st.handler = null; }
   })();
@@ -1233,8 +1234,8 @@ send(EVENT_NAMES.inited, {
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202609281036;
-  var CLOUD_VERSION_TEXT = "2026-09-28 10:36:33";
+  var CLOUD_VERSION = 202609281300;
+  var CLOUD_VERSION_TEXT = "2026-09-28 13:00:04";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
