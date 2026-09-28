@@ -1,16 +1,16 @@
 {
-  "v": 202609281016,
-  "updated": "2026-09-28 10:16:02",
+  "v": 202609281036,
+  "updated": "2026-09-28 10:36:33",
   "sources": [
     {
       "n": "星海音乐源",
       "v": "v3.2.11",
       "a": "万去了了",
-      "s": 48.53,
+      "s": 42.5,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
+        "tx": 1,
         "wy": 4,
         "mg": 3
       },
@@ -18,32 +18,33 @@
       "md5": "5412afcfe9e0e81f941bb0ad8637b08b"
     },
     {
+      "n": "星海音乐源",
+      "v": "v3.2.13",
+      "a": "万去了了",
+      "s": 39.01,
+      "caps": {
+        "kw": 3,
+        "kg": 4,
+        "tx": 1,
+        "wy": 4,
+        "mg": 3
+      },
+      "f": "members/xinghai-2.js",
+      "md5": "735dbdb82b3480335cca5ec084dfa29f"
+    },
+    {
       "n": "HYWmusic_beta_公益测试",
       "v": "v0.74.0",
       "a": "Ryn",
-      "s": 39.29,
+      "s": 37.19,
       "caps": {
-        "kw": 4,
+        "kw": 3,
         "kg": 3,
         "tx": 4,
         "wy": 4
       },
       "f": "members/hywmusic-beta-gongyitest.js",
-      "md5": "c0794f936b16aa0d63e5999a77571e73"
-    },
-    {
-      "n": "杰翔聚合音源",
-      "v": "2.3.0",
-      "a": "https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi",
-      "s": 29.19,
-      "caps": {
-        "kw": 1,
-        "kg": 4,
-        "tx": 1,
-        "wy": 4
-      },
-      "f": "members/jiexiangjuhesource.js",
-      "md5": "210781c06a445e5f4719dc1391bc46ae"
+      "md5": "3b11a566276c1c5f76f10898f67fa051"
     }
   ]
 }
