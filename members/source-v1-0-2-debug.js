@@ -1,7 +1,7 @@
 /**
- * @name 稳定版音源 v1.0.3
- * @description 多平台稳定获取播放链接，无调试日志
- * @version 1.0.3
+ * @name 稳定版音源 v1.0.2-debug
+ * @description 带详细日志输出，用于排查无法获取链接问题
+ * @version 1.0.2-debug
  * @author LX
  * @homepage https://lxmusic.toside.cn/mobile/custom-source
  */
@@ -20,13 +20,20 @@ const STABLE_API = {
 };
 
 const httpRequest = (url, options = { method: 'GET' }) => new Promise((resolve, reject) => {
+    console.log('[DEBUG] 发起请求:', url, options);
     request(url, options, (err, _, body) => {
-        if (err) return reject(err);
+        if (err) {
+            console.error('[DEBUG] 请求失败:', err);
+            return reject(err);
+        }
+        console.log('[DEBUG] 请求成功，响应体:', body);
         resolve(body);
     });
 });
 
 const getMusicUrl = async (source, musicInfo, quality) => {
+    console.log('[DEBUG] 调用 getMusicUrl:', { source, musicInfo, quality });
+
     const songId = (
         musicInfo.id ||
         musicInfo.hash ||
@@ -36,10 +43,12 @@ const getMusicUrl = async (source, musicInfo, quality) => {
         ''
     ).toString().trim();
 
+    console.log('[DEBUG] 解析后的歌曲ID:', songId);
     if (!songId) throw new Error('歌曲ID无效，请检查歌单导入来源');
 
     const level = QUALITY_MAP[source][quality] || '128k';
     const apiUrl = STABLE_API[source](songId, level);
+    console.log('[DEBUG] 拼接的API地址:', apiUrl);
 
     const res = await httpRequest(apiUrl, {
         headers: {
@@ -57,6 +66,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
         realUrl = res.data.url;
     }
 
+    console.log('[DEBUG] 解析后的播放链接:', realUrl);
     if (!realUrl || realUrl.includes('404') || realUrl.includes('error') || realUrl.includes('null')) {
         throw new Error('获取链接失败，可能是该歌曲无版权或接口维护');
     }
@@ -70,20 +80,27 @@ const apis = {
 };
 
 on(EVENT_NAMES.request, (params) => {
+    console.log('[DEBUG] 收到 request 事件:', params);
     const { source, action, info } = params;
+    console.log('[DEBUG] 解析后的事件参数:', { source, action, info });
+
     switch (action) {
         case 'musicUrl':
             return apis[source].musicUrl(info.musicInfo, info.type)
-                .catch(err => Promise.reject(err.message || '获取播放链接失败'));
+                .catch(err => {
+                    console.error('[DEBUG] 获取链接失败:', err);
+                    return Promise.reject(err.message || '获取播放链接失败');
+                });
         default:
+            console.warn('[DEBUG] 不支持的操作:', action);
             return Promise.reject('不支持的操作，仅支持musicUrl');
     }
 });
 
 send(EVENT_NAMES.inited, {
     sources: {
-        wy: { name: '网易云稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        tx: { name: 'QQ音乐稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        kw: { name: '酷狗稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
+        wy: { name: '网易云稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        tx: { name: 'QQ音乐稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        kw: { name: '酷狗稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
     }
 });
