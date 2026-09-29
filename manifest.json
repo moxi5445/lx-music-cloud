@@ -1,12 +1,12 @@
 {
-  "v": 202609291900,
-  "updated": "2026-09-29 19:00:02",
+  "v": 202609292300,
+  "updated": "2026-09-29 23:00:03",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 46.9,
+      "s": 46.93,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -18,43 +18,43 @@
       "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "星海音乐源",
-      "v": "v3.2.12",
-      "a": "万去了了",
-      "s": 39.52,
+      "n": "回避聚合V0.0.1",
+      "v": "",
+      "a": "",
+      "s": 39.77,
       "caps": {
         "kw": 4,
         "kg": 4,
         "tx": 4,
         "wy": 4
       },
-      "f": "members/xinghai.js",
-      "md5": "675220f7789e25adebb4c2be5f3fe3b2"
+      "f": "members/juhev0-0-1.js",
+      "md5": "059857c579536efd6bad491fef7eb60f"
     },
     {
-      "n": "K×H测试",
-      "v": "1.7.17",
-      "a": "HYW & Koneko",
-      "s": 38.95,
+      "n": "gdstudio音乐源",
+      "v": "1.0.1",
+      "a": "lx-music",
+      "s": 31.05,
       "caps": {
-        "kw": 4,
         "kg": 4,
         "wy": 4,
-        "mg": 3
+        "mg": 4
       },
-      "f": "members/k-htest.js",
-      "md5": "7a25b18db20255d9c5ec16422f2350d2"
+      "f": "members/gdstudiomusic.js",
+      "md5": "36d89e3995490fa4c4f9bf6d937280a7"
     },
     {
-      "n": "稳定版音源 v1.0.3",
-      "v": "1.0.3",
-      "a": "LX",
-      "s": 6.64,
+      "n": "聚合音源 v5.0 (融合版)",
+      "v": "v5.0",
+      "a": "融合整理",
+      "s": 15.44,
       "caps": {
+        "kw": 4,
         "tx": 1
       },
-      "f": "members/source-v1-0-3.js",
-      "md5": "733daacd8d03973aa6c8315a4d47a8cb"
+      "f": "members/juhesource-v5-0.js",
+      "md5": "cd9279364fdcde57323f625c4d7bc764"
     }
   ]
 }
