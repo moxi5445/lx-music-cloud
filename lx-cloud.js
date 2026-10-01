@@ -8,11 +8,11 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-10-01 19:00:02 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-10-01 23:00:02 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.7分）
- *   2. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit，39.5分）
- *   3. K×H测试（实测 酷我:flac24bit/酷狗:flac24bit/网易云:128k/咪咕:flac，33分）
+ *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.8分）
+ *   2. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit，39.4分）
+ *   3. K×H测试（实测 酷我:flac24bit/酷狗:flac24bit/网易云:flac/咪咕:flac，37分）
  *   4. 稳定版音源 v1.0.3（实测 QQ音乐:128k，6.6分）
  */
 'use strict';
@@ -26,7 +26,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.72,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":39.46,"caps":{"kw":4,"kg":4,"tx":4,"wy":4}},{"n":"K×H测试","v":"1.7.17","a":"HYW & Koneko","s":33.04,"caps":{"kw":4,"kg":4,"wy":1,"mg":3}},{"n":"稳定版音源 v1.0.3","v":"1.0.3","a":"LX","s":6.64,"caps":{"tx":1}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.77,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":39.43,"caps":{"kw":4,"kg":4,"tx":4,"wy":4}},{"n":"K×H测试","v":"1.7.17","a":"HYW & Koneko","s":37.04,"caps":{"kw":4,"kg":4,"wy":3,"mg":3}},{"n":"稳定版音源 v1.0.3","v":"1.0.3","a":"LX","s":6.62,"caps":{"tx":1}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -4093,8 +4093,8 @@ send(EVENT_NAMES.inited, {
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202610011900;
-  var CLOUD_VERSION_TEXT = "2026-10-01 19:00:02";
+  var CLOUD_VERSION = 202610012300;
+  var CLOUD_VERSION_TEXT = "2026-10-01 23:00:02";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
