@@ -1,6 +1,6 @@
 {
-  "v": 202609301900,
-  "updated": "2026-09-30 19:00:03",
+  "v": 202610011300,
+  "updated": "2026-10-01 13:00:02",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
@@ -18,18 +18,18 @@
       "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "HYWmusic_beta_公益测试",
+      "n": "何意味",
       "v": "v0.74.0",
       "a": "Ryn",
-      "s": 39.33,
+      "s": 40.71,
       "caps": {
         "kw": 4,
-        "kg": 3,
+        "kg": 4,
         "tx": 4,
         "wy": 4
       },
-      "f": "members/hywmusic-beta-gongyitest.js",
-      "md5": "c0794f936b16aa0d63e5999a77571e73"
+      "f": "members/musicsource-715983.js",
+      "md5": "715983d0f18f461c5fcf7c2be4361f4e"
     },
     {
       "n": "K×H测试",
@@ -46,15 +46,15 @@
       "md5": "7a25b18db20255d9c5ec16422f2350d2"
     },
     {
-      "n": "稳定版音源 v1.0.2-debug",
-      "v": "1.0.2-debug",
+      "n": "稳定版音源 v1.0.3",
+      "v": "1.0.3",
       "a": "LX",
-      "s": 6.48,
+      "s": 6.63,
       "caps": {
         "tx": 1
       },
-      "f": "members/source-v1-0-2-debug.js",
-      "md5": "f1e24e24ae232b58b1fd5f4989a857a3"
+      "f": "members/source-v1-0-3.js",
+      "md5": "733daacd8d03973aa6c8315a4d47a8cb"
     }
   ]
 }

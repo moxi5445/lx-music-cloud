@@ -1,5 +1,5 @@
 /**
- * @name HYWmusic_beta_公益测试
+ * @name 何意味
  * @version v0.74.0
  * @author Ryn
  * @description 你知道吗我的trae积分用完了……我想要赞助喵……
