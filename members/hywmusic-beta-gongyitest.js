@@ -1,4 +1,24 @@
-
+/**
+ * @name HYWmusic_beta_公益测试
+ * @version v0.74.0
+ * @author Ryn
+ * @description 你知道吗我的trae积分用完了……我想要赞助喵……
+一群（满了）1094095648
+二群（可入）965503129
+ * @homepage https://github.com/Macrohard0001/HYWmusic_source
+ * @license MIT
+ * @updateUrl http://103.79.184.97/api/releases?script=HYWmusic_beta_%E5%85%AC%E7%9B%8A%E6%B5%8B%E8%AF%95&scriptType=free&releaseType=lx&version=v0.74.0
+ *
+ * 支持平台: kw、kg、tx、wy、mg
+ * 支持音质: 128k、320k、flac、flac24bit、master、atmos_plus、atmos、hires
+ * 生成时间: 2026-08-06T07:52:23.078Z
+ *
+ * 协议参考：ikun-music-source.js + lxmusic.toside.cn/desktop/custom-source
+ *   - MUSIC_QUALITY 每平台独立音质（按后端勾选写入）
+ *   - on handler 纯 Promise 风格：({action, source, info}) => Promise
+ *   - inited 发送 status:true + sources
+ *   - API_BASE 必须注入，禁止回退 localhost
+ */
 
 'use strict'
 
@@ -7,28 +27,28 @@ const UPDATE_ENABLE = true
 
 const { EVENT_NAMES, request, on, send, env, version: LX_VERSION } = globalThis.lx
 
-
-const MUSIC_QUALITY = JSON.parse('{"kw":["128k","320k","flac","flac24bit","hires"],"kg":["128k","320k","flac"],"tx":["128k","320k","flac","flac24bit","hires"],"wy":["128k","320k","flac","flac24bit","hires"],"mg":["128k","320k"]}')
+// ====== 每平台独立音质（参考 ikun） ======
+const MUSIC_QUALITY = JSON.parse('{"kw":["128k","320k","flac","flac24bit","master","atmos_plus","atmos","hires"],"kg":["128k","320k","flac","flac24bit","master","atmos_plus","atmos","hires"],"tx":["128k","320k","flac","flac24bit","master","atmos_plus","atmos","hires"],"wy":["128k","320k","flac","flac24bit","master","atmos_plus","atmos","hires"],"mg":["128k"]}')
 const MUSIC_SOURCE = Object.keys(MUSIC_QUALITY)
 
-
+// ====== 运行参数 ======
 const API_BASE = 'http://103.79.184.97'
-const CARD_KEY = '6C1F-53W0-GRKI-EVFG'
+const CARD_KEY = 'PYPW-QFRL-3DBF-95O6'
 
-
+// ====== 日志 ======
 const log = {
   info: (...args) => { try { console.log('[HYWmusic]', ...args) } catch(e) {} },
   error: (...args) => { try { console.error('[HYWmusic ERROR]', ...args) } catch(e) {} },
   warn: (...args) => { try { console.warn('[HYWmusic WARN]', ...args) } catch(e) {} },
 }
 
-
+// ====== API_BASE 检查：禁止回退 localhost ======
 if (!API_BASE || !/^https?:\/\//.test(API_BASE)) {
   log.error('API_BASE 未配置或格式非法: "' + API_BASE + '"，所有请求都将失败')
   log.error('请联系发行版管理员在创建发行版时设置 metadata.apiUrl')
 }
 
-
+// ====== HTTP 请求（严格对齐 ikun：仅 callback 风格 request） ======
 const httpFetch = (url, options = { method: 'GET' }) => {
   return new Promise((resolve, reject) => {
     if (!API_BASE || !/^https?:\/\//.test(API_BASE)) {
@@ -38,16 +58,13 @@ const httpFetch = (url, options = { method: 'GET' }) => {
       ...(options.headers || {}),
       'User-Agent': env ? `lx-music-${env}/${LX_VERSION}` : `lx-music-request/${LX_VERSION || '1.0.0'}`,
     }
-    
-    
-    
-    if (CARD_KEY && /^[\x20-\x7E]*$/.test(CARD_KEY)) headers['X-Card-Key'] = CARD_KEY
+    if (CARD_KEY) headers['X-Card-Key'] = CARD_KEY
     const reqOptions = { ...options, headers }
     if (!reqOptions.method) reqOptions.method = 'GET'
-    
-    
-    
-    
+    // 兼容 LX 沙箱 request 的两种 callback 签名：
+    //   2 参数: (err, resp)       — resp.body 包含响应体
+    //   3 参数: (err, resp, body) — body 是独立解析的响应体（needle 风格）
+    // 部分版本 resp.body 为 undefined，body 在第三个参数；两者都取以兜底
     request(url, reqOptions, (err, resp, body) => {
       if (err) return reject(err)
       const respBody = (resp && resp.body !== undefined && resp.body !== null)
@@ -62,13 +79,13 @@ const httpFetch = (url, options = { method: 'GET' }) => {
   })
 }
 
+// ====== 超时保护（保留但默认不使用，脚本内部调用） ======
+// const withTimeout = (promise, ms) => Promise.race([
+//   promise,
+//   new Promise((_, reject) => setTimeout(() => reject(new Error('请求超时(' + ms + 'ms)')), ms))
+// ])
 
-
-
-
-
-
-
+// ====== musicInfo 字段收集：透传完整字段 ======
 const collectMusicInfoParams = (musicInfo, platform) => {
   if (!musicInfo) return {}
   const params = {}
@@ -85,11 +102,11 @@ const collectMusicInfoParams = (musicInfo, platform) => {
     if (musicInfo.meta && musicInfo.meta[f] !== undefined && musicInfo.meta[f] !== null && musicInfo.meta[f] !== '') params[f] = musicInfo.meta[f]
   }
   params.platform = platform
-  params.source = platform  
+  params.source = platform  // 兼容 /api/music/info（仅读 source，不读 platform）
   return params
 }
 
-
+// ====== 获取音乐 URL（GET + query 参数，服务端仅支持 GET） ======
 const handleGetMusicUrl = async (source, musicInfo, quality) => {
   const params = collectMusicInfoParams(musicInfo, source)
   if (quality) params.quality = quality
@@ -126,11 +143,10 @@ const handleGetMusicUrl = async (source, musicInfo, quality) => {
   }
 }
 
-
+// ====== 获取歌词 ======
 const handleGetLyric = async (source, musicInfo) => {
   const params = collectMusicInfoParams(musicInfo, source)
   params.action = 'lyric'
-  if (CARD_KEY) params.key = CARD_KEY
   try {
     const query = Object.entries(params)
       .filter(([, v]) => v !== undefined && v !== null && v !== '')
@@ -155,11 +171,10 @@ const handleGetLyric = async (source, musicInfo) => {
   }
 }
 
-
+// ====== 获取封面 ======
 const handleGetPic = async (source, musicInfo) => {
   const params = collectMusicInfoParams(musicInfo, source)
   params.action = 'pic'
-  if (CARD_KEY) params.key = CARD_KEY
   try {
     const query = Object.entries(params)
       .filter(([, v]) => v !== undefined && v !== null && v !== '')
@@ -177,7 +192,7 @@ const handleGetPic = async (source, musicInfo) => {
   } catch (e) { return '' }
 }
 
-
+// ====== on request（严格对齐 ikun：纯 Promise 风格，无 withTimeout） ======
 on(EVENT_NAMES.request, ({ action, source, info }) => {
   switch (action) {
     case 'musicUrl':
@@ -191,7 +206,7 @@ on(EVENT_NAMES.request, ({ action, source, info }) => {
   }
 })
 
-
+// ====== 构建 sources（每平台独立 qualitys，参考 ikun） ======
 const musicSources = {}
 MUSIC_SOURCE.forEach((item) => {
   musicSources[item] = {
@@ -202,71 +217,9 @@ MUSIC_SOURCE.forEach((item) => {
   }
 })
 
-
+// ====== 发送 inited（参考 ikun：status: true + openDevTools） ======
 send(EVENT_NAMES.inited, {
   status: true,
   openDevTools: DEV_ENABLE,
   sources: musicSources,
 })
-
-
-const SCRIPT_VERSION = 'v1.0.3'
-const UPDATE_URL = 'http://103.79.184.97/api/releases?script=HYWmusic_%E5%85%AC%E7%9B%8A%E7%89%88&scriptType=free&releaseType=lx&version=' + SCRIPT_VERSION
-
-const parseVer = (s) => {
-  const m = String(s || '').match(/\d+(?:\.\d+)+/)
-  if (!m) return null
-  return m[0].split('.').map((n) => parseInt(n, 10))
-}
-
-const cmpVer = (a, b) => {
-  const va = parseVer(a)
-  const vb = parseVer(b)
-  if (!va || !vb) return 0
-  const len = Math.max(va.length, vb.length)
-  for (let i = 0; i < len; i++) {
-    const x = va[i] || 0
-    const y = vb[i] || 0
-    if (x > y) return 1
-    if (x < y) return -1
-  }
-  return 0
-}
-
-const checkUpdate = async () => {
-  try {
-    if (!UPDATE_ENABLE) return
-    log.info('检查更新: ' + UPDATE_URL)
-    
-    
-    
-    
-    const resp = await httpFetch(UPDATE_URL, { method: 'GET' })
-    if (!resp || resp.statusCode !== 200) return
-    let respBody = resp.body
-    if (typeof respBody === 'string') {
-      try { respBody = JSON.parse(respBody) } catch (e) { return }
-    }
-    if (!respBody || typeof respBody !== 'object') return
-    if (respBody.code !== 200 || !respBody.data || !respBody.data.version) return
-    const latestVersion = respBody.data.version
-    if (cmpVer(latestVersion, SCRIPT_VERSION) > 0) {
-      
-      const absUrl = respBody.data.url && String(respBody.data.url).indexOf('http') === 0
-        ? respBody.data.url
-        : API_BASE + (respBody.data.url || '')
-      log.info('发现新版本 ' + latestVersion + ' -> ' + absUrl)
-      send(EVENT_NAMES.updateAlert, {
-        log: respBody.data.updateLog || ('发现新版本 ' + latestVersion),
-        updateUrl: absUrl,
-      })
-    } else {
-      log.info('当前已是最新版本: ' + SCRIPT_VERSION)
-    }
-  } catch (e) {
-    log.warn('更新检查失败: ' + (e && e.message))
-  }
-}
-
-
-checkUpdate()
