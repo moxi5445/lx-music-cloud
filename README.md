@@ -1,6 +1,6 @@
 # 落雪云更新音源（实测）
 
-> 本仓库由 **ql-lx-source** 每轮巡检自动更新 · 最近构建 2026-10-07 19:00:03
+> 本仓库由 **ql-lx-source** 每轮巡检自动更新 · 最近构建 2026-10-08 07:00:03
 
 ## 导入（一次导入，永久自动更新）
 
@@ -26,8 +26,8 @@ GitHub 直连失败时可用镜像地址导入：
 
 ## 当前内置成员（5 个）
 
-- 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac）
-- HYWmusic_beta_公益测试（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit）
+- 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac）
+- 何意味（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit）
 - gdstudio音乐源（酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit）
 - 稳定版音源 v1.0.3（QQ音乐:128k）
 - KuwoDES（酷我:128k）
