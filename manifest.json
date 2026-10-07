@@ -1,12 +1,12 @@
 {
-  "v": 202610071300,
-  "updated": "2026-10-07 13:00:02",
+  "v": 202610071900,
+  "updated": "2026-10-07 19:00:03",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 47.02,
+      "s": 46.98,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -18,43 +18,53 @@
       "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "何意味",
+      "n": "HYWmusic_beta_公益测试",
       "v": "v0.74.0",
       "a": "Ryn",
-      "s": 39.32,
-      "caps": {
-        "kw": 4,
-        "kg": 3,
-        "tx": 4,
-        "wy": 4
-      },
-      "f": "members/musicsource-715983.js",
-      "md5": "715983d0f18f461c5fcf7c2be4361f4e"
-    },
-    {
-      "n": "K×H测试",
-      "v": "1.7.17",
-      "a": "HYW & Koneko",
-      "s": 33.05,
+      "s": 41.17,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "wy": 3,
-        "mg": 1
+        "tx": 4,
+        "wy": 4
       },
-      "f": "members/k-htest.js",
-      "md5": "7a25b18db20255d9c5ec16422f2350d2"
+      "f": "members/hywmusic-beta-gongyitest.js",
+      "md5": "c0794f936b16aa0d63e5999a77571e73"
+    },
+    {
+      "n": "gdstudio音乐源",
+      "v": "1.0.1",
+      "a": "lx-music",
+      "s": 31.01,
+      "caps": {
+        "kg": 4,
+        "wy": 4,
+        "mg": 4
+      },
+      "f": "members/gdstudiomusic.js",
+      "md5": "36d89e3995490fa4c4f9bf6d937280a7"
     },
     {
       "n": "稳定版音源 v1.0.3",
       "v": "1.0.3",
       "a": "LX",
-      "s": 6.61,
+      "s": 6.63,
       "caps": {
         "tx": 1
       },
       "f": "members/source-v1-0-3.js",
       "md5": "733daacd8d03973aa6c8315a4d47a8cb"
+    },
+    {
+      "n": "KuwoDES",
+      "v": "1.0.0",
+      "a": "不知名纯鹿人",
+      "s": 6.6,
+      "caps": {
+        "kw": 1
+      },
+      "f": "members/kuwodes.js",
+      "md5": "5bc0b86703c8820673e05da7fa3c2261"
     }
   ]
 }
