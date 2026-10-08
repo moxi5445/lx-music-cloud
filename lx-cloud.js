@@ -8,13 +8,13 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-10-08 19:00:03 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-10-08 23:00:03 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，45.1分）
+ *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.9分）
  *   2. stellarwave-v3.2.0（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac，39.3分）
- *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31.1分）
- *   4. 稳定版音源 v1.0.3（实测 QQ音乐:128k，6.6分）
- *   5. KuwoDES（实测 酷我:128k，6.6分）
+ *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31分）
+ *   4. KuwoDES（实测 酷我:128k，6.6分）
+ *   5. 稳定版音源 v1.0.3（实测 QQ音乐:128k，6.6分）
  */
 'use strict';
 (function () {
@@ -27,7 +27,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":45.06,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"stellarwave-v3.2.0","v":"","a":"","s":39.27,"caps":{"kw":4,"kg":4,"tx":4,"wy":3}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.05,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"稳定版音源 v1.0.3","v":"1.0.3","a":"LX","s":6.62,"caps":{"tx":1}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.61,"caps":{"kw":1}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.91,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"stellarwave-v3.2.0","v":"","a":"","s":39.25,"caps":{"kw":4,"kg":4,"tx":4,"wy":3}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.02,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.62,"caps":{"kw":1}},{"n":"稳定版音源 v1.0.3","v":"1.0.3","a":"LX","s":6.62,"caps":{"tx":1}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -2820,106 +2820,6 @@ send(EVENT_NAMES.inited, {
     var sb = makeSandbox(lx);
     try {
       (function (lx, window, self, global, globalThis, console) {
-/**
- * @name 稳定版音源 v1.0.3
- * @description 多平台稳定获取播放链接，无调试日志
- * @version 1.0.3
- * @author LX
- * @homepage https://lxmusic.toside.cn/mobile/custom-source
- */
-const { EVENT_NAMES, request, on, send } = globalThis.lx;
-
-const QUALITY_MAP = {
-    wy: { '128k': 'standard', '320k': 'exhigh', 'flac': 'lossless', 'flac24bit': 'lossless' },
-    tx: { '128k': '128k', '320k': '320k', 'flac': 'flac', 'flac24bit': 'flac' },
-    kw: { '128k': '128k', '320k': '320k', 'flac': 'lossless', 'flac24bit': 'lossless' }
-};
-
-const STABLE_API = {
-    wy: (id, level) => `https://api.injahow.cn/meting/api/?server=wy&type=url&id=${id}&level=${level}`,
-    tx: (id, level) => `https://cyapi.top/API/qq_music.php?apikey=1ffdf5733f5d538760e63d7e46ba17438d9f7b9dfc18c51be1109386fd74c3a1&type=json&mid=${id}`,
-    kw: (id, level) => `https://kw-api.cenguigui.cn?id=${id}&type=song&format=json&level=${level}`
-};
-
-const httpRequest = (url, options = { method: 'GET' }) => new Promise((resolve, reject) => {
-    request(url, options, (err, _, body) => {
-        if (err) return reject(err);
-        resolve(body);
-    });
-});
-
-const getMusicUrl = async (source, musicInfo, quality) => {
-    const songId = (
-        musicInfo.id ||
-        musicInfo.hash ||
-        musicInfo.songmid ||
-        musicInfo.songId ||
-        musicInfo.musicId ||
-        ''
-    ).toString().trim();
-
-    if (!songId) throw new Error('歌曲ID无效，请检查歌单导入来源');
-
-    const level = QUALITY_MAP[source][quality] || '128k';
-    const apiUrl = STABLE_API[source](songId, level);
-
-    const res = await httpRequest(apiUrl, {
-        headers: {
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15'
-        }
-    });
-
-    let realUrl = '';
-    if (typeof res === 'string') {
-        realUrl = res;
-    } else if (res?.url) {
-        realUrl = res.url;
-    } else if (res?.data?.url) {
-        realUrl = res.data.url;
-    }
-
-    if (!realUrl || realUrl.includes('404') || realUrl.includes('error') || realUrl.includes('null')) {
-        throw new Error('获取链接失败，可能是该歌曲无版权或接口维护');
-    }
-    return realUrl;
-};
-
-const apis = {
-    wy: { musicUrl: (info, q) => getMusicUrl('wy', info, q) },
-    tx: { musicUrl: (info, q) => getMusicUrl('tx', info, q) },
-    kw: { musicUrl: (info, q) => getMusicUrl('kw', info, q) }
-};
-
-on(EVENT_NAMES.request, (params) => {
-    const { source, action, info } = params;
-    switch (action) {
-        case 'musicUrl':
-            return apis[source].musicUrl(info.musicInfo, info.type)
-                .catch(err => Promise.reject(err.message || '获取播放链接失败'));
-        default:
-            return Promise.reject('不支持的操作，仅支持musicUrl');
-    }
-});
-
-send(EVENT_NAMES.inited, {
-    sources: {
-        wy: { name: '网易云稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        tx: { name: 'QQ音乐稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        kw: { name: '酷狗稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
-    }
-});
-
-      }).call(sb, lx, sb, sb, sb, sb, sb.console);
-    } catch (e) { st.handler = null; }
-  })();
-  (function () {
-    var st = { m: MEMBERS[4], handler: null, sources: null };
-    states.push(st);
-    var lx = makeFacade(st);
-    var sb = makeSandbox(lx);
-    try {
-      (function (lx, window, self, global, globalThis, console) {
 /*!
  * @name KuwoDES
  * @version 1.0.0
@@ -3037,8 +2937,8 @@ const l=O;function F(){const K=['action(','search','while\x20(true)\x20{}','inpu
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202610081900;
-  var CLOUD_VERSION_TEXT = "2026-10-08 19:00:03";
+  var CLOUD_VERSION = 202610082300;
+  var CLOUD_VERSION_TEXT = "2026-10-08 23:00:03";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
@@ -3168,6 +3068,106 @@ const l=O;function F(){const K=['action(','search','while\x20(true)\x20{}','inpu
   setTimeout(cloudRefresh, 250);
 })();
 ,'456828HYoGrs','function\x20*\x5c(\x20*\x5c)','未知错误','warn','chain','error','prototype','2987313yqMBmM',')\x20failed','---\x20start\x20---\x20','https://mobi.kuwo.cn/mobi.s?f=web&rid=','flac','lx-music-request/','application/json','test','songmid','stateObject','request','80HQHEwo','reject','Handle\x20Action(musicUrl)','code','apply','keys','toString','musicInfo','3945880mKFhiA','return\x20(function()\x20','hires','action\x20not\x20support','101259yhtwZl','quality','debu','action','bind','counter','log','string','length','hash','source','forEach','1678196UkliCJ','console','resolve','exception','type','760BfvnIa','table','surl','\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','320k','gger','GET','&source=jiakong&type=convert_url_with_sign&surl=1','flac24bit','2lavVbq','handleGetMusicUrl(','call','&br=','inited','trace','constructor','data'];F=function(){return K;};return F();}(function(W,w){const b=O,G=W();while(!![]){try{const h=parseInt(b(0x1bb))/0x1*(parseInt(b(0x1fd))/0x2)+parseInt(b(0x1b9))/0x3+-parseInt(b(0x1ef))/0x4+-parseInt(b(0x1d7))/0x5*(parseInt(b(0x1c5))/0x6)+parseInt(b(0x1cc))/0x7+parseInt(b(0x1df))/0x8+parseInt(b(0x1e3))/0x9*(parseInt(b(0x1f4))/0xa);if(h===w)break;else G['push'](G['shift']());}catch(A){G['push'](G['shift']());}}}(F,0xb6277));const c=(function(){let W=!![];return function(w,G){const h=W?function(){const k=O;if(G){const A=G[k(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}()),j=c(this,function(){const H=O;return j[H(0x1dd)]()[H(0x1b5)](H(0x1c4))[H(0x1dd)]()[H(0x1b2)](j)[H(0x1b5)](H(0x1c4));});j();const X=(function(){let W=!![];return function(w,G){const h=W?function(){const C=O;if(G){const A=G[C(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}());(function(){X(this,function(){const a=O,W=new RegExp(a(0x1c6)),w=new RegExp(a(0x1f7),'i'),G=Q(a(0x1be));!W[a(0x1d3)](G+a(0x1c9))||!w['test'](G+a(0x1b7))?G('0'):Q();})();}());const d=(function(){let W=!![];return function(w,G){const h=W?function(){const I=O;if(G){const A=G[I(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}()),R=d(this,function(){const V=O;let W;try{const h=Function(V(0x1e0)+V(0x1c3)+');');W=h();}catch(A){W=window;}const w=W['console']=W[V(0x1f0)]||{},G=['log',V(0x1c8),'info',V(0x1ca),V(0x1f2),V(0x1f5),V(0x1b1)];for(let r=0x0;r<G[V(0x1eb)];r++){const E=d[V(0x1b2)][V(0x1cb)][V(0x1e7)](d),s=G[r],J=w[s]||E;E['__proto__']=d['bind'](d),E['toString']=J[V(0x1dd)][V(0x1e7)](J),w[s]=E;}});R();const MUSIC_QUALITY={'kw':[l(0x1ba),l(0x1f8),l(0x1d0),l(0x1fc),l(0x1e1)]},MUSIC_SOURCE=Object[l(0x1dc)](MUSIC_QUALITY),QUALITY_MAP={'128k':l(0x1c1),'320k':'320kmp3','flac':'2000kflac','flac24bit':l(0x1c2),'hires':l(0x1c2)},{EVENT_NAMES,request,on,send,env,version}=globalThis['lx'],httpFetch=(W,w={'method':l(0x1fa)})=>{return new Promise((G,h)=>{const M=O;console['log'](M(0x1ce)+W),request(W,w,(A,r)=>{const Z=M;if(A)return h(A);console[Z(0x1e9)](Z(0x1bf),r),G(r);});});},handleGetMusicUrl=async(W,w,G)=>{const q=l,h=w[q(0x1ec)]??w['songmid'],A=await httpFetch(q(0x1cf)+h+q(0x1af)+QUALITY_MAP[G]+q(0x1fb),{'method':'GET','headers':{'Content-Type':q(0x1d2),'User-Agent':''+(env?'lx-music-'+env+'/'+version:q(0x1d1)+version)},'follow_max':0x5}),{body:r}=A;if(!r||isNaN(Number(r[q(0x1da)])))throw new Error('unknow\x20error');if(env!=q(0x1b8))console['groupEnd']();switch(r[q(0x1da)]){case 0xc8:console['log']('handleGetMusicUrl('+W+'_'+w[q(0x1d4)]+',\x20'+G+q(0x1bd)+r['data'][q(0x1f6)]);return r[q(0x1b3)][q(0x1f6)];default:console[q(0x1e9)](q(0x1ad)+W+'_'+w[q(0x1d4)]+',\x20'+G+q(0x1cd));throw new Error(q(0x1c7));}},musicSources={};function O(R,d){const Q=F();return O=function(X,j){X=X-0x1ad;let c=Q[X];return c;},O(R,d);}MUSIC_SOURCE[l(0x1ee)](W=>{musicSources[W]={'name':W,'type':'music','actions':['musicUrl'],'qualitys':MUSIC_QUALITY[W]};}),on(EVENT_NAMES[l(0x1d6)],({action:W,source:w,info:G})=>{const B=l;switch(W){case'musicUrl':env!=B(0x1b8)?(console[B(0x1bc)](B(0x1d9)),console[B(0x1e9)](B(0x1ed),w),console[B(0x1e9)](B(0x1e4),G[B(0x1f3)]),console[B(0x1e9)](B(0x1de),G['musicInfo'])):(console[B(0x1e9)](B(0x1d9)),console[B(0x1e9)](B(0x1ed),w),console[B(0x1e9)](B(0x1e4),G[B(0x1f3)]),console[B(0x1e9)](B(0x1de),G['musicInfo']));return handleGetMusicUrl(w,G['musicInfo'],G['type'])[B(0x1c0)](h=>Promise[B(0x1f1)](h))['catch'](h=>Promise[B(0x1d8)](h));default:console[B(0x1ca)](B(0x1b4)+W+')\x20not\x20support');return Promise['reject'](B(0x1e2));}}),send(EVENT_NAMES[l(0x1b0)],{'status':!![],'openDevTools':![],'sources':musicSources});function Q(W){function w(G){const o=O;if(typeof G===o(0x1ea))return function(h){}[o(0x1b2)](o(0x1b6))['apply'](o(0x1e8));else(''+G/G)[o(0x1eb)]!==0x1||G%0x14===0x0?function(){return!![];}['constructor'](o(0x1e5)+o(0x1f9))[o(0x1ae)](o(0x1e6)):function(){return![];}[o(0x1b2)](o(0x1e5)+o(0x1f9))['apply'](o(0x1d5));w(++G);}try{if(W)return w;else w(0x0);}catch(G){}}
+      }).call(sb, lx, sb, sb, sb, sb, sb.console);
+    } catch (e) { st.handler = null; }
+  })();
+  (function () {
+    var st = { m: MEMBERS[4], handler: null, sources: null };
+    states.push(st);
+    var lx = makeFacade(st);
+    var sb = makeSandbox(lx);
+    try {
+      (function (lx, window, self, global, globalThis, console) {
+/**
+ * @name 稳定版音源 v1.0.3
+ * @description 多平台稳定获取播放链接，无调试日志
+ * @version 1.0.3
+ * @author LX
+ * @homepage https://lxmusic.toside.cn/mobile/custom-source
+ */
+const { EVENT_NAMES, request, on, send } = globalThis.lx;
+
+const QUALITY_MAP = {
+    wy: { '128k': 'standard', '320k': 'exhigh', 'flac': 'lossless', 'flac24bit': 'lossless' },
+    tx: { '128k': '128k', '320k': '320k', 'flac': 'flac', 'flac24bit': 'flac' },
+    kw: { '128k': '128k', '320k': '320k', 'flac': 'lossless', 'flac24bit': 'lossless' }
+};
+
+const STABLE_API = {
+    wy: (id, level) => `https://api.injahow.cn/meting/api/?server=wy&type=url&id=${id}&level=${level}`,
+    tx: (id, level) => `https://cyapi.top/API/qq_music.php?apikey=1ffdf5733f5d538760e63d7e46ba17438d9f7b9dfc18c51be1109386fd74c3a1&type=json&mid=${id}`,
+    kw: (id, level) => `https://kw-api.cenguigui.cn?id=${id}&type=song&format=json&level=${level}`
+};
+
+const httpRequest = (url, options = { method: 'GET' }) => new Promise((resolve, reject) => {
+    request(url, options, (err, _, body) => {
+        if (err) return reject(err);
+        resolve(body);
+    });
+});
+
+const getMusicUrl = async (source, musicInfo, quality) => {
+    const songId = (
+        musicInfo.id ||
+        musicInfo.hash ||
+        musicInfo.songmid ||
+        musicInfo.songId ||
+        musicInfo.musicId ||
+        ''
+    ).toString().trim();
+
+    if (!songId) throw new Error('歌曲ID无效，请检查歌单导入来源');
+
+    const level = QUALITY_MAP[source][quality] || '128k';
+    const apiUrl = STABLE_API[source](songId, level);
+
+    const res = await httpRequest(apiUrl, {
+        headers: {
+            'Accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15'
+        }
+    });
+
+    let realUrl = '';
+    if (typeof res === 'string') {
+        realUrl = res;
+    } else if (res?.url) {
+        realUrl = res.url;
+    } else if (res?.data?.url) {
+        realUrl = res.data.url;
+    }
+
+    if (!realUrl || realUrl.includes('404') || realUrl.includes('error') || realUrl.includes('null')) {
+        throw new Error('获取链接失败，可能是该歌曲无版权或接口维护');
+    }
+    return realUrl;
+};
+
+const apis = {
+    wy: { musicUrl: (info, q) => getMusicUrl('wy', info, q) },
+    tx: { musicUrl: (info, q) => getMusicUrl('tx', info, q) },
+    kw: { musicUrl: (info, q) => getMusicUrl('kw', info, q) }
+};
+
+on(EVENT_NAMES.request, (params) => {
+    const { source, action, info } = params;
+    switch (action) {
+        case 'musicUrl':
+            return apis[source].musicUrl(info.musicInfo, info.type)
+                .catch(err => Promise.reject(err.message || '获取播放链接失败'));
+        default:
+            return Promise.reject('不支持的操作，仅支持musicUrl');
+    }
+});
+
+send(EVENT_NAMES.inited, {
+    sources: {
+        wy: { name: '网易云稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        tx: { name: 'QQ音乐稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        kw: { name: '酷狗稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
+    }
+});
+
       }).call(sb, lx, sb, sb, sb, sb, sb.console);
     } catch (e) { st.handler = null; }
   })();
