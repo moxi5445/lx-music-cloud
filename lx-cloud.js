@@ -8,12 +8,12 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-10-12 19:00:03 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-10-12 23:00:03 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，45分）
+ *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.8分）
  *   2. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit，39.6分）
  *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31分）
- *   4. 稳定版音源 v1.0.3（实测 QQ音乐:128k，6.6分）
+ *   4. 稳定版音源 v1.0.2-debug（实测 QQ音乐:128k，6.6分）
  *   5. KuwoDES（实测 酷我:128k，6.6分）
  */
 'use strict';
@@ -27,7 +27,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.96,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":39.62,"caps":{"kw":4,"kg":4,"tx":4,"wy":4}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.03,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"稳定版音源 v1.0.3","v":"1.0.3","a":"LX","s":6.62,"caps":{"tx":1}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.61,"caps":{"kw":1}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.81,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":39.6,"caps":{"kw":4,"kg":4,"tx":4,"wy":4}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.03,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"稳定版音源 v1.0.2-debug","v":"1.0.2-debug","a":"LX","s":6.61,"caps":{"tx":1}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.59,"caps":{"kw":1}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -2475,9 +2475,9 @@ send(EVENT_NAMES.inited, {
     try {
       (function (lx, window, self, global, globalThis, console) {
 /**
- * @name 稳定版音源 v1.0.3
- * @description 多平台稳定获取播放链接，无调试日志
- * @version 1.0.3
+ * @name 稳定版音源 v1.0.2-debug
+ * @description 带详细日志输出，用于排查无法获取链接问题
+ * @version 1.0.2-debug
  * @author LX
  * @homepage https://lxmusic.toside.cn/mobile/custom-source
  */
@@ -2496,13 +2496,20 @@ const STABLE_API = {
 };
 
 const httpRequest = (url, options = { method: 'GET' }) => new Promise((resolve, reject) => {
+    console.log('[DEBUG] 发起请求:', url, options);
     request(url, options, (err, _, body) => {
-        if (err) return reject(err);
+        if (err) {
+            console.error('[DEBUG] 请求失败:', err);
+            return reject(err);
+        }
+        console.log('[DEBUG] 请求成功，响应体:', body);
         resolve(body);
     });
 });
 
 const getMusicUrl = async (source, musicInfo, quality) => {
+    console.log('[DEBUG] 调用 getMusicUrl:', { source, musicInfo, quality });
+
     const songId = (
         musicInfo.id ||
         musicInfo.hash ||
@@ -2512,10 +2519,12 @@ const getMusicUrl = async (source, musicInfo, quality) => {
         ''
     ).toString().trim();
 
+    console.log('[DEBUG] 解析后的歌曲ID:', songId);
     if (!songId) throw new Error('歌曲ID无效，请检查歌单导入来源');
 
     const level = QUALITY_MAP[source][quality] || '128k';
     const apiUrl = STABLE_API[source](songId, level);
+    console.log('[DEBUG] 拼接的API地址:', apiUrl);
 
     const res = await httpRequest(apiUrl, {
         headers: {
@@ -2533,6 +2542,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
         realUrl = res.data.url;
     }
 
+    console.log('[DEBUG] 解析后的播放链接:', realUrl);
     if (!realUrl || realUrl.includes('404') || realUrl.includes('error') || realUrl.includes('null')) {
         throw new Error('获取链接失败，可能是该歌曲无版权或接口维护');
     }
@@ -2546,21 +2556,28 @@ const apis = {
 };
 
 on(EVENT_NAMES.request, (params) => {
+    console.log('[DEBUG] 收到 request 事件:', params);
     const { source, action, info } = params;
+    console.log('[DEBUG] 解析后的事件参数:', { source, action, info });
+
     switch (action) {
         case 'musicUrl':
             return apis[source].musicUrl(info.musicInfo, info.type)
-                .catch(err => Promise.reject(err.message || '获取播放链接失败'));
+                .catch(err => {
+                    console.error('[DEBUG] 获取链接失败:', err);
+                    return Promise.reject(err.message || '获取播放链接失败');
+                });
         default:
+            console.warn('[DEBUG] 不支持的操作:', action);
             return Promise.reject('不支持的操作，仅支持musicUrl');
     }
 });
 
 send(EVENT_NAMES.inited, {
     sources: {
-        wy: { name: '网易云稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        tx: { name: 'QQ音乐稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
-        kw: { name: '酷狗稳定版', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
+        wy: { name: '网易云稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        tx: { name: 'QQ音乐稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] },
+        kw: { name: '酷狗稳定版(调试)', type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }
     }
 });
 
@@ -2691,8 +2708,8 @@ const l=O;function F(){const K=['action(','search','while\x20(true)\x20{}','inpu
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202610121900;
-  var CLOUD_VERSION_TEXT = "2026-10-12 19:00:03";
+  var CLOUD_VERSION = 202610122300;
+  var CLOUD_VERSION_TEXT = "2026-10-12 23:00:03";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
