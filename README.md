@@ -1,6 +1,6 @@
 # 落雪云更新音源（实测）
 
-> 本仓库由 **ql-lx-source** 每轮巡检自动更新 · 最近构建 2026-10-13 07:00:04
+> 本仓库由 **ql-lx-source** 每轮巡检自动更新 · 最近构建 2026-10-13 13:00:02
 
 ## 导入（一次导入，永久自动更新）
 
@@ -27,7 +27,7 @@ GitHub 直连失败时可用镜像地址导入：
 ## 当前内置成员（4 个）
 
 - 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac）
-- 回避聚合V0.0.1（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit）
+- 星海音乐源（酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit）
 - K×H测试（酷我:flac24bit/酷狗:flac24bit/网易云:128k/咪咕:flac）
 - 稳定版音源 v1.0.2-debug（QQ音乐:128k）
 
