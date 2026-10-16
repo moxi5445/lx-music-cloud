@@ -1,12 +1,12 @@
 {
-  "v": 202610161900,
-  "updated": "2026-10-16 19:00:03",
+  "v": 202610162300,
+  "updated": "2026-10-16 23:00:03",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 46.91,
+      "s": 47.05,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -21,7 +21,7 @@
       "n": "stellarwave-v3.2.0",
       "v": "",
       "a": "",
-      "s": 39.19,
+      "s": 39.26,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -32,18 +32,28 @@
       "md5": "b2eb955f6483bda9378c3392c99177d0"
     },
     {
-      "n": "K×H测试",
-      "v": "1.7.17",
-      "a": "HYW & Koneko",
-      "s": 37.04,
+      "n": "gdstudio音乐源",
+      "v": "1.0.1",
+      "a": "lx-music",
+      "s": 31.03,
       "caps": {
-        "kw": 4,
         "kg": 4,
-        "wy": 3,
-        "mg": 3
+        "wy": 4,
+        "mg": 4
       },
-      "f": "members/k-htest.js",
-      "md5": "7a25b18db20255d9c5ec16422f2350d2"
+      "f": "members/gdstudiomusic.js",
+      "md5": "36d89e3995490fa4c4f9bf6d937280a7"
+    },
+    {
+      "n": "全豆要[聚合音源]",
+      "v": "9.7 修复优化版",
+      "a": "全豆要 & Gemini & Toskysun & TZB679 & DeepSeek优化",
+      "s": 12.63,
+      "caps": {
+        "kw": 4
+      },
+      "f": "members/quandouyao-juhesource.js",
+      "md5": "8315e16ce3ad666f00bcd563a461c20a"
     },
     {
       "n": "稳定版音源 v1.0.2-debug",
