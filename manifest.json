@@ -1,27 +1,12 @@
 {
-  "v": 202610211300,
-  "updated": "2026-10-21 13:00:02",
+  "v": 202610211900,
+  "updated": "2026-10-21 19:00:03",
   "sources": [
-    {
-      "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
-      "v": "260925",
-      "a": "hello world",
-      "s": 46.99,
-      "caps": {
-        "kw": 4,
-        "kg": 4,
-        "tx": 4,
-        "wy": 4,
-        "mg": 3
-      },
-      "f": "members/fuguang-music-helloworldsource-e093f5.js",
-      "md5": "e093f5d0c64bedad446c522b052a1c43"
-    },
     {
       "n": "回避聚合V0.0.1",
       "v": "",
       "a": "",
-      "s": 39.78,
+      "s": 39.48,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -32,29 +17,32 @@
       "md5": "059857c579536efd6bad491fef7eb60f"
     },
     {
-      "n": "K×H测试",
-      "v": "1.7.17",
-      "a": "HYW & Koneko",
-      "s": 29.04,
+      "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
+      "v": "260925",
+      "a": "hello world",
+      "s": 37.7,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "wy": 1,
-        "mg": 1
+        "tx": 3,
+        "wy": 4
       },
-      "f": "members/k-htest.js",
-      "md5": "7a25b18db20255d9c5ec16422f2350d2"
+      "f": "members/fuguang-music-helloworldsource-e093f5.js",
+      "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "稳定版音源 v1.0.2-debug",
-      "v": "1.0.2-debug",
-      "a": "LX",
-      "s": 6.62,
+      "n": "HYWmusic_公益版_v1.0.3",
+      "v": "",
+      "a": "",
+      "s": 37.07,
       "caps": {
-        "tx": 1
+        "kw": 4,
+        "kg": 3,
+        "tx": 3,
+        "wy": 4
       },
-      "f": "members/source-v1-0-2-debug.js",
-      "md5": "f1e24e24ae232b58b1fd5f4989a857a3"
+      "f": "members/hywmusic-gongyi-v1-0-3.js",
+      "md5": "cf26f01729d0166d4c400e7bb7fb927b"
     }
   ]
 }
