@@ -8,12 +8,12 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-10-28 19:00:04 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-10-28 23:00:02 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
  *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.7分）
- *   2. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit，37.7分）
- *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31分）
- *   4. 收集の聚合接口(LX版)（实测 QQ音乐:128k，6.6分）
+ *   2. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit，37.8分）
+ *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31.1分）
+ *   4. 收集の聚合接口（实测 QQ音乐:128k，6.6分）
  *   5. KuwoDES（实测 酷我:128k，6.6分）
  */
 'use strict';
@@ -27,7 +27,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.71,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":37.74,"caps":{"kw":4,"kg":4,"tx":3,"wy":4}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.02,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"收集の聚合接口(LX版)","v":"1.0.0-beta","a":"QZ","s":6.62,"caps":{"tx":1}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.59,"caps":{"kw":1}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.74,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":37.77,"caps":{"kw":4,"kg":4,"tx":3,"wy":4}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.07,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"收集の聚合接口","v":"","a":"","s":6.63,"caps":{"tx":1}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.59,"caps":{"kw":1}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -2474,20 +2474,12 @@ send(EVENT_NAMES.inited, {
     var sb = makeSandbox(lx);
     try {
       (function (lx, window, self, global, globalThis, console) {
-/*!
- * @name 收集の聚合接口(LX版)
- * @id netapis_free
- * @version 1.0.0-beta
- * @description 聚合接口-来源于网络 整理:QZ
- * @author QZ
- * @support tx wy kw
- * @expire 2099-12-31 23:59:59
- */
+
 
 const DEV_ENABLE = false
-const UPDATE_ENABLE = false                                    // 本接口无更新检查
+const UPDATE_ENABLE = false                                    
 const SUPPORT_SOURCE = ['tx', 'wy', 'kw']
-const QUALITY_MAP = {                                          // 落雪音质 -> 自身音质
+const QUALITY_MAP = {                                          
   tx: { '128k': '128k', '320k': '320k', 'flac': 'flac', 'flac24bit': 'flac', 'hires': 'flac', 'atmos': 'flac', 'master': 'flac' },
   wy: { '128k': 'standard', '320k': 'exhigh', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' },
   kw: { '128k': '128k', '320k': '320k', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' }
@@ -2495,7 +2487,7 @@ const QUALITY_MAP = {                                          // 落雪音质 -
 
 const { EVENT_NAMES, request, on, send, env, version } = globalThis.lx
 
-/* ---------- 工具 ---------- */
+
 const httpFetch = (url, options = { method: 'GET' }) => {
   return new Promise((resolve, reject) => {
     request(url, options, (err, resp) => {
@@ -2505,7 +2497,7 @@ const httpFetch = (url, options = { method: 'GET' }) => {
   })
 }
 
-/* ---------- 核心 ---------- */
+
 const getMusicUrl = async (source, musicInfo, quality) => {
   const songId = musicInfo.hash ?? musicInfo.songmid
   const level = QUALITY_MAP[source][quality] || 'lossless'
@@ -2532,7 +2524,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
 
   if (!body) throw new Error('空响应')
 
-  // 统一提取 url
+  
   let realUrl
   if (source === 'tx') realUrl = body.url
   else if (body.data) realUrl = body.data.url
@@ -2541,7 +2533,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
   return realUrl
 }
 
-/* ---------- 注册 ---------- */
+
 const sources = {}
 SUPPORT_SOURCE.forEach(s => {
   sources[s] = {
@@ -2691,8 +2683,8 @@ const l=O;function F(){const K=['action(','search','while\x20(true)\x20{}','inpu
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202610281900;
-  var CLOUD_VERSION_TEXT = "2026-10-28 19:00:04";
+  var CLOUD_VERSION = 202610282300;
+  var CLOUD_VERSION_TEXT = "2026-10-28 23:00:02";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
