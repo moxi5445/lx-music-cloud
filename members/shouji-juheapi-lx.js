@@ -1,9 +1,17 @@
-
+/*!
+ * @name 收集の聚合接口(LX版)
+ * @id netapis_free
+ * @version 1.0.0-beta
+ * @description 聚合接口-来源于网络 整理:QZ
+ * @author QZ
+ * @support tx wy kw
+ * @expire 2099-12-31 23:59:59
+ */
 
 const DEV_ENABLE = false
-const UPDATE_ENABLE = false                                    
+const UPDATE_ENABLE = false                                    // 本接口无更新检查
 const SUPPORT_SOURCE = ['tx', 'wy', 'kw']
-const QUALITY_MAP = {                                          
+const QUALITY_MAP = {                                          // 落雪音质 -> 自身音质
   tx: { '128k': '128k', '320k': '320k', 'flac': 'flac', 'flac24bit': 'flac', 'hires': 'flac', 'atmos': 'flac', 'master': 'flac' },
   wy: { '128k': 'standard', '320k': 'exhigh', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' },
   kw: { '128k': '128k', '320k': '320k', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' }
@@ -11,7 +19,7 @@ const QUALITY_MAP = {
 
 const { EVENT_NAMES, request, on, send, env, version } = globalThis.lx
 
-
+/* ---------- 工具 ---------- */
 const httpFetch = (url, options = { method: 'GET' }) => {
   return new Promise((resolve, reject) => {
     request(url, options, (err, resp) => {
@@ -21,7 +29,7 @@ const httpFetch = (url, options = { method: 'GET' }) => {
   })
 }
 
-
+/* ---------- 核心 ---------- */
 const getMusicUrl = async (source, musicInfo, quality) => {
   const songId = musicInfo.hash ?? musicInfo.songmid
   const level = QUALITY_MAP[source][quality] || 'lossless'
@@ -48,7 +56,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
 
   if (!body) throw new Error('空响应')
 
-  
+  // 统一提取 url
   let realUrl
   if (source === 'tx') realUrl = body.url
   else if (body.data) realUrl = body.data.url
@@ -57,7 +65,7 @@ const getMusicUrl = async (source, musicInfo, quality) => {
   return realUrl
 }
 
-
+/* ---------- 注册 ---------- */
 const sources = {}
 SUPPORT_SOURCE.forEach(s => {
   sources[s] = {
