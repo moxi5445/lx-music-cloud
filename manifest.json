@@ -1,16 +1,31 @@
 {
-  "v": 202610291300,
-  "updated": "2026-10-29 13:00:02",
+  "v": 202610291900,
+  "updated": "2026-10-29 19:00:02",
   "sources": [
+    {
+      "n": "fish_music",
+      "v": "1.9.0",
+      "a": "大鱼吃小鱼",
+      "s": 48.39,
+      "caps": {
+        "kw": 3,
+        "kg": 4,
+        "tx": 4,
+        "wy": 4,
+        "mg": 4
+      },
+      "f": "members/fish-music.js",
+      "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
+    },
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 46.99,
+      "s": 44.66,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
+        "tx": 3,
         "wy": 4,
         "mg": 3
       },
@@ -18,43 +33,19 @@
       "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "stellarwave-v3.2.0",
-      "v": "",
-      "a": "",
-      "s": 39.2,
+      "n": "HYWmusic_公益版",
+      "v": "v1.2.0",
+      "a": "Ryn",
+      "s": 43.89,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
-        "wy": 3
+        "tx": 3,
+        "wy": 4,
+        "mg": 2
       },
-      "f": "members/stellarwave-v3-2-0.js",
-      "md5": "b2eb955f6483bda9378c3392c99177d0"
-    },
-    {
-      "n": "K×H测试",
-      "v": "1.7.17",
-      "a": "HYW & Koneko",
-      "s": 26.99,
-      "caps": {
-        "kw": 4,
-        "kg": 1,
-        "wy": 1,
-        "mg": 3
-      },
-      "f": "members/k-htest.js",
-      "md5": "7a25b18db20255d9c5ec16422f2350d2"
-    },
-    {
-      "n": "稳定版音源 v1.0.2-debug",
-      "v": "1.0.2-debug",
-      "a": "LX",
-      "s": 6.62,
-      "caps": {
-        "tx": 1
-      },
-      "f": "members/source-v1-0-2-debug.js",
-      "md5": "f1e24e24ae232b58b1fd5f4989a857a3"
+      "f": "members/hywmusic-gongyi.js",
+      "md5": "93a5659999d76337f359073f1102bb53"
     }
   ]
 }
