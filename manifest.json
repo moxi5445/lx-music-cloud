@@ -1,16 +1,16 @@
 {
-  "v": 202610290700,
-  "updated": "2026-10-29 07:00:03",
+  "v": 202610291300,
+  "updated": "2026-10-29 13:00:02",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 44.89,
+      "s": 46.99,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 3,
+        "tx": 4,
         "wy": 4,
         "mg": 3
       },
@@ -18,24 +18,24 @@
       "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "回避聚合V0.0.1",
+      "n": "stellarwave-v3.2.0",
       "v": "",
       "a": "",
-      "s": 37.75,
+      "s": 39.2,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 3,
-        "wy": 4
+        "tx": 4,
+        "wy": 3
       },
-      "f": "members/juhev0-0-1.js",
-      "md5": "059857c579536efd6bad491fef7eb60f"
+      "f": "members/stellarwave-v3-2-0.js",
+      "md5": "b2eb955f6483bda9378c3392c99177d0"
     },
     {
       "n": "K×H测试",
       "v": "1.7.17",
       "a": "HYW & Koneko",
-      "s": 27.03,
+      "s": 26.99,
       "caps": {
         "kw": 4,
         "kg": 1,
@@ -46,15 +46,15 @@
       "md5": "7a25b18db20255d9c5ec16422f2350d2"
     },
     {
-      "n": "收集の聚合接口(LX版)",
-      "v": "1.0.0-beta",
-      "a": "QZ",
+      "n": "稳定版音源 v1.0.2-debug",
+      "v": "1.0.2-debug",
+      "a": "LX",
       "s": 6.62,
       "caps": {
         "tx": 1
       },
-      "f": "members/shouji-juheapi-lx.js",
-      "md5": "19d5f3a511c18d60820949f3037bd9f4"
+      "f": "members/source-v1-0-2-debug.js",
+      "md5": "f1e24e24ae232b58b1fd5f4989a857a3"
     }
   ]
 }
