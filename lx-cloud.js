@@ -1,18 +1,18 @@
 /*!
  * @name 落雪云更新音源(实测)
  * @description 启动自动拉取服务器最新实测音源配置，桌面端云端换源即时生效，移动端内置兜底+更新提醒
- * @version 2026.10.30
+ * @version 2026.10.31
  * @author ql-lx-source
  * @homepage https://github.com/moxi5445/lx-music-cloud
  *
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-10-30 23:00:03 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-10-31 07:00:04 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. fish_music（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac24bit，50.3分）
- *   2. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac，47分）
- *   3. HYWmusic_公益版（实测 酷我:flac/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit，38.8分）
+ *   1. fish_music（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac24bit，50.5分）
+ *   2. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，45.1分）
+ *   3. HYWmusic_公益版（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:320k，44.2分）
  */
 'use strict';
 (function () {
@@ -25,7 +25,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":50.31,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":4}},{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":47.02,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":3}},{"n":"HYWmusic_公益版","v":"v1.2.0","a":"Ryn","s":38.82,"caps":{"kw":3,"kg":4,"tx":4,"wy":4}}];
+  var MEMBERS = [{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":50.5,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":4}},{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":45.07,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"HYWmusic_公益版","v":"v1.2.0","a":"Ryn","s":44.24,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":2}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -214,8 +214,8 @@
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202610302300;
-  var CLOUD_VERSION_TEXT = "2026-10-30 23:00:03";
+  var CLOUD_VERSION = 202610310700;
+  var CLOUD_VERSION_TEXT = "2026-10-31 07:00:04";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
@@ -5558,7 +5558,7 @@ const CONFIG = {
         }
       },
 {
-  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_1.1.4.5_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
+  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_6.6.6.6_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
   idField: ['rid', 'hash', 'songId', 'id', 'songmid'],
   urlField: ['data.url'],
   quality: {
