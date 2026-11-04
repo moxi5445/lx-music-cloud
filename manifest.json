@@ -1,6 +1,6 @@
 {
-  "v": 202611041900,
-  "updated": "2026-11-04 19:00:04",
+  "v": 202611042300,
+  "updated": "2026-11-04 23:00:03",
   "sources": [
     {
       "n": "fish_music",
@@ -18,53 +18,32 @@
       "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
     },
     {
+      "n": "stellarwave-v3.2.0",
+      "v": "",
+      "a": "",
+      "s": 39.02,
+      "caps": {
+        "kw": 4,
+        "kg": 4,
+        "tx": 4,
+        "wy": 3
+      },
+      "f": "members/stellarwave-v3-2-0.js",
+      "md5": "b2eb955f6483bda9378c3392c99177d0"
+    },
+    {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 33.04,
+      "s": 35.66,
       "caps": {
         "kw": 4,
         "tx": 3,
-        "wy": 3,
+        "wy": 4,
         "mg": 3
       },
       "f": "members/lx-music-source-260925-43bec2.js",
       "md5": "43bec2edc7a75dfae0f5f990ab04cf41"
-    },
-    {
-      "n": "gdstudio音乐源",
-      "v": "1.0.1",
-      "a": "lx-music",
-      "s": 30.9,
-      "caps": {
-        "kg": 4,
-        "wy": 4,
-        "mg": 4
-      },
-      "f": "members/gdstudiomusic.js",
-      "md5": "36d89e3995490fa4c4f9bf6d937280a7"
-    },
-    {
-      "n": "KuwoDES",
-      "v": "1.0.0",
-      "a": "不知名纯鹿人",
-      "s": 6.62,
-      "caps": {
-        "kw": 1
-      },
-      "f": "members/kuwodes.js",
-      "md5": "5bc0b86703c8820673e05da7fa3c2261"
-    },
-    {
-      "n": "稳定版音源 v1.0.3",
-      "v": "1.0.3",
-      "a": "LX",
-      "s": 6.62,
-      "caps": {
-        "tx": 1
-      },
-      "f": "members/source-v1-0-3.js",
-      "md5": "733daacd8d03973aa6c8315a4d47a8cb"
     }
   ]
 }
