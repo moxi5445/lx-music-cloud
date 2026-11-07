@@ -8,10 +8,10 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-11-07 19:00:03 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-11-07 23:00:04 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. fish_music（实测 酷我:flac/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:flac24bit，46.4分）
- *   2. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.9分）
+ *   1. fish_music（实测 酷我:flac/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:flac24bit，46.5分）
+ *   2. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，45.1分）
  *   3. 回避聚合V0.0.1（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit，37.5分）
  */
 'use strict';
@@ -25,7 +25,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":46.35,"caps":{"kw":3,"kg":4,"tx":4,"wy":3,"mg":4}},{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.88,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":37.47,"caps":{"kw":4,"kg":4,"tx":3,"wy":4}}];
+  var MEMBERS = [{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":46.51,"caps":{"kw":3,"kg":4,"tx":4,"wy":3,"mg":4}},{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":45.08,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"回避聚合V0.0.1","v":"","a":"","s":37.48,"caps":{"kw":4,"kg":4,"tx":3,"wy":4}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -214,8 +214,8 @@
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202611071900;
-  var CLOUD_VERSION_TEXT = "2026-11-07 19:00:03";
+  var CLOUD_VERSION = 202611072300;
+  var CLOUD_VERSION_TEXT = "2026-11-07 23:00:04";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
