@@ -8,11 +8,11 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-11-07 07:00:04 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-11-07 13:00:03 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，45.1分）
- *   2. fish_music（实测 酷我:flac/酷狗:flac24bit/QQ音乐:flac/网易云:flac/咪咕:flac24bit，44.4分）
- *   3. HYWmusic_公益版（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:320k，44.1分）
+ *   1. fish_music（实测 酷我:flac/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:flac24bit，46.4分）
+ *   2. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac/QQ音乐:flac/网易云:flac24bit/咪咕:flac，42.8分）
+ *   3. HYWmusic_公益版（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit，39分）
  */
 'use strict';
 (function () {
@@ -25,7 +25,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":45.06,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":44.4,"caps":{"kw":3,"kg":4,"tx":3,"wy":3,"mg":4}},{"n":"HYWmusic_公益版","v":"v1.2.0","a":"Ryn","s":44.12,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":2}}];
+  var MEMBERS = [{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":46.43,"caps":{"kw":3,"kg":4,"tx":4,"wy":3,"mg":4}},{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":42.84,"caps":{"kw":4,"kg":3,"tx":3,"wy":4,"mg":3}},{"n":"HYWmusic_公益版","v":"v1.2.0","a":"Ryn","s":39.02,"caps":{"kw":4,"kg":4,"tx":3,"wy":4}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -91,561 +91,6 @@
 
     (function () {
     var st = { m: MEMBERS[0], handler: null, sources: null };
-    states.push(st);
-    var lx = makeFacade(st);
-    var sb = makeSandbox(lx);
-    try {
-      (function (lx, window, self, global, globalThis, console) {
-/*!
- * @name 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ
- * @author hello world
- * @version 260925
- * @description 每天都要开心哦,无论如何...
- * 1004342496←有bug就说(应该没有🤓)或者催更
- */
-
-const ENABLE_CACHE = true;
-const CACHE_TTL = 20 * 60 * 1000;
-const TIMEOUT = 10000;
-const RACE_APIS = false;
-const CONFIG = {
-  kw: {
-    name: '酷我音乐',
-    apis: [
-      {
-        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
-        idField: ['hash', 'songmid', 'rid', 'id'],
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'User-Agent': 'Mozilla/5.0'
-        },
-        body: { source: 'kw', rid: '{id}', level: '{quality}' },
-        urlField: ['data.url'],
-        quality: {
-          atmos: 'atmos',
-          atmos_plus: 'atmos_plus',
-          master: 'master'
-        }
-      },
-{
-  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_6.6.6.6_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
-  idField: ['rid', 'hash', 'songId', 'id', 'songmid'],
-  urlField: ['data.url'],
-  quality: {
-    '128k': '128kmp3',
-    '320k': '320kmp3',
-    flac: '2000kflac',
-    flac24bit: '4000kflac',
-    hires: '4000kflac',
-    atmos: '20201kmflac',
-    atmos_plus: '20501kmflac',
-    master: '20900kmflac'
-  },
-  headers: {
-    'User-Agent': 'Mozilla/5.0 (Linux; Android) AppleWebKit/537.36'
-        }
-      }
-    ]
-  },
-  kg: {
-    name: '酷狗音乐',
-    apis: [
-      {
-        api: 'http://103.79.184.97/api/music/url?source=kg&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
-        idField: ['hash', 'songmid', 'id', 'rid'],
-        headers: {
-          'User-Agent': 'Mozilla/5.0',
-          'X-Card-Key': '6C1F-53W0-GRKI-EVFG'
-        },
-        urlField: ['url', 'data.url'],
-        quality: {
-          '128k': '128k',
-          '320k': '320k',
-          flac: 'flac'
-        }
-      },
-      {
-        api: 'https://yy.zddyr.top/lx/api/?source=kg&quality={quality}&mainHash={id}',
-        idField: ['hash', 'songmid', 'id', 'rid'],
-        urlField: ['url'],
-        quality: {
-          '128k': '128k',
-          '320k': '320k',
-          flac: 'flac',
-          hires: 'hires'
-        },
-        before: (() => {
-          let deviceId = '', token = '', tokenTs = 0;
-          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
-          return (params) => {
-            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
-            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
-              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
-              try {
-                if (globalThis.lx?.utils?.buffer?.from) {
-                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
-                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
-                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
-              } catch (e) { token = ''; }
-              tokenTs = Date.now();
-            }
-            params.headers = params.headers || {};
-            params.headers['X-Token'] = token;
-            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
-            return params;
-          };
-        })()
-      },
-      {
-        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
-        idField: ['hash', 'songmid', 'id', 'rid'],
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
-        body: { source: 'kg', rid: '{id}', level: '{quality}' },
-        urlField: ['data.url'],
-        quality: {
-          '128k': 'standard',
-          '320k': 'exhigh',
-          flac: 'lossless',
-          hires: 'hires',
-          atmos: 'atmos',
-          master: 'clear'
-        }
-      }
-    ]
-  },
-  tx: {
-    name: 'QQ音乐',
-    apis: [
-      {
-        api: 'http://103.79.184.97/api/music/url?source=tx&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
-        idField: ['songmid', 'id', 'hash'],
-        headers: { 'User-Agent': 'Mozilla/5.0', 'X-Card-Key': '6C1F-53W0-GRKI-EVFG' },
-        urlField: ['url', 'data.url'],
-        quality: { '128k': '128k', '320k': '320k', flac: 'flac', flac24bit: 'flac24bit' }
-      },
-      {
-        api: 'https://yy.zddyr.top/lx/api/?source=tx&songmid={id}&quality={quality}',
-        idField: ['songmid', 'id', 'hash'],
-        urlField: ['url'],
-        quality: { '128k': '128k', '320k': '320k', flac: 'flac', hires: 'hires' },
-        before: (() => {
-          let deviceId = '', token = '', tokenTs = 0;
-          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
-          return (params) => {
-            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
-            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
-              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
-              try {
-                if (globalThis.lx?.utils?.buffer?.from) {
-                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
-                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
-                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
-              } catch (e) { token = ''; }
-              tokenTs = Date.now();
-            }
-            params.headers = params.headers || {};
-            params.headers['X-Token'] = token;
-            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
-            return params;
-          };
-        })()
-      },
-{
-  api: 'https://tang.api.s01s.cn/music_open_api.php?mid={id}',
-  idField: ['songmid', 'id', 'hash'],
-  urlField: ['song_play_url_pq', 'song_play_url_sq', 'song_play_url_hq', 'song_play_url_standard', 'song_play_url', 'song_play_url_fq'],
-  quality: {
-    '128k': 'song_play_url_standard',
-    '320k': 'song_play_url_hq',
-    flac: 'song_play_url_sq',
-    flac24bit: 'song_play_url_pq',
-    atmos: 'song_play_url_pq'
-  },
-  after: (data) => {
-    if (!data) throw new Error('tang 无响应');
-    const fields = ['song_play_url_pq', 'song_play_url_sq', 'song_play_url_hq', 'song_play_url_standard', 'song_play_url', 'song_play_url_fq'];
-    for (const f of fields) {
-      if (typeof data[f] === 'string' && data[f].trim()) return data[f].trim();
-    }
-    throw new Error('tang 无链接');
-  }
-},
-      {
-        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
-        idField: ['songmid', 'id', 'hash'],
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
-        body: { source: 'tx', rid: '{id}', level: '{quality}' },
-        urlField: ['data.url'],
-        quality: {
-          '128k': 'standard',
-          '320k': 'exhigh',
-          flac: 'lossless',
-          flac24bit: 'hires',
-          hires: 'hires',
-          atmos: '1999',
-          atmos_plus: '2999',
-          master: 'jymaster'
-          }
-        },
-      {
-        api: 'https://a.aa.cab/qq.music?msg={keyword}&n=1&type={quality}',
-        idField: ['songmid', 'id', 'hash'],
-        urlField: ['data.music', 'playUrl', 'url', 'data.url'],
-        quality: { '128k': '0', '320k': '1', flac: '4', master: '5' }
-      }
-    ]
-  },
-wy: {
-  name: '网易云音乐',
-  apis: [
-    {
-      api: 'https://c.wwwweb.top/music/url',
-      idField: ['hash', 'songmid'],
-      urlField: ['url'],
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'lx-music-desktop/2.10.1'
-      },
-      body: { source: 'wy', musicId: '{id}', quality: '{quality}' },
-      quality: {
-        '128k': '128k',
-        '320k': '320k',
-        flac: 'flac',
-        flac24bit: 'flac24bit',
-        hires: 'hires',
-        atmos: 'atmos',
-        master: 'master'
-      },
-      after: (data) => {
-        if (data.code === 200 && data.url) return data.url;
-        throw new Error(data.message || '无数据');
-        }
-      },
-    {
-  api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
-  idField: ['songmid', 'id', 'hash'],
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
-  body: { source: 'wy', rid: '{id}', level: '{quality}' },
-  urlField: ['data.url'],
-  quality: {
-    '128k': 'standard',
-    '320k': 'exhigh',
-    flac: 'lossless',
-    flac24bit: 'hires',
-    hires: 'hires',
-    atmos: 'jyeffect',
-    master: 'jymaster'
-        }
-      },
-    {
-      api: 'https://yy.zddyr.top/lx/api/?source=wy&songmid={id}&quality={quality}',
-      idField: ['hash', 'songmid', 'id'],
-      urlField: ['url', 'data.url'],
-      quality: {
-        '128k': '128k',
-        '320k': '320k',
-        flac: 'flac',
-        hires: 'hires'
-      },
-      before: (() => {
-        let deviceId = '', token = '', tokenTs = 0;
-        const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
-        return (params) => {
-          if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
-          if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
-            const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
-            try {
-              if (globalThis.lx?.utils?.buffer?.from) {
-                const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
-                token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
-              } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
-            } catch (e) { token = ''; }
-            tokenTs = Date.now();
-          }
-          params.headers = params.headers || {};
-          params.headers['X-Token'] = token;
-          params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
-          return params;
-        };
-      })()
-    },
-    {
-      api: 'https://mcp.nianxinxz.com/share/ceshi/wy.php?id={id}&level={quality}',
-      idField: ['hash', 'songmid', 'id'],
-      urlField: ['url'],
-      quality: {
-        '128k': 'standard',
-        '320k': 'exhigh',
-        flac: 'lossless',
-        flac24bit: 'hires',
-        hires: 'hires',
-        master: 'jymaster',
-        atmos: 'jyeffect'
-      },
-      after: (data) => {
-        if (data.code === 200 && data.url) return data.url;
-        throw new Error(data.message || 'mcp 无数据');
-      }
-    },
-   {
-  api: 'http://103.79.184.97/api/music/url?platform=wy&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
-  idField: ['songmid', 'songId', 'id', 'hash'],
-  urlField: ['url', 'data.url', 'data'],
-  quality: {
-    '128k': '128k',
-    '320k': '320k',
-    flac: 'flac',
-    flac24bit: 'flac24bit',
-    hires: 'hires'
-  },
-  headers: {
-    'User-Agent': 'lx-music-mobile/2.0.0',
-    'X-Card-Key': '6C1F-53W0-GRKI-EVFG'
-  }
-}
-  ]
-},
-  mg: {
-    name: '咪咕音乐',
-    apis: [
-      {
-        api: 'https://yy.zddyr.top/lx/api/?source=migu&songmid={id}&quality={quality}',
-        idField: ['songmid', 'id', 'hash'],
-        urlField: ['url', 'data.url'],
-        quality: { '128k': '128k', '320k': '320k', flac: 'flac', hires: 'hires' },
-        before: (() => {
-          let deviceId = '', token = '', tokenTs = 0;
-          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
-          return (params) => {
-            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
-            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
-              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
-              try {
-                if (globalThis.lx?.utils?.buffer?.from) {
-                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
-                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
-                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
-              } catch (e) { token = ''; }
-              tokenTs = Date.now();
-            }
-            params.headers = params.headers || {};
-            params.headers['X-Token'] = token;
-            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
-            return params;
-          };
-        })()
-      },
-      {
-        api: 'https://oiapi.net/api/MiGu_Music?msg={keyword}&br={quality}&n=1',
-        idField: ['songmid', 'id', 'hash'],
-        urlField: ['data.url', 'url'],
-        quality: { '128k': 'LQ', '320k': 'HQ', flac: 'SQ', hires: 'SQ' }
-      }
-    ]
-  }
-}
-const { EVENT_NAMES, request, on, send } = globalThis.lx;
-const cache = Object.create(null);
-const sourceKeys = Object.keys(CONFIG);
-
-const getCache = k => ENABLE_CACHE && cache[k]?.expire > Date.now() ? cache[k].data : (delete cache[k], null);
-const setCache = (k, d) => ENABLE_CACHE && (cache[k] = { data: d, expire: Date.now() + CACHE_TTL });
-
-const httpRequest = (url, options = {}) => new Promise((resolve, reject) => {
-  const timer = setTimeout(() => reject(new Error('请求超时')), options.timeout || TIMEOUT);
-  request(url, {
-    method: options.method || 'GET',
-    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', ...options.headers },
-    ...(options.body !== undefined ? { body: options.body } : {})
-  }, (err, resp) => {
-    clearTimeout(timer);
-    if (err) return reject(err instanceof Error ? err : new Error(String(err)));
-    if (!resp) return reject(new Error('空响应'));
-    resolve({ body: resp.body, statusCode: resp.statusCode || resp.status || 200, url: resp.url });
-  });
-});
-
-const getField = (obj, path) => path.split('.').reduce((val, p) => val == null ? undefined
-  : Array.isArray(val) ? (/^\d+$/.test(p) ? val[+p] : val.map(v => v?.[p]).find(v => v != null && v !== ''))
-  : val[p], obj);
-
-const asUrl = v => typeof v === 'string' && /^(https?:)?\/\//.test(v.trim())
-  ? (v.trim().startsWith('//') ? 'https:' + v.trim() : v.trim())
-  : null;
-
-const findUrl = (data, fields) => data == null ? null : asUrl(data) || fields.map(f => asUrl(getField(data, f))).find(Boolean) || null;
-
-const getSongId = (info, fields) => fields.map(f => getField(info, f)).find(v => v !== undefined && v !== null && v !== '')?.toString() ?? '';
-
-const qualitys = Object.create(null);
-const sources = Object.create(null);
-const idFieldsBySource = Object.create(null);
-sourceKeys.forEach(s => {
-  const apiList = CONFIG[s].apis || [];
-  const qs = [...new Set(apiList.flatMap(a => Object.keys(a.quality || {})))];
-  qualitys[s] = qs.reduce((acc, q) => (acc[q] = q, acc), {});
-  sources[s] = { name: CONFIG[s].name, type: 'music', actions: ['musicUrl'], qualitys: qs };
-  idFieldsBySource[s] = [...new Set(apiList.flatMap(a => a.idField || []))];
-});
-qualitys.local = {};
-sources.local = { name: '本地音乐', type: 'music', actions: ['musicUrl', 'lyric', 'pic'], qualitys: [] };
-
-const FALLBACK = {
-  master: ['master', 'atmos_plus', 'atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
-  atmos_plus: ['atmos_plus', 'atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
-  atmos: ['atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
-  hires: ['hires', 'flac24bit', 'flac', '320k', '128k'],
-  flac24bit: ['flac24bit', 'flac', '320k', '128k'],
-  flac: ['flac', '320k', '128k'],
-  '320k': ['320k', '128k'],
-  '128k': ['128k'],
-};
-
-const substitute = (val, map) => typeof val === 'string'
-  ? val.replace(/\{(id|quality|keyword)\}/g, (_, k) => map[k] ?? '')
-  : Array.isArray(val) ? val.map(v => substitute(v, map))
-  : val && typeof val === 'object' ? Object.fromEntries(Object.entries(val).map(([k, v]) => [k, substitute(v, map)]))
-  : val;
-
-const hasPlaceholder = (api, name) => [api.api, api.body, api.headers].some(v => v && JSON.stringify(v).includes(`{${name}}`));
-
-const resolveRedirectUrl = (resp, baseUrl) => resp.url
-  ? asUrl(resp.url) || (() => { try { return new URL(resp.url, baseUrl).href; } catch { return null; } })()
-  : null;
-
-const buildParams = (api, info, quality, keyword) => {
-  const needsId = hasPlaceholder(api, 'id');
-  const needsKeyword = hasPlaceholder(api, 'keyword');
-  const id = needsId ? getSongId(info, api.idField) : '';
-  if (needsId && !id) throw new Error('缺少id字段');
-  if (needsKeyword && !keyword) throw new Error('缺少歌曲名');
-
-  const map = { id, keyword, quality: api.quality ? api.quality[quality] : quality };
-  let params = {
-    url: substitute(api.api, map),
-    headers: api.headers ? substitute(api.headers, map) : undefined,
-    body: api.body ? substitute(api.body, map) : undefined
-  };
-  if (typeof api.before === 'function') params = api.before(params) || params;
-  if (!params.url || /\{[^}]*\}/.test(params.url)) throw new Error('URL模板未配置');
-  return params;
-};
-
-const runRaw = async (api, params) => {
-  if (api.followRedirect === false) return params.url;
-  const tryMethod = async method => {
-    const r = await httpRequest(params.url, { method, headers: params.headers, timeout: api.timeout });
-    if (r.statusCode >= 400) { const err = new Error(`状态码${r.statusCode}`); err.statusCode = r.statusCode; throw err; }
-    return r;
-  };
-  const firstMethod = api.method || 'HEAD';
-  let resp;
-  try { resp = await tryMethod(firstMethod); }
-  catch (e) { if (firstMethod === 'GET' || e.statusCode !== 405) throw e; resp = await tryMethod('GET'); }
-  if ([301, 302, 303, 307, 308].includes(resp.statusCode)) {
-    const abs = resolveRedirectUrl(resp, params.url);
-    if (abs) return abs;
-  }
-  return params.url;
-};
-
-const runStandard = async (api, params) => {
-  const resp = await httpRequest(params.url, {
-    method: api.method || 'GET',
-    headers: params.headers,
-    body: params.body,
-    timeout: api.timeout
-  });
-  if (api.followRedirect !== false && [301, 302, 303, 307, 308].includes(resp.statusCode)) {
-    const abs = resolveRedirectUrl(resp, params.url);
-    if (abs) return abs;
-  }
-  const direct = asUrl(resp.body);
-  if (direct) return direct;
-  const data = typeof resp.body === 'string' ? JSON.parse(resp.body) : resp.body;
-  const parsed = typeof api.after === 'function' ? api.after(data) : data;
-  if (typeof parsed === 'string') { const u = asUrl(parsed); if (u) return u; }
-  const result = findUrl(parsed, api.urlField || ['url', 'data.url', 'playUrl']);
-  if (result) return result;
-  throw new Error('响应中未找到有效链接');
-};
-
-const tryApi = async (s, info, quality) => {
-  const apiList = CONFIG[s].apis;
-  if (!apiList?.length) throw new Error('无API配置');
-  const keyword = encodeURIComponent(info.name || info.songname || '');
-
-  const run = async api => {
-    const tag = api.api.split('?')[0].split('/').pop() || 'api';
-    if (api.quality && !api.quality[quality]) throw new Error(`${tag}:不支持${quality}`);
-    try {
-      const params = buildParams(api, info, quality, keyword);
-      return await (api.raw ? runRaw(api, params) : runStandard(api, params));
-    } catch (e) {
-      throw new Error(`${tag}:${e.message}`);
-    }
-  };
-
-  if (RACE_APIS) {
-    try { return await Promise.any(apiList.map(run)); }
-    catch (agg) { throw new Error(`所有API均失败(${quality}) [${(agg.errors || [agg]).map(e => e.message || String(e)).join(' | ')}]`); }
-  }
-
-  const fails = [];
-  for (const api of apiList) {
-    try { return await run(api); } catch (e) { fails.push(e.message || String(e)); }
-  }
-  throw new Error(`所有API均失败(${quality}) [${fails.join(' | ')}]`);
-};
-
-const inflight = Object.create(null);
-
-const apis = sourceKeys.reduce((acc, s) => {
-  acc[s] = {
-    async musicUrl(info, quality) {
-      if (!info) throw new Error('缺少musicInfo');
-      const identity = getSongId(info, idFieldsBySource[s]) || [info.name, info.singer || info.artist].filter(Boolean).join('-');
-      const key = `${s}_${identity || `anon${Math.random().toString(36).slice(2)}`}_${quality}`;
-      const cached = getCache(key);
-      if (cached) return cached;
-      if (inflight[key]) return inflight[key];
-
-      const run = (async () => {
-        const fails = [];
-        for (const q of FALLBACK[quality] || [quality]) {
-          if (!qualitys[s].hasOwnProperty(q)) continue;
-          try {
-            const result = await tryApi(s, info, q);
-            if (result) { setCache(key, result); return result; }
-          } catch (e) { fails.push(e.message || String(e)); }
-        }
-        throw new Error(fails.length ? fails.join(' || ') : '所有音质均失败');
-      })();
-
-      inflight[key] = run;
-      try { return await run; } finally { delete inflight[key]; }
-    }
-  };
-  return acc;
-}, {});
-
-on(EVENT_NAMES.request, ({ source, action, info } = {}) => {
-  if (!apis[source] || action !== 'musicUrl') return Promise.reject('不支持');
-  if (!qualitys[source]?.[info?.type]) return Promise.reject(`不支持的音质: ${info?.type}`);
-  return apis[source].musicUrl(info.musicInfo, info.type).catch(e => Promise.reject(e.message));
-});
-
-send(EVENT_NAMES.inited, { openDevTools: false, sources });
-      }).call(sb, lx, sb, sb, sb, sb, sb.console);
-    } catch (e) { st.handler = null; }
-  })();
-  (function () {
-    var st = { m: MEMBERS[1], handler: null, sources: null };
     states.push(st);
     var lx = makeFacade(st);
     var sb = makeSandbox(lx);
@@ -769,8 +214,8 @@ send(EVENT_NAMES.inited, { openDevTools: false, sources });
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202611070700;
-  var CLOUD_VERSION_TEXT = "2026-11-07 07:00:04";
+  var CLOUD_VERSION = 202611071300;
+  var CLOUD_VERSION_TEXT = "2026-11-07 13:00:03";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
@@ -6070,6 +5515,561 @@ send(EVENT_NAMES.inited, { openDevTools: false, sources });
 /*__CLOUD_REFRESH__*/
 })();
 ,_0x42bd1c:0xc7e,_0x321241:0x56a,_0x4ac0f3:0x8f6,_0xb6f769:0x782,_0x564c0d:'%pWN',_0xd23a0d:0xdf5,_0x48cc80:0xef3,_0x34108e:0xacb,_0x25de84:0x705,_0x445ea7:'POKC',_0x3838a7:0x694,_0x3e996e:0xba0,_0x39f39a:0xaa9,_0x25aa32:0x9af,_0x62b519:0x89b,_0x15d32f:0x9fb,_0x2541a4:0xa13,_0x5251e2:0xc12,_0x5cccc4:'RJhZ',_0x1e3a5a:0xd,_0xd04d30:'siRr',_0x3fd40b:0x164,_0x52758d:0x616,_0x2e65a8:0x333,_0x36cce3:0x89d,_0x23579e:0x4b2,_0x4e31c8:'m7AW',_0x5425f6:0x795,_0x542002:0x8a4,_0x75b80a:0xf18,_0x2593d6:0xaac,_0x3a5a4c:0xd11,_0x3734c0:0x7c8,_0x5c790d:'^CIw',_0x4e50dd:'Q$mb',_0x390ba9:0x60c,_0x324c76:0x79e,_0x4cd546:0xaac,_0x16da45:0x8fb,_0x225065:0x5f8,_0x30423d:'wQRP',_0x518116:0x61a,_0x154abd:0x61d,_0x480164:0x1cd,_0x69bdbe:0x6dc,_0xbc9a6b:0x756,_0x27d427:0xb2d,_0x31d2d0:0x57d,_0x19e1a5:'S#c8',_0x3c5da6:0x300,_0x3ab906:0x18f,_0x5746bd:'#QgK',_0x32d425:0x636,_0x23b9ad:0x23a,_0x3f2f12:0x785,_0x5de7b8:0x68b,_0x11acee:0x29d,_0x3263e4:0x8ab,_0x481977:'3x[z',_0x4fd8d8:0x151,_0x43ae3b:'lh1f',_0x274e4b:0x195,_0x1d306a:0x1b7,_0x3f3fee:0x11e,_0x3791bd:0xd3a,_0x33de90:0xc4e,_0x5bd1b1:0xa4c,_0x1d35dc:'(JfH',_0x1d5730:0xb9c,_0x2173e2:'w%0h',_0x5b8ca8:0x567,_0x222db3:0xc06,_0x13e259:0x994,_0x104276:0xd61,_0x25a3cf:0x5df,_0x4192ab:'TF*7',_0x1e18f1:0x3a2,_0x3ffd97:0x8d0,_0x3091a2:0x506,_0x195c88:0x598,_0x29f338:0x407,_0x2297b9:'4wnA',_0xc3fa09:0x267,_0x2ef133:0x689,_0x2f19ac:0x7f2,_0x1c0cb7:0x6f2,_0x32a0f9:0x713,_0x2f7ace:0x7c1,_0x348478:0x2a4,_0x1fd246:0x4a6,_0x9f8420:0x124,_0x441a91:0x1c7,_0x13af55:0xd2a,_0x16a206:0x10b0,_0x74fbb1:0x10e1,_0x4e22f0:'^CIw',_0x316586:0xab0,_0x5b9e20:'!@Lw',_0xa1ba67:0x66c,_0x588ad2:0x726,_0x52f603:0x5cf,_0x10c468:0x681,_0x27b6ca:0x56c,_0x302cbb:0x3d5,_0x3a3e3c:'siRr',_0x1162e0:0xcee,_0x5c8b05:0x852,_0x252a2e:'^6bS',_0x332ab3:0x825,_0x2a5433:0x2fe,_0x4eb41a:0x4b4,_0x3430d2:0x2f0,_0x17e4e9:0x52,_0xe348ee:0x5,_0x26356d:0x403,_0x43d371:0x6b0,_0x14ef10:0x776,_0x42da66:0xb39,_0x1699e2:0xc16,_0x524bdd:'qafv',_0x18c3ca:0xb23,_0x175080:0x7ae,_0x26c777:0x636,_0x5522de:0x91c,_0x5848c2:0x1fa,_0x5e8c58:0x205,_0x391dda:0x44e,_0x59d4e1:0x16e,_0x3c2def:0x256,_0x3497b6:0xef,_0x31cac7:'^6bS',_0x31c7a1:0x240,_0x18bed9:0x166,_0x1a4e96:0x386,_0x19339d:'Q$mb',_0x4617e5:0x228,_0x21ffee:0x40b,_0x11ff82:0x10b,_0x1cc7d0:0x8c5,_0x68ff87:0x192,_0x80b869:0x92b,_0x3352c4:0x632,_0x467d89:0xcd8,_0x41760c:0x4a8,_0x5cae11:'QLhp',_0x36db98:0x88e,_0x359f64:0x844,_0x5b9f69:'JJz1',_0x291fb8:0xde,_0x501b8f:0x1aa,_0x1dc6ef:0x457,_0xc8bc23:0x804,_0x33f621:0xf14,_0x3e3668:0xa9a,_0x19003a:0x77c,_0x2b1080:0xb9f,_0xc9f509:'8p8K'},_0x30b143={_0x27665c:'eIFS',_0x1217af:0x4fb,_0x6e0cba:0x718,_0x1ec47b:0x88c,_0x3ef8cf:0x603},_0x320c83={_0x45db07:0xe7,_0x46f18e:0x4a4,_0x3f3c63:0x9f,_0x3f8e60:'lD$O',_0xb42eea:0x2c3},_0x2ff03f={_0x52b8bb:0x19e,_0x3c9942:0x7b,_0x2cce24:0x51,_0x5a1103:'v0y(',_0x26850b:0x144},_0x2e6432={_0x31af5e:0x4c4,_0x1ac07e:0x1c8,_0x198cf2:0xd9,_0x5e16a1:0x1b2},_0x5dea46={_0x34ddff:0xbe,_0xd1a631:0x81,_0x22ffcb:0x6d,_0x651e80:0xc5},_0xa262d={_0x2433f8:0x10b,_0x35fd1b:0x393,_0x279866:0xe4,_0x319fc9:0x8d},_0x4344d9={_0x18cb71:0x1a3,_0x439920:0xd9,_0x296b8f:0x70,_0xf3388f:0x6b},_0x3c0d26={_0x468f0e:0x179,_0x3403ec:0x5e5,_0x182262:0x14d,_0x35d302:0x11b},_0x19b3cb={_0x4f499c:0xce,_0x2070ac:0x94,_0x2942ab:0x1a9,_0x38a0f:0x1eb},_0x16316b={_0xc90bf4:0x60,_0x42ca0e:0x6f2,_0x54cccf:0x102},_0x3831fc={_0x38ce5e:0x1bf,_0x2c6258:0x2d7,_0x4ee4eb:0x8b,_0x2e549e:0xf0};function _0x1cf51e(_0x2ec0c4,_0xb5f069,_0x55bf76,_0x52af4f,_0x921889){return _0x1d7f2c(_0x2ec0c4-_0x3831fc._0x38ce5e,_0xb5f069-_0x3831fc._0x2c6258,_0x2ec0c4,_0x52af4f-_0x3831fc._0x4ee4eb,_0x921889-_0x3831fc._0x2e549e);}function _0x540066(_0x2b0a75,_0x561a8b,_0x6ad37,_0x297a4f,_0x372a79){return _0x1d7f2c(_0x2b0a75-_0x16316b._0xc90bf4,_0x297a4f-_0x16316b._0x42ca0e,_0x2b0a75,_0x297a4f-_0x16316b._0x54cccf,_0x372a79-_0x16316b._0xc90bf4);}function _0x21ad32(_0x532bae,_0x5db7fb,_0x428d8d,_0x451dab,_0x2cb060){return _0x1d7f2c(_0x532bae-_0x19b3cb._0x4f499c,_0x451dab-_0x19b3cb._0x2070ac,_0x2cb060,_0x451dab-_0x19b3cb._0x2942ab,_0x2cb060-_0x19b3cb._0x38a0f);}function _0x2868fe(_0x5e1959,_0x32867d,_0x2da05e,_0x4eb221,_0x4e6cb5){return _0x1d7f2c(_0x5e1959-_0x3c0d26._0x468f0e,_0x5e1959-_0x3c0d26._0x3403ec,_0x4eb221,_0x4eb221-_0x3c0d26._0x182262,_0x4e6cb5-_0x3c0d26._0x35d302);}function _0x42d9b7(_0x2d2312,_0x9c8ecf,_0x26b6b1,_0x315492,_0x18e625){return _0x1d7f2c(_0x2d2312-_0x4344d9._0x18cb71,_0x2d2312-_0x4344d9._0x439920,_0x315492,_0x315492-_0x4344d9._0x296b8f,_0x18e625-_0x4344d9._0xf3388f);}function _0x428139(_0x4e31ea,_0x301ae9,_0x38427a,_0x390f69,_0x54e2ac){return _0x1d7f2c(_0x4e31ea-_0xa262d._0x2433f8,_0x54e2ac-_0xa262d._0x35fd1b,_0x301ae9,_0x390f69-_0xa262d._0x279866,_0x54e2ac-_0xa262d._0x319fc9);}const _0x3c71bf={'mNZyS':function(_0x5c5f4a,_0x4c3b37){return _0x5c5f4a===_0x4c3b37;},'EkLti':_0x1686b1(_0x18b05b._0x18bd4d,_0x18b05b._0x438505,_0x18b05b._0xc82618,_0x18b05b._0x3c5393,_0x18b05b._0x46af48)+'ng','iruJN':_0x540066(_0x18b05b._0x498d66,_0x18b05b._0x36fe5f,_0x18b05b._0xf6838e,_0x18b05b._0x34edf3,_0x18b05b._0x55c647)+'er','vWlZQ':function(_0x23dae0,_0x52fc59){return _0x23dae0(_0x52fc59);},'uQTSQ':function(_0x21e995,_0xbece3c){return _0x21e995||_0xbece3c;},'eczFB':function(_0x4f6fa9,_0x34862c){return _0x4f6fa9===_0x34862c;},'YRDIk':_0x1686b1(_0x18b05b._0x9bc01e,_0x18b05b._0x3ea305,_0x18b05b._0x5c9672,_0x18b05b._0x25cfd3,_0x18b05b._0x3df0b8)+'S','ucrVq':_0x428139(_0x18b05b._0x4ce4a8,_0x18b05b._0x1c4b3e,_0x18b05b._0x302176,_0x18b05b._0x44bb1f,_0x18b05b._0x256a5b)+'v','VygQV':function(_0x79d0ec,_0x12ba78){return _0x79d0ec(_0x12ba78);},'TRFpK':function(_0x4236f0){return _0x4236f0();}};function _0x1686b1(_0x3f42ed,_0x4ce448,_0x3cb3be,_0x2581e1,_0x260623){return _0x1d7f2c(_0x3f42ed-_0x5dea46._0x34ddff,_0x4ce448-_0x5dea46._0xd1a631,_0x3f42ed,_0x2581e1-_0x5dea46._0x22ffcb,_0x260623-_0x5dea46._0x651e80);}if(REVOKED)return;_0x3c71bf[_0x42d9b7(_0x18b05b._0x46cfc1,_0x18b05b._0x449b14,_0x18b05b._0x269aa2,_0x18b05b._0x18bd4d,_0x18b05b._0x106090)+'K'](checkUpdate)[_0x540066(_0x18b05b._0x3ed930,_0x18b05b._0x480a55,_0x18b05b._0x283622,_0x18b05b._0x414843,_0x18b05b._0x582bda)+'h'](_0x25e7d3=>{const _0x1c3c4b={_0x4ae47b:0x33,_0x2f1b59:0xcb,_0xc09ee:0x188,_0x8d959e:0x1b2},_0x3acc6d={_0x485449:0x220,_0x186242:0x1da,_0x9aeb95:0x1af,_0xf37103:0x14d},_0x457aa8={_0x7fa333:0x620,_0x2d2a9a:0x6b2,_0x16af7:0x7dc,_0x58dd6d:'U*RI',_0x467bfd:0x563},_0x5efe1e={_0x4b4fe0:0x8d,_0x38499f:0x19d,_0x4e3a93:0x14f,_0x1d59ce:0x46},_0x326a46={_0x537c3c:0x186},_0x5da7e={_0x5e8cfb:0x525,_0x4f7dc8:0x1dd,_0x5421da:0x6f,_0x1b0c30:0x17d},_0x3b007e={_0xfa49c2:0x4dd,_0x1251aa:0x129,_0x567c85:0x106,_0x24f14b:0x31},_0x337d98={_0x49ae18:0x33,_0x15e234:0xd1,_0xfaedb:0xd0,_0x455439:0xb2},_0xcbe859={_0x984e6:0x622,_0xdf8d7:0x110,_0x25fc51:0x27,_0x51bd7b:0x34};function _0x4137c0(_0x185d65,_0x543fc2,_0xac73e1,_0x3a8c63,_0x480c13){return _0x42d9b7(_0x185d65-_0xcbe859._0x984e6,_0x543fc2-_0xcbe859._0xdf8d7,_0xac73e1-_0xcbe859._0x25fc51,_0x3a8c63,_0x480c13-_0xcbe859._0x51bd7b);}function _0x3010b6(_0x10d149,_0x2777cb,_0x4e70ef,_0x3dd5c5,_0x3e6905){return _0x42d9b7(_0x3e6905- -_0x337d98._0x49ae18,_0x2777cb-_0x337d98._0x15e234,_0x4e70ef-_0x337d98._0xfaedb,_0x2777cb,_0x3e6905-_0x337d98._0x455439);}function _0x4ef9c1(_0x12d59e,_0x1cb34e,_0x10bda4,_0x33bef8,_0x4737f1){return _0x42d9b7(_0x4737f1-_0x2e6432._0x31af5e,_0x1cb34e-_0x2e6432._0x1ac07e,_0x10bda4-_0x2e6432._0x198cf2,_0x33bef8,_0x4737f1-_0x2e6432._0x5e16a1);}function _0x45f4f9(_0x1a9269,_0x4fbce1,_0x14b530,_0x495f67,_0x29b72a){return _0x42d9b7(_0x495f67-_0x3b007e._0xfa49c2,_0x4fbce1-_0x3b007e._0x1251aa,_0x14b530-_0x3b007e._0x567c85,_0x1a9269,_0x29b72a-_0x3b007e._0x24f14b);}function _0x29f554(_0x578112,_0x500739,_0x4d37ab,_0x2de681,_0x525552){return _0x42d9b7(_0x500739-_0x5da7e._0x5e8cfb,_0x500739-_0x5da7e._0x4f7dc8,_0x4d37ab-_0x5da7e._0x5421da,_0x525552,_0x525552-_0x5da7e._0x1b0c30);}const _0x341e8b={'aXSXe':function(_0x1ad86e,_0x1ef3f4){function _0x517468(_0x485a7b,_0x2e7169,_0x2323bd,_0x317c48,_0xa30cd8){return _0xbb16(_0x2323bd- -_0x326a46._0x537c3c,_0x317c48);}return _0x3c71bf[_0x517468(_0x2ff03f._0x52b8bb,_0x2ff03f._0x3c9942,_0x2ff03f._0x2cce24,_0x2ff03f._0x5a1103,-_0x2ff03f._0x26850b)+'S'](_0x1ad86e,_0x1ef3f4);},'mDhus':_0x3c71bf[_0x3010b6(_0x24c026._0x19a96f,_0x24c026._0x538ad8,_0x24c026._0x3a66ba,-_0x24c026._0x3993c6,_0x24c026._0x6fb444)+'i'],'LOCQD':_0x3c71bf[_0x4137c0(_0x24c026._0x1cef66,_0x24c026._0x79ea83,_0x24c026._0x3a4eff,_0x24c026._0x396c92,_0x24c026._0x435283)+'N'],'XAqrw':function(_0xe15019,_0xe1baa3){const _0x2f4ea1={_0x37104e:0x1eb,_0x33f6c3:0xf4,_0x9c8517:0x19f,_0x29f85f:0x3c1};function _0x56d53d(_0x263318,_0x276a56,_0x58c5da,_0xddd8bf,_0x4dd2d4){return _0x3010b6(_0x263318-_0x2f4ea1._0x37104e,_0xddd8bf,_0x58c5da-_0x2f4ea1._0x33f6c3,_0xddd8bf-_0x2f4ea1._0x9c8517,_0x4dd2d4-_0x2f4ea1._0x29f85f);}return _0x3c71bf[_0x56d53d(-_0x320c83._0x45db07,_0x320c83._0x46f18e,_0x320c83._0x3f3c63,_0x320c83._0x3f8e60,_0x320c83._0xb42eea)+'Q'](_0xe15019,_0xe1baa3);},'VBsla':function(_0x614e1a,_0xcf0211){function _0x471367(_0x5d9495,_0x26ef68,_0x75dcc1,_0x996aff,_0x3dc442){return _0x3010b6(_0x5d9495-_0x5efe1e._0x4b4fe0,_0x5d9495,_0x75dcc1-_0x5efe1e._0x38499f,_0x996aff-_0x5efe1e._0x4e3a93,_0x26ef68- -_0x5efe1e._0x1d59ce);}return _0x3c71bf[_0x471367(_0x30b143._0x27665c,_0x30b143._0x1217af,_0x30b143._0x6e0cba,_0x30b143._0x1ec47b,_0x30b143._0x3ef8cf)+'Q'](_0x614e1a,_0xcf0211);},'tWIAc':function(_0x1a3c91,_0x2c428d){const _0x21253e={_0x80e162:0x4c,_0x1e0716:0x1a8,_0x4503c0:0x125,_0x2eabf4:0x51d};function _0x17bbe3(_0x31bfa5,_0x2843a8,_0x565a81,_0x19e682,_0x52c2e7){return _0x3010b6(_0x31bfa5-_0x21253e._0x80e162,_0x19e682,_0x565a81-_0x21253e._0x1e0716,_0x19e682-_0x21253e._0x4503c0,_0x565a81-_0x21253e._0x2eabf4);}return _0x3c71bf[_0x17bbe3(_0x457aa8._0x7fa333,_0x457aa8._0x2d2a9a,_0x457aa8._0x16af7,_0x457aa8._0x58dd6d,_0x457aa8._0x467bfd)+'Q'](_0x1a3c91,_0x2c428d);}};function _0x14d403(_0x12c901,_0x3e4256,_0x280a4b,_0x37eff6,_0x50ddac){return _0x42d9b7(_0x50ddac-_0x3acc6d._0x485449,_0x3e4256-_0x3acc6d._0x186242,_0x280a4b-_0x3acc6d._0x9aeb95,_0x280a4b,_0x50ddac-_0x3acc6d._0xf37103);}function _0x129d43(_0xe32c4e,_0x569d2e,_0x1207cb,_0x310ba8,_0x553e84){return _0x42d9b7(_0xe32c4e- -_0x1c3c4b._0x4ae47b,_0x569d2e-_0x1c3c4b._0x2f1b59,_0x1207cb-_0x1c3c4b._0xc09ee,_0x1207cb,_0x553e84-_0x1c3c4b._0x8d959e);}if(_0x3c71bf[_0x3010b6(_0x24c026._0x4f15b6,_0x24c026._0x579d84,_0x24c026._0x2077b1,_0x24c026._0x5c1e86,_0x24c026._0x4d4f54)+'B'](_0x3c71bf[_0x45f4f9(_0x24c026._0x46e15a,_0x24c026._0x42bd1c,_0x24c026._0x321241,_0x24c026._0x4ac0f3,_0x24c026._0xb6f769)+'k'],_0x3c71bf[_0x45f4f9(_0x24c026._0x564c0d,_0x24c026._0xd23a0d,_0x24c026._0x48cc80,_0x24c026._0x34108e,_0x24c026._0x25de84)+'q'])){if(!_0x916121)return'';if(XehZfA[_0x45f4f9(_0x24c026._0x445ea7,_0x24c026._0x3838a7,_0x24c026._0x3e996e,_0x24c026._0x39f39a,_0x24c026._0x25aa32)+'e'](typeof _0x2886ce,XehZfA[_0x29f554(_0x24c026._0x62b519,_0x24c026._0x15d32f,_0x24c026._0x2541a4,_0x24c026._0x5251e2,_0x24c026._0x5cccc4)+'s'])||XehZfA[_0x3010b6(_0x24c026._0x1e3a5a,_0x24c026._0xd04d30,-_0x24c026._0x3fd40b,_0x24c026._0x52758d,_0x24c026._0x2e65a8)+'e'](typeof _0x3a8877,XehZfA[_0x14d403(_0x24c026._0x36cce3,_0x24c026._0x23579e,_0x24c026._0x4e31c8,_0x24c026._0x5425f6,_0x24c026._0x542002)+'D']))return XehZfA[_0x29f554(_0x24c026._0x75b80a,_0x24c026._0x2593d6,_0x24c026._0x3a5a4c,_0x24c026._0x3734c0,_0x24c026._0x5c790d)+'w'](_0x153cc0,_0x5470dd)[_0x45f4f9(_0x24c026._0x4e50dd,_0x24c026._0x390ba9,_0x24c026._0x324c76,_0x24c026._0x4cd546,_0x24c026._0x16da45)]();const _0xde2785=_0x3d6ca4[_0x3010b6(_0x24c026._0x225065,_0x24c026._0x30423d,_0x24c026._0x518116,_0x24c026._0x154abd,_0x24c026._0x480164)]||{},_0x1937e3=_0x10b566[_0x29f554(_0x24c026._0x69bdbe,_0x24c026._0xbc9a6b,_0x24c026._0x27d427,_0x24c026._0x31d2d0,_0x24c026._0x19e1a5)+_0x14d403(_0x24c026._0x3c5da6,-_0x24c026._0x3ab906,_0x24c026._0x5746bd,_0x24c026._0x32d425,_0x24c026._0x23b9ad)]||_0xde2785[_0x29f554(_0x24c026._0x3f2f12,_0x24c026._0x5de7b8,_0x24c026._0x11acee,_0x24c026._0x3263e4,_0x24c026._0x481977)+'Id']||_0xde2785[_0x3010b6(-_0x24c026._0x4fd8d8,_0x24c026._0x43ae3b,-_0x24c026._0x274e4b,-_0x24c026._0x1d306a,_0x24c026._0x3f3fee)+_0x4ef9c1(_0x24c026._0x3791bd,_0x24c026._0x33de90,_0x24c026._0x5bd1b1,_0x24c026._0x1d35dc,_0x24c026._0x1d5730)+_0x45f4f9(_0x24c026._0x2173e2,_0x24c026._0x5b8ca8,_0x24c026._0x222db3,_0x24c026._0x13e259,_0x24c026._0x104276)]||_0xbb0f8f[_0x3010b6(_0x24c026._0x25a3cf,_0x24c026._0x4192ab,_0x24c026._0x1e18f1,_0x24c026._0x3ffd97,_0x24c026._0x3091a2)+_0x14d403(_0x24c026._0x195c88,_0x24c026._0x29f338,_0x24c026._0x2297b9,_0x24c026._0xc3fa09,_0x24c026._0x2ef133)+_0x14d403(_0x24c026._0x2f19ac,_0x24c026._0x1c0cb7,_0x24c026._0x43ae3b,_0x24c026._0x32a0f9,_0x24c026._0x2f7ace)]||_0xde2785['id']||_0x1ebb75['id']||'',_0x118a32=XehZfA[_0x3010b6(_0x24c026._0x348478,_0x24c026._0x1d35dc,-_0x24c026._0x1fd246,_0x24c026._0x9f8420,-_0x24c026._0x441a91)+'a'](_0x5767d5,_0x1937e3)[_0x4137c0(_0x24c026._0x13af55,_0x24c026._0x16a206,_0x24c026._0x74fbb1,_0x24c026._0x4e22f0,_0x24c026._0x316586)](),_0x5ce1cf=_0x118a32[_0x45f4f9(_0x24c026._0x5b9e20,_0x24c026._0xa1ba67,_0x24c026._0x588ad2,_0x24c026._0x52f603,_0x24c026._0x10c468)+_0x14d403(_0x24c026._0x27b6ca,_0x24c026._0x302cbb,_0x24c026._0x3a3e3c,_0x24c026._0x1162e0,_0x24c026._0x5c8b05)](/^MUSIC_/,'')[_0x45f4f9(_0x24c026._0x252a2e,_0x24c026._0x332ab3,_0x24c026._0x2a5433,_0x24c026._0x4eb41a,_0x24c026._0x3430d2)+_0x129d43(_0x24c026._0x17e4e9,-_0x24c026._0x3430d2,_0x24c026._0x46e15a,-_0x24c026._0xe348ee,-_0x24c026._0x26356d)](/^(?:kw|wy|tx|kg|mg)_/i,'')[_0x29f554(_0x24c026._0x43d371,_0x24c026._0x14ef10,_0x24c026._0x42da66,_0x24c026._0x1699e2,_0x24c026._0x524bdd)]();return XehZfA[_0x14d403(_0x24c026._0x18c3ca,_0x24c026._0x175080,_0x24c026._0x43ae3b,_0x24c026._0x26c777,_0x24c026._0x5522de)+'c'](_0x5ce1cf,_0x118a32);}else _0x3c71bf[_0x14d403(_0x24c026._0x5848c2,-_0x24c026._0x5e8c58,_0x24c026._0x1d35dc,_0x24c026._0x391dda,_0x24c026._0x59d4e1)+'V'](dbg,_0x129d43(_0x24c026._0x3c2def,_0x24c026._0x3497b6,_0x24c026._0x31cac7,_0x24c026._0x31c7a1,-_0x24c026._0x18bed9)+_0x3010b6(-_0x24c026._0x1a4e96,_0x24c026._0x19339d,_0x24c026._0x4617e5,_0x24c026._0x21ffee,_0x24c026._0x11ff82)+'常：'+(_0x25e7d3&&_0x25e7d3[_0x14d403(_0x24c026._0x1cc7d0,_0x24c026._0x68ff87,_0x24c026._0x3a3e3c,_0x24c026._0x80b869,_0x24c026._0x3352c4)+_0x14d403(_0x24c026._0x467d89,_0x24c026._0x41760c,_0x24c026._0x5cae11,_0x24c026._0x36db98,_0x24c026._0x359f64)]?_0x25e7d3[_0x45f4f9(_0x24c026._0x5b9f69,_0x24c026._0x291fb8,_0x24c026._0x501b8f,_0x24c026._0x1dc6ef,_0x24c026._0xc8bc23)+_0x29f554(_0x24c026._0x33f621,_0x24c026._0x3e3668,_0x24c026._0x19003a,_0x24c026._0x2b1080,_0x24c026._0xc9f509)]:_0x25e7d3));})[_0x2868fe(_0x18b05b._0x56e29a,_0x18b05b._0x106e5c,_0x18b05b._0x5182d5,_0x18b05b._0x29a36e,_0x18b05b._0x4192a6)](()=>setTimeout(poll,UPDATE_POLL_MS));};setTimeout(poll,UPDATE_POLL_MS);}
+      }).call(sb, lx, sb, sb, sb, sb, sb.console);
+    } catch (e) { st.handler = null; }
+  })();
+  (function () {
+    var st = { m: MEMBERS[1], handler: null, sources: null };
+    states.push(st);
+    var lx = makeFacade(st);
+    var sb = makeSandbox(lx);
+    try {
+      (function (lx, window, self, global, globalThis, console) {
+/*!
+ * @name 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ
+ * @author hello world
+ * @version 260925
+ * @description 每天都要开心哦,无论如何...
+ * 1004342496←有bug就说(应该没有🤓)或者催更
+ */
+
+const ENABLE_CACHE = true;
+const CACHE_TTL = 20 * 60 * 1000;
+const TIMEOUT = 10000;
+const RACE_APIS = false;
+const CONFIG = {
+  kw: {
+    name: '酷我音乐',
+    apis: [
+      {
+        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
+        idField: ['hash', 'songmid', 'rid', 'id'],
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'Mozilla/5.0'
+        },
+        body: { source: 'kw', rid: '{id}', level: '{quality}' },
+        urlField: ['data.url'],
+        quality: {
+          atmos: 'atmos',
+          atmos_plus: 'atmos_plus',
+          master: 'master'
+        }
+      },
+{
+  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_6.6.6.6_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
+  idField: ['rid', 'hash', 'songId', 'id', 'songmid'],
+  urlField: ['data.url'],
+  quality: {
+    '128k': '128kmp3',
+    '320k': '320kmp3',
+    flac: '2000kflac',
+    flac24bit: '4000kflac',
+    hires: '4000kflac',
+    atmos: '20201kmflac',
+    atmos_plus: '20501kmflac',
+    master: '20900kmflac'
+  },
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Linux; Android) AppleWebKit/537.36'
+        }
+      }
+    ]
+  },
+  kg: {
+    name: '酷狗音乐',
+    apis: [
+      {
+        api: 'http://103.79.184.97/api/music/url?source=kg&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
+        idField: ['hash', 'songmid', 'id', 'rid'],
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+          'X-Card-Key': '6C1F-53W0-GRKI-EVFG'
+        },
+        urlField: ['url', 'data.url'],
+        quality: {
+          '128k': '128k',
+          '320k': '320k',
+          flac: 'flac'
+        }
+      },
+      {
+        api: 'https://yy.zddyr.top/lx/api/?source=kg&quality={quality}&mainHash={id}',
+        idField: ['hash', 'songmid', 'id', 'rid'],
+        urlField: ['url'],
+        quality: {
+          '128k': '128k',
+          '320k': '320k',
+          flac: 'flac',
+          hires: 'hires'
+        },
+        before: (() => {
+          let deviceId = '', token = '', tokenTs = 0;
+          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
+          return (params) => {
+            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
+            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
+              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
+              try {
+                if (globalThis.lx?.utils?.buffer?.from) {
+                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
+                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
+                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
+              } catch (e) { token = ''; }
+              tokenTs = Date.now();
+            }
+            params.headers = params.headers || {};
+            params.headers['X-Token'] = token;
+            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
+            return params;
+          };
+        })()
+      },
+      {
+        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
+        idField: ['hash', 'songmid', 'id', 'rid'],
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
+        body: { source: 'kg', rid: '{id}', level: '{quality}' },
+        urlField: ['data.url'],
+        quality: {
+          '128k': 'standard',
+          '320k': 'exhigh',
+          flac: 'lossless',
+          hires: 'hires',
+          atmos: 'atmos',
+          master: 'clear'
+        }
+      }
+    ]
+  },
+  tx: {
+    name: 'QQ音乐',
+    apis: [
+      {
+        api: 'http://103.79.184.97/api/music/url?source=tx&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
+        idField: ['songmid', 'id', 'hash'],
+        headers: { 'User-Agent': 'Mozilla/5.0', 'X-Card-Key': '6C1F-53W0-GRKI-EVFG' },
+        urlField: ['url', 'data.url'],
+        quality: { '128k': '128k', '320k': '320k', flac: 'flac', flac24bit: 'flac24bit' }
+      },
+      {
+        api: 'https://yy.zddyr.top/lx/api/?source=tx&songmid={id}&quality={quality}',
+        idField: ['songmid', 'id', 'hash'],
+        urlField: ['url'],
+        quality: { '128k': '128k', '320k': '320k', flac: 'flac', hires: 'hires' },
+        before: (() => {
+          let deviceId = '', token = '', tokenTs = 0;
+          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
+          return (params) => {
+            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
+            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
+              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
+              try {
+                if (globalThis.lx?.utils?.buffer?.from) {
+                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
+                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
+                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
+              } catch (e) { token = ''; }
+              tokenTs = Date.now();
+            }
+            params.headers = params.headers || {};
+            params.headers['X-Token'] = token;
+            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
+            return params;
+          };
+        })()
+      },
+{
+  api: 'https://tang.api.s01s.cn/music_open_api.php?mid={id}',
+  idField: ['songmid', 'id', 'hash'],
+  urlField: ['song_play_url_pq', 'song_play_url_sq', 'song_play_url_hq', 'song_play_url_standard', 'song_play_url', 'song_play_url_fq'],
+  quality: {
+    '128k': 'song_play_url_standard',
+    '320k': 'song_play_url_hq',
+    flac: 'song_play_url_sq',
+    flac24bit: 'song_play_url_pq',
+    atmos: 'song_play_url_pq'
+  },
+  after: (data) => {
+    if (!data) throw new Error('tang 无响应');
+    const fields = ['song_play_url_pq', 'song_play_url_sq', 'song_play_url_hq', 'song_play_url_standard', 'song_play_url', 'song_play_url_fq'];
+    for (const f of fields) {
+      if (typeof data[f] === 'string' && data[f].trim()) return data[f].trim();
+    }
+    throw new Error('tang 无链接');
+  }
+},
+      {
+        api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
+        idField: ['songmid', 'id', 'hash'],
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
+        body: { source: 'tx', rid: '{id}', level: '{quality}' },
+        urlField: ['data.url'],
+        quality: {
+          '128k': 'standard',
+          '320k': 'exhigh',
+          flac: 'lossless',
+          flac24bit: 'hires',
+          hires: 'hires',
+          atmos: '1999',
+          atmos_plus: '2999',
+          master: 'jymaster'
+          }
+        },
+      {
+        api: 'https://a.aa.cab/qq.music?msg={keyword}&n=1&type={quality}',
+        idField: ['songmid', 'id', 'hash'],
+        urlField: ['data.music', 'playUrl', 'url', 'data.url'],
+        quality: { '128k': '0', '320k': '1', flac: '4', master: '5' }
+      }
+    ]
+  },
+wy: {
+  name: '网易云音乐',
+  apis: [
+    {
+      api: 'https://c.wwwweb.top/music/url',
+      idField: ['hash', 'songmid'],
+      urlField: ['url'],
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'lx-music-desktop/2.10.1'
+      },
+      body: { source: 'wy', musicId: '{id}', quality: '{quality}' },
+      quality: {
+        '128k': '128k',
+        '320k': '320k',
+        flac: 'flac',
+        flac24bit: 'flac24bit',
+        hires: 'hires',
+        atmos: 'atmos',
+        master: 'master'
+      },
+      after: (data) => {
+        if (data.code === 200 && data.url) return data.url;
+        throw new Error(data.message || '无数据');
+        }
+      },
+    {
+  api: 'https://musicserver.haitangw.cc/v1/music/resolve-url',
+  idField: ['songmid', 'id', 'hash'],
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
+  body: { source: 'wy', rid: '{id}', level: '{quality}' },
+  urlField: ['data.url'],
+  quality: {
+    '128k': 'standard',
+    '320k': 'exhigh',
+    flac: 'lossless',
+    flac24bit: 'hires',
+    hires: 'hires',
+    atmos: 'jyeffect',
+    master: 'jymaster'
+        }
+      },
+    {
+      api: 'https://yy.zddyr.top/lx/api/?source=wy&songmid={id}&quality={quality}',
+      idField: ['hash', 'songmid', 'id'],
+      urlField: ['url', 'data.url'],
+      quality: {
+        '128k': '128k',
+        '320k': '320k',
+        flac: 'flac',
+        hires: 'hires'
+      },
+      before: (() => {
+        let deviceId = '', token = '', tokenTs = 0;
+        const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
+        return (params) => {
+          if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
+          if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
+            const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
+            try {
+              if (globalThis.lx?.utils?.buffer?.from) {
+                const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
+                token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
+              } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
+            } catch (e) { token = ''; }
+            tokenTs = Date.now();
+          }
+          params.headers = params.headers || {};
+          params.headers['X-Token'] = token;
+          params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
+          return params;
+        };
+      })()
+    },
+    {
+      api: 'https://mcp.nianxinxz.com/share/ceshi/wy.php?id={id}&level={quality}',
+      idField: ['hash', 'songmid', 'id'],
+      urlField: ['url'],
+      quality: {
+        '128k': 'standard',
+        '320k': 'exhigh',
+        flac: 'lossless',
+        flac24bit: 'hires',
+        hires: 'hires',
+        master: 'jymaster',
+        atmos: 'jyeffect'
+      },
+      after: (data) => {
+        if (data.code === 200 && data.url) return data.url;
+        throw new Error(data.message || 'mcp 无数据');
+      }
+    },
+   {
+  api: 'http://103.79.184.97/api/music/url?platform=wy&songId={id}&quality={quality}&key=6C1F-53W0-GRKI-EVFG',
+  idField: ['songmid', 'songId', 'id', 'hash'],
+  urlField: ['url', 'data.url', 'data'],
+  quality: {
+    '128k': '128k',
+    '320k': '320k',
+    flac: 'flac',
+    flac24bit: 'flac24bit',
+    hires: 'hires'
+  },
+  headers: {
+    'User-Agent': 'lx-music-mobile/2.0.0',
+    'X-Card-Key': '6C1F-53W0-GRKI-EVFG'
+  }
+}
+  ]
+},
+  mg: {
+    name: '咪咕音乐',
+    apis: [
+      {
+        api: 'https://yy.zddyr.top/lx/api/?source=migu&songmid={id}&quality={quality}',
+        idField: ['songmid', 'id', 'hash'],
+        urlField: ['url', 'data.url'],
+        quality: { '128k': '128k', '320k': '320k', flac: 'flac', hires: 'hires' },
+        before: (() => {
+          let deviceId = '', token = '', tokenTs = 0;
+          const SCRIPT = 'YYMusicSource', VER = 'v1.0.0';
+          return (params) => {
+            if (!deviceId) deviceId = 'lx-online-' + Math.random().toString(36).substring(2, 8) + Date.now().toString(36).slice(-4);
+            if (!token || Date.now() - tokenTs > 5 * 60 * 1000) {
+              const payload = { device_id: deviceId, ip: '0.0.0.0', timestamp: Math.floor(Date.now() / 1000), random: Math.random().toString(36).substring(2, 12) };
+              try {
+                if (globalThis.lx?.utils?.buffer?.from) {
+                  const buf = globalThis.lx.utils.buffer.from(JSON.stringify(payload), 'utf-8');
+                  token = globalThis.lx.utils.buffer.bufToString(buf, 'base64');
+                } else { token = btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
+              } catch (e) { token = ''; }
+              tokenTs = Date.now();
+            }
+            params.headers = params.headers || {};
+            params.headers['X-Token'] = token;
+            params.headers['X-Client'] = `${SCRIPT}/${VER} (Android)`;
+            return params;
+          };
+        })()
+      },
+      {
+        api: 'https://oiapi.net/api/MiGu_Music?msg={keyword}&br={quality}&n=1',
+        idField: ['songmid', 'id', 'hash'],
+        urlField: ['data.url', 'url'],
+        quality: { '128k': 'LQ', '320k': 'HQ', flac: 'SQ', hires: 'SQ' }
+      }
+    ]
+  }
+}
+const { EVENT_NAMES, request, on, send } = globalThis.lx;
+const cache = Object.create(null);
+const sourceKeys = Object.keys(CONFIG);
+
+const getCache = k => ENABLE_CACHE && cache[k]?.expire > Date.now() ? cache[k].data : (delete cache[k], null);
+const setCache = (k, d) => ENABLE_CACHE && (cache[k] = { data: d, expire: Date.now() + CACHE_TTL });
+
+const httpRequest = (url, options = {}) => new Promise((resolve, reject) => {
+  const timer = setTimeout(() => reject(new Error('请求超时')), options.timeout || TIMEOUT);
+  request(url, {
+    method: options.method || 'GET',
+    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', ...options.headers },
+    ...(options.body !== undefined ? { body: options.body } : {})
+  }, (err, resp) => {
+    clearTimeout(timer);
+    if (err) return reject(err instanceof Error ? err : new Error(String(err)));
+    if (!resp) return reject(new Error('空响应'));
+    resolve({ body: resp.body, statusCode: resp.statusCode || resp.status || 200, url: resp.url });
+  });
+});
+
+const getField = (obj, path) => path.split('.').reduce((val, p) => val == null ? undefined
+  : Array.isArray(val) ? (/^\d+$/.test(p) ? val[+p] : val.map(v => v?.[p]).find(v => v != null && v !== ''))
+  : val[p], obj);
+
+const asUrl = v => typeof v === 'string' && /^(https?:)?\/\//.test(v.trim())
+  ? (v.trim().startsWith('//') ? 'https:' + v.trim() : v.trim())
+  : null;
+
+const findUrl = (data, fields) => data == null ? null : asUrl(data) || fields.map(f => asUrl(getField(data, f))).find(Boolean) || null;
+
+const getSongId = (info, fields) => fields.map(f => getField(info, f)).find(v => v !== undefined && v !== null && v !== '')?.toString() ?? '';
+
+const qualitys = Object.create(null);
+const sources = Object.create(null);
+const idFieldsBySource = Object.create(null);
+sourceKeys.forEach(s => {
+  const apiList = CONFIG[s].apis || [];
+  const qs = [...new Set(apiList.flatMap(a => Object.keys(a.quality || {})))];
+  qualitys[s] = qs.reduce((acc, q) => (acc[q] = q, acc), {});
+  sources[s] = { name: CONFIG[s].name, type: 'music', actions: ['musicUrl'], qualitys: qs };
+  idFieldsBySource[s] = [...new Set(apiList.flatMap(a => a.idField || []))];
+});
+qualitys.local = {};
+sources.local = { name: '本地音乐', type: 'music', actions: ['musicUrl', 'lyric', 'pic'], qualitys: [] };
+
+const FALLBACK = {
+  master: ['master', 'atmos_plus', 'atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
+  atmos_plus: ['atmos_plus', 'atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
+  atmos: ['atmos', 'hires', 'flac24bit', 'flac', '320k', '128k'],
+  hires: ['hires', 'flac24bit', 'flac', '320k', '128k'],
+  flac24bit: ['flac24bit', 'flac', '320k', '128k'],
+  flac: ['flac', '320k', '128k'],
+  '320k': ['320k', '128k'],
+  '128k': ['128k'],
+};
+
+const substitute = (val, map) => typeof val === 'string'
+  ? val.replace(/\{(id|quality|keyword)\}/g, (_, k) => map[k] ?? '')
+  : Array.isArray(val) ? val.map(v => substitute(v, map))
+  : val && typeof val === 'object' ? Object.fromEntries(Object.entries(val).map(([k, v]) => [k, substitute(v, map)]))
+  : val;
+
+const hasPlaceholder = (api, name) => [api.api, api.body, api.headers].some(v => v && JSON.stringify(v).includes(`{${name}}`));
+
+const resolveRedirectUrl = (resp, baseUrl) => resp.url
+  ? asUrl(resp.url) || (() => { try { return new URL(resp.url, baseUrl).href; } catch { return null; } })()
+  : null;
+
+const buildParams = (api, info, quality, keyword) => {
+  const needsId = hasPlaceholder(api, 'id');
+  const needsKeyword = hasPlaceholder(api, 'keyword');
+  const id = needsId ? getSongId(info, api.idField) : '';
+  if (needsId && !id) throw new Error('缺少id字段');
+  if (needsKeyword && !keyword) throw new Error('缺少歌曲名');
+
+  const map = { id, keyword, quality: api.quality ? api.quality[quality] : quality };
+  let params = {
+    url: substitute(api.api, map),
+    headers: api.headers ? substitute(api.headers, map) : undefined,
+    body: api.body ? substitute(api.body, map) : undefined
+  };
+  if (typeof api.before === 'function') params = api.before(params) || params;
+  if (!params.url || /\{[^}]*\}/.test(params.url)) throw new Error('URL模板未配置');
+  return params;
+};
+
+const runRaw = async (api, params) => {
+  if (api.followRedirect === false) return params.url;
+  const tryMethod = async method => {
+    const r = await httpRequest(params.url, { method, headers: params.headers, timeout: api.timeout });
+    if (r.statusCode >= 400) { const err = new Error(`状态码${r.statusCode}`); err.statusCode = r.statusCode; throw err; }
+    return r;
+  };
+  const firstMethod = api.method || 'HEAD';
+  let resp;
+  try { resp = await tryMethod(firstMethod); }
+  catch (e) { if (firstMethod === 'GET' || e.statusCode !== 405) throw e; resp = await tryMethod('GET'); }
+  if ([301, 302, 303, 307, 308].includes(resp.statusCode)) {
+    const abs = resolveRedirectUrl(resp, params.url);
+    if (abs) return abs;
+  }
+  return params.url;
+};
+
+const runStandard = async (api, params) => {
+  const resp = await httpRequest(params.url, {
+    method: api.method || 'GET',
+    headers: params.headers,
+    body: params.body,
+    timeout: api.timeout
+  });
+  if (api.followRedirect !== false && [301, 302, 303, 307, 308].includes(resp.statusCode)) {
+    const abs = resolveRedirectUrl(resp, params.url);
+    if (abs) return abs;
+  }
+  const direct = asUrl(resp.body);
+  if (direct) return direct;
+  const data = typeof resp.body === 'string' ? JSON.parse(resp.body) : resp.body;
+  const parsed = typeof api.after === 'function' ? api.after(data) : data;
+  if (typeof parsed === 'string') { const u = asUrl(parsed); if (u) return u; }
+  const result = findUrl(parsed, api.urlField || ['url', 'data.url', 'playUrl']);
+  if (result) return result;
+  throw new Error('响应中未找到有效链接');
+};
+
+const tryApi = async (s, info, quality) => {
+  const apiList = CONFIG[s].apis;
+  if (!apiList?.length) throw new Error('无API配置');
+  const keyword = encodeURIComponent(info.name || info.songname || '');
+
+  const run = async api => {
+    const tag = api.api.split('?')[0].split('/').pop() || 'api';
+    if (api.quality && !api.quality[quality]) throw new Error(`${tag}:不支持${quality}`);
+    try {
+      const params = buildParams(api, info, quality, keyword);
+      return await (api.raw ? runRaw(api, params) : runStandard(api, params));
+    } catch (e) {
+      throw new Error(`${tag}:${e.message}`);
+    }
+  };
+
+  if (RACE_APIS) {
+    try { return await Promise.any(apiList.map(run)); }
+    catch (agg) { throw new Error(`所有API均失败(${quality}) [${(agg.errors || [agg]).map(e => e.message || String(e)).join(' | ')}]`); }
+  }
+
+  const fails = [];
+  for (const api of apiList) {
+    try { return await run(api); } catch (e) { fails.push(e.message || String(e)); }
+  }
+  throw new Error(`所有API均失败(${quality}) [${fails.join(' | ')}]`);
+};
+
+const inflight = Object.create(null);
+
+const apis = sourceKeys.reduce((acc, s) => {
+  acc[s] = {
+    async musicUrl(info, quality) {
+      if (!info) throw new Error('缺少musicInfo');
+      const identity = getSongId(info, idFieldsBySource[s]) || [info.name, info.singer || info.artist].filter(Boolean).join('-');
+      const key = `${s}_${identity || `anon${Math.random().toString(36).slice(2)}`}_${quality}`;
+      const cached = getCache(key);
+      if (cached) return cached;
+      if (inflight[key]) return inflight[key];
+
+      const run = (async () => {
+        const fails = [];
+        for (const q of FALLBACK[quality] || [quality]) {
+          if (!qualitys[s].hasOwnProperty(q)) continue;
+          try {
+            const result = await tryApi(s, info, q);
+            if (result) { setCache(key, result); return result; }
+          } catch (e) { fails.push(e.message || String(e)); }
+        }
+        throw new Error(fails.length ? fails.join(' || ') : '所有音质均失败');
+      })();
+
+      inflight[key] = run;
+      try { return await run; } finally { delete inflight[key]; }
+    }
+  };
+  return acc;
+}, {});
+
+on(EVENT_NAMES.request, ({ source, action, info } = {}) => {
+  if (!apis[source] || action !== 'musicUrl') return Promise.reject('不支持');
+  if (!qualitys[source]?.[info?.type]) return Promise.reject(`不支持的音质: ${info?.type}`);
+  return apis[source].musicUrl(info.musicInfo, info.type).catch(e => Promise.reject(e.message));
+});
+
+send(EVENT_NAMES.inited, { openDevTools: false, sources });
       }).call(sb, lx, sb, sb, sb, sb, sb.console);
     } catch (e) { st.handler = null; }
   })();
