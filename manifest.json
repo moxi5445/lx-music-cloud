@@ -1,12 +1,12 @@
 {
-  "v": 202611081300,
-  "updated": "2026-11-08 13:00:03",
+  "v": 202611081900,
+  "updated": "2026-11-08 19:00:05",
   "sources": [
     {
       "n": "fish_music",
       "v": "1.9.0",
       "a": "大鱼吃小鱼",
-      "s": 46.35,
+      "s": 46.4,
       "caps": {
         "kw": 3,
         "kg": 4,
@@ -21,7 +21,7 @@
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 44.87,
+      "s": 45.08,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -29,22 +29,22 @@
         "wy": 4,
         "mg": 3
       },
-      "f": "members/lx-music-source-260925-43bec2.js",
-      "md5": "43bec2edc7a75dfae0f5f990ab04cf41"
+      "f": "members/fuguang-music-helloworldsource-e093f5.js",
+      "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
-      "n": "回避聚合V0.0.1",
-      "v": "",
-      "a": "",
-      "s": 35.63,
+      "n": "星海音乐源",
+      "v": "v3.2.18",
+      "a": "万去了了 / 科学大魔王",
+      "s": 35.81,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 3,
-        "wy": 3
+        "tx": 2,
+        "wy": 4
       },
-      "f": "members/juhev0-0-1.js",
-      "md5": "059857c579536efd6bad491fef7eb60f"
+      "f": "members/xinghai.js",
+      "md5": "0ed2c1f0bca1142a49a7b9500faf8b29"
     }
   ]
 }
