@@ -1,29 +1,29 @@
 {
-  "v": 202611141900,
-  "updated": "2026-11-14 19:00:13",
+  "v": 202611142300,
+  "updated": "2026-11-14 23:00:09",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 47.03,
+      "s": 44.97,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
+        "tx": 3,
         "wy": 4,
         "mg": 3
       },
-      "f": "members/fuguang-music-helloworldsource-e093f5.js",
-      "md5": "e093f5d0c64bedad446c522b052a1c43"
+      "f": "members/lx-music-source-260925-43bec2.js",
+      "md5": "43bec2edc7a75dfae0f5f990ab04cf41"
     },
     {
       "n": "fish_music",
       "v": "1.9.0",
       "a": "大鱼吃小鱼",
-      "s": 46.32,
+      "s": 42.36,
       "caps": {
-        "kw": 3,
+        "kw": 1,
         "kg": 4,
         "tx": 4,
         "wy": 3,
@@ -33,18 +33,18 @@
       "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
     },
     {
-      "n": "stellarwave-v3.2.0",
-      "v": "",
-      "a": "",
-      "s": 39.29,
+      "n": "杰翔聚合音源",
+      "v": "2.3.0",
+      "a": "https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi",
+      "s": 37.31,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
+        "tx": 3,
         "wy": 3
       },
-      "f": "members/stellarwave-v3-2-0.js",
-      "md5": "b2eb955f6483bda9378c3392c99177d0"
+      "f": "members/jiexiangjuhesource.js",
+      "md5": "14ecab3e75fdedba3743558b4f7dac51"
     }
   ]
 }
