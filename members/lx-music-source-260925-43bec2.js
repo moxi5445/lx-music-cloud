@@ -31,7 +31,7 @@ const CONFIG = {
         }
       },
 {
-  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_6.6.6.6_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
+  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_1.1.4.5_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
   idField: ['rid', 'hash', 'songId', 'id', 'songmid'],
   urlField: ['data.url'],
   quality: {
