@@ -8,11 +8,13 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-11-15 07:00:17 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-11-15 13:00:12 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit/咪咕:flac，47.1分）
- *   2. HYWmusic_公益版（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:320k，44.2分）
- *   3. fish_music（实测 酷我:128k/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:flac24bit，42.5分）
+ *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac24bit，39.7分）
+ *   2. fish_music（实测 酷我:128k/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:128k，36.4分）
+ *   3. gdstudio音乐源（实测 酷狗:flac24bit/网易云:flac24bit/咪咕:flac24bit，31分）
+ *   4. KuwoDES（实测 酷我:128k，6.6分）
+ *   5. 收集の聚合接口(LX版)（实测 QQ音乐:128k，6.6分）
  */
 'use strict';
 (function () {
@@ -25,7 +27,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":47.09,"caps":{"kw":4,"kg":4,"tx":4,"wy":4,"mg":3}},{"n":"HYWmusic_公益版","v":"v1.2.0","a":"Ryn","s":44.21,"caps":{"kw":4,"kg":4,"tx":4,"wy":3,"mg":2}},{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":42.51,"caps":{"kw":1,"kg":4,"tx":4,"wy":3,"mg":4}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":39.73,"caps":{"kw":4,"kg":4,"tx":4,"wy":4}},{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":36.42,"caps":{"kw":1,"kg":4,"tx":4,"wy":3,"mg":1}},{"n":"gdstudio音乐源","v":"1.0.1","a":"lx-music","s":31.04,"caps":{"kg":4,"wy":4,"mg":4}},{"n":"KuwoDES","v":"1.0.0","a":"不知名纯鹿人","s":6.63,"caps":{"kw":1}},{"n":"收集の聚合接口(LX版)","v":"1.0.0-beta","a":"QZ","s":6.62,"caps":{"tx":1}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -651,310 +653,6 @@ send(EVENT_NAMES.inited, { openDevTools: false, sources });
     var sb = makeSandbox(lx);
     try {
       (function (lx, window, self, global, globalThis, console) {
-/**
- * @name HYWmusic_公益版
- * @version v1.2.0
- * @author Ryn
- * @description qq群：1094095648；965503129
- * @homepage https://github.com/Macrohard0001/HYWmusic_source
- * @license MIT
- * @updateUrl https://103.79.184.97/api/releases?script=HYWmusic_%E5%85%AC%E7%9B%8A%E7%89%88&scriptType=free&releaseType=lx&version=v1.2.0
- *
- * 支持平台: kw、tx、wy、mg、qs、bili、ytb、xm、kg
- * 支持音质: 128k、320k、flac、flac24bit
- * 生成时间: 2026-10-08T11:39:01.047Z
- *
- * 协议参考：ikun-music-source.js + lxmusic.toside.cn/desktop/custom-source
- *   - MUSIC_QUALITY 每平台独立音质（收敛到规范标准集，高音质可直接请求由服务端解析）
- *   - actions 固定 ['musicUrl']（官方桌面/移动规范：非 local 源仅支持 musicUrl）
- *   - on handler 纯 Promise 风格：({action, source, info}) => Promise
- *   - inited 发送 status:true + sources
- *   - API_BASE 必须注入，禁止回退 localhost
- */
-
-'use strict'
-
-const DEV_ENABLE = false
-const UPDATE_ENABLE = true
-
-const { EVENT_NAMES, request, on, send, env, version: LX_VERSION } = globalThis.lx
-
-// ====== 每平台独立音质（参考 ikun） ======
-const MUSIC_QUALITY = JSON.parse('{"kw":["128k","320k","flac","flac24bit"],"tx":["128k","320k","flac","flac24bit"],"wy":["128k","320k","flac","flac24bit"],"mg":["128k","320k"],"qs":["128k","320k"],"bili":["128k","320k"],"ytb":["128k"],"xm":["128k","320k"],"kg":["128k","320k","flac","flac24bit"]}')
-const MUSIC_SOURCE = Object.keys(MUSIC_QUALITY)
-
-// ====== 运行参数 ======
-const API_BASE = 'https://103.79.184.97'
-const CARD_KEY = '6C1F-53W0-GRKI-EVFG'
-
-// ====== 日志 ======
-const log = {
-  info: (...args) => { try { console.log('[HYWmusic]', ...args) } catch(e) {} },
-  error: (...args) => { try { console.error('[HYWmusic ERROR]', ...args) } catch(e) {} },
-  warn: (...args) => { try { console.warn('[HYWmusic WARN]', ...args) } catch(e) {} },
-}
-
-// ====== API_BASE 检查：禁止回退 localhost ======
-if (!API_BASE || !/^https?:\/\//.test(API_BASE)) {
-  log.error('API_BASE 未配置或格式非法: "' + API_BASE + '"，所有请求都将失败')
-  log.error('请联系发行版管理员在创建发行版时设置 metadata.apiUrl')
-}
-
-// ====== HTTP 请求（严格对齐 ikun：仅 callback 风格 request） ======
-const httpFetch = (url, options = { method: 'GET' }) => {
-  return new Promise((resolve, reject) => {
-    if (!API_BASE || !/^https?:\/\//.test(API_BASE)) {
-      return reject(new Error('API_BASE 未配置或格式非法'))
-    }
-    const headers = {
-      ...(options.headers || {}),
-      'User-Agent': env ? `lx-music-${env}/${LX_VERSION}` : `lx-music-request/${LX_VERSION || '1.0.0'}`,
-    }
-    // Node http 拒绝非 Latin1 header 值：中文卡密会 ERR_INVALID_CHAR（请求未发出即失败，
-    // LX 客户端表现 Invalid character in header content ["x-card-key"]）。
-    // 服务端优先读 query key（本脚本已在 query 携带 key=卡密），header 仅在 ASCII 安全时附带。
-    if (CARD_KEY && /^[\x20-\x7E]*$/.test(CARD_KEY)) headers['X-Card-Key'] = CARD_KEY
-    const reqOptions = { ...options, headers }
-    if (!reqOptions.method) reqOptions.method = 'GET'
-    // 兼容 LX 沙箱 request 的两种 callback 签名：
-    //   2 参数: (err, resp)       — resp.body 包含响应体
-    //   3 参数: (err, resp, body) — body 是独立解析的响应体（needle 风格）
-    // 部分版本 resp.body 为 undefined，body 在第三个参数；两者都取以兜底
-    request(url, reqOptions, (err, resp, body) => {
-      if (err) return reject(err)
-      const respBody = (resp && resp.body !== undefined && resp.body !== null)
-        ? resp.body
-        : body
-      resolve({
-        statusCode: resp ? resp.statusCode : undefined,
-        headers: resp ? resp.headers : undefined,
-        body: respBody,
-      })
-    })
-  })
-}
-
-// ====== 超时保护（保留但默认不使用，脚本内部调用） ======
-// const withTimeout = (promise, ms) => Promise.race([
-//   promise,
-//   new Promise((_, reject) => setTimeout(() => reject(new Error('请求超时(' + ms + 'ms)')), ms))
-// ])
-
-// ====== musicInfo 字段收集：透传完整字段 ======
-const collectMusicInfoParams = (musicInfo, platform) => {
-  if (!musicInfo) return {}
-  const params = {}
-  const songId = musicInfo.songmid || musicInfo.songId || musicInfo.id || musicInfo.hash
-    || musicInfo.rid || musicInfo.musicId || musicInfo.copyrightId || musicInfo.songid || ''
-  if (songId) params.songId = songId
-  if (musicInfo.songmid) params.songmid = musicInfo.songmid
-  if (musicInfo.hash) params.hash = musicInfo.hash
-
-  const fields = ['albumAudioId', 'strMediaMid', 'mediaMid', 'copyrightId', 'rid', 'musicId',
-    'albumId', 'albumName', 'albumMid', 'songname', 'songName', 'name', 'singer', 'singers', 'artist']
-  for (const f of fields) {
-    if (musicInfo[f] !== undefined && musicInfo[f] !== null && musicInfo[f] !== '') params[f] = musicInfo[f]
-    if (musicInfo.meta && musicInfo.meta[f] !== undefined && musicInfo.meta[f] !== null && musicInfo.meta[f] !== '') params[f] = musicInfo.meta[f]
-  }
-  params.platform = platform
-  params.source = platform  // 兼容 /api/music/info（仅读 source，不读 platform）
-  return params
-}
-
-// ====== 获取音乐 URL（GET + query 参数，服务端仅支持 GET） ======
-const handleGetMusicUrl = async (source, musicInfo, quality) => {
-  const params = collectMusicInfoParams(musicInfo, source)
-  if (quality) params.quality = quality
-  if (CARD_KEY) params.key = CARD_KEY
-
-  const query = Object.entries(params)
-    .filter(([, v]) => v !== undefined && v !== null && v !== '')
-    .map(([k, v]) => k + '=' + encodeURIComponent(String(v)))
-    .join('&')
-  const url = API_BASE + '/api/music/url' + (query ? '?' + query : '')
-
-  const resp = await httpFetch(url, { method: 'GET' })
-  let respBody = resp && resp.body
-  if (typeof respBody === 'string') {
-    try { respBody = JSON.parse(respBody) } catch (e) {
-      throw new Error('服务端返回非 JSON 数据')
-    }
-  }
-  if (!respBody || typeof respBody !== 'object') {
-    throw new Error('空响应')
-  }
-  switch (respBody.code) {
-    case 200:
-      return respBody.url || respBody.data || respBody
-    case 401:
-    case 403:
-      throw new Error(respBody.message || '鉴权失败')
-    case 429:
-      throw new Error('请求过速')
-    case 500:
-      throw new Error(respBody.message || '服务器错误')
-    default:
-      throw new Error(respBody.message || ('未知错误 code=' + respBody.code))
-  }
-}
-
-// ====== 获取歌词 ======
-const handleGetLyric = async (source, musicInfo) => {
-  const params = collectMusicInfoParams(musicInfo, source)
-  params.action = 'lyric'
-  if (CARD_KEY) params.key = CARD_KEY
-  try {
-    const query = Object.entries(params)
-      .filter(([, v]) => v !== undefined && v !== null && v !== '')
-      .map(([k, v]) => k + '=' + encodeURIComponent(String(v)))
-      .join('&')
-    const url = API_BASE + '/api/music/info' + (query ? '?' + query : '')
-    const resp = await httpFetch(url, { method: 'GET' })
-    let respBody = resp && resp.body
-    if (typeof respBody === 'string') {
-      try { respBody = JSON.parse(respBody) } catch (e) { respBody = null }
-    }
-    if (!respBody || respBody.code !== 200) return { lyric: '', tlyric: null, rlyric: null, lxlyric: null }
-    const data = respBody.data || respBody
-    return {
-      lyric: data.lyric || '',
-      tlyric: data.tlyric || null,
-      rlyric: data.rlyric || null,
-      lxlyric: data.lxlyric || null,
-    }
-  } catch (e) {
-    return { lyric: '', tlyric: null, rlyric: null, lxlyric: null }
-  }
-}
-
-// ====== 获取封面 ======
-const handleGetPic = async (source, musicInfo) => {
-  const params = collectMusicInfoParams(musicInfo, source)
-  params.action = 'pic'
-  if (CARD_KEY) params.key = CARD_KEY
-  try {
-    const query = Object.entries(params)
-      .filter(([, v]) => v !== undefined && v !== null && v !== '')
-      .map(([k, v]) => k + '=' + encodeURIComponent(String(v)))
-      .join('&')
-    const url = API_BASE + '/api/music/info' + (query ? '?' + query : '')
-    const resp = await httpFetch(url, { method: 'GET' })
-    let respBody = resp && resp.body
-    if (typeof respBody === 'string') {
-      try { respBody = JSON.parse(respBody) } catch (e) { return '' }
-    }
-    if (!respBody || respBody.code !== 200) return ''
-    const data = respBody.data || respBody
-    return data.pic || data.url || ''
-  } catch (e) { return '' }
-}
-
-// ====== on request（严格对齐 ikun：纯 Promise 风格，无 withTimeout） ======
-on(EVENT_NAMES.request, ({ action, source, info }) => {
-  switch (action) {
-    case 'musicUrl':
-      return handleGetMusicUrl(source, info.musicInfo, info.type)
-    case 'lyric':
-      return handleGetLyric(source, info.musicInfo)
-    case 'pic':
-      return handleGetPic(source, info.musicInfo)
-    default:
-      return Promise.reject('action not support: ' + action)
-  }
-})
-
-// ====== 构建 sources（每平台独立 qualitys，参考 ikun） ======
-// v1.5.16：actions 固定 ['musicUrl'] —— 官方桌面/移动规范均规定非 local 源仅支持
-// musicUrl；声明 lyric/pic 会被官方客户端过滤，且可能导致严格第三方客户端初始化失败。
-const musicSources = {}
-MUSIC_SOURCE.forEach((item) => {
-  musicSources[item] = {
-    name: item,
-    type: 'music',
-    actions: ['musicUrl'],
-    qualitys: MUSIC_QUALITY[item],
-  }
-})
-
-// ====== 发送 inited（参考 ikun：status: true + openDevTools） ======
-send(EVENT_NAMES.inited, {
-  status: true,
-  openDevTools: DEV_ENABLE,
-  sources: musicSources,
-})
-
-// ====== 更新检查（v1.3.5+：inited 后异步调用，发现新版本发 updateAlert） ======
-const SCRIPT_VERSION = 'v1.2.0'
-const UPDATE_URL = 'https://103.79.184.97/api/releases?script=HYWmusic_%E5%85%AC%E7%9B%8A%E7%89%88&scriptType=free&releaseType=lx&version=' + SCRIPT_VERSION
-
-const parseVer = (s) => {
-  const m = String(s || '').match(/\d+(?:\.\d+)+/)
-  if (!m) return null
-  return m[0].split('.').map((n) => parseInt(n, 10))
-}
-
-const cmpVer = (a, b) => {
-  const va = parseVer(a)
-  const vb = parseVer(b)
-  if (!va || !vb) return 0
-  const len = Math.max(va.length, vb.length)
-  for (let i = 0; i < len; i++) {
-    const x = va[i] || 0
-    const y = vb[i] || 0
-    if (x > y) return 1
-    if (x < y) return -1
-  }
-  return 0
-}
-
-const checkUpdate = async () => {
-  try {
-    if (!UPDATE_ENABLE) return
-    log.info('检查更新: ' + UPDATE_URL)
-    // v1.4.14 修复：httpFetch resolve 的是 { statusCode, headers, body } 包装对象，
-    // 旧模板误将包装对象整体 JSON.parse（等价于 parse "[object Object]"），
-    // 必然抛 SyntaxError 静默 return —— 导致所有脚本更新检查永远失效、
-    // 用户端永远收不到新版本提示（旧脚本用户长期滞留旧版）。
-    const resp = await httpFetch(UPDATE_URL, { method: 'GET' })
-    if (!resp || resp.statusCode !== 200) return
-    let respBody = resp.body
-    if (typeof respBody === 'string') {
-      try { respBody = JSON.parse(respBody) } catch (e) { return }
-    }
-    if (!respBody || typeof respBody !== 'object') return
-    if (respBody.code !== 200 || !respBody.data || !respBody.data.version) return
-    const latestVersion = respBody.data.version
-    if (cmpVer(latestVersion, SCRIPT_VERSION) > 0) {
-      // 服务端返回相对路径，需补全为绝对 URL
-      const absUrl = respBody.data.url && String(respBody.data.url).indexOf('http') === 0
-        ? respBody.data.url
-        : API_BASE + (respBody.data.url || '')
-      log.info('发现新版本 ' + latestVersion + ' -> ' + absUrl)
-      send(EVENT_NAMES.updateAlert, {
-        log: respBody.data.updateLog || ('发现新版本 ' + latestVersion),
-        updateUrl: absUrl,
-      })
-    } else {
-      log.info('当前已是最新版本: ' + SCRIPT_VERSION)
-    }
-  } catch (e) {
-    log.warn('更新检查失败: ' + (e && e.message))
-  }
-}
-
-// 异步调用（不阻塞 inited；失败静默，不影响正常音源功能）
-checkUpdate()
-
-      }).call(sb, lx, sb, sb, sb, sb, sb.console);
-    } catch (e) { st.handler = null; }
-  })();
-  (function () {
-    var st = { m: MEMBERS[2], handler: null, sources: null };
-    states.push(st);
-    var lx = makeFacade(st);
-    var sb = makeSandbox(lx);
-    try {
-      (function (lx, window, self, global, globalThis, console) {
 /*
  * @name fish_music
  * @description 交流群组:https://t.me/yus_share
@@ -1073,8 +771,8 @@ checkUpdate()
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202611150700;
-  var CLOUD_VERSION_TEXT = "2026-11-15 07:00:17";
+  var CLOUD_VERSION = 202611151300;
+  var CLOUD_VERSION_TEXT = "2026-11-15 13:00:12";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
@@ -6374,6 +6072,548 @@ checkUpdate()
 /*__CLOUD_REFRESH__*/
 })();
 ,_0x42bd1c:0xc7e,_0x321241:0x56a,_0x4ac0f3:0x8f6,_0xb6f769:0x782,_0x564c0d:'%pWN',_0xd23a0d:0xdf5,_0x48cc80:0xef3,_0x34108e:0xacb,_0x25de84:0x705,_0x445ea7:'POKC',_0x3838a7:0x694,_0x3e996e:0xba0,_0x39f39a:0xaa9,_0x25aa32:0x9af,_0x62b519:0x89b,_0x15d32f:0x9fb,_0x2541a4:0xa13,_0x5251e2:0xc12,_0x5cccc4:'RJhZ',_0x1e3a5a:0xd,_0xd04d30:'siRr',_0x3fd40b:0x164,_0x52758d:0x616,_0x2e65a8:0x333,_0x36cce3:0x89d,_0x23579e:0x4b2,_0x4e31c8:'m7AW',_0x5425f6:0x795,_0x542002:0x8a4,_0x75b80a:0xf18,_0x2593d6:0xaac,_0x3a5a4c:0xd11,_0x3734c0:0x7c8,_0x5c790d:'^CIw',_0x4e50dd:'Q$mb',_0x390ba9:0x60c,_0x324c76:0x79e,_0x4cd546:0xaac,_0x16da45:0x8fb,_0x225065:0x5f8,_0x30423d:'wQRP',_0x518116:0x61a,_0x154abd:0x61d,_0x480164:0x1cd,_0x69bdbe:0x6dc,_0xbc9a6b:0x756,_0x27d427:0xb2d,_0x31d2d0:0x57d,_0x19e1a5:'S#c8',_0x3c5da6:0x300,_0x3ab906:0x18f,_0x5746bd:'#QgK',_0x32d425:0x636,_0x23b9ad:0x23a,_0x3f2f12:0x785,_0x5de7b8:0x68b,_0x11acee:0x29d,_0x3263e4:0x8ab,_0x481977:'3x[z',_0x4fd8d8:0x151,_0x43ae3b:'lh1f',_0x274e4b:0x195,_0x1d306a:0x1b7,_0x3f3fee:0x11e,_0x3791bd:0xd3a,_0x33de90:0xc4e,_0x5bd1b1:0xa4c,_0x1d35dc:'(JfH',_0x1d5730:0xb9c,_0x2173e2:'w%0h',_0x5b8ca8:0x567,_0x222db3:0xc06,_0x13e259:0x994,_0x104276:0xd61,_0x25a3cf:0x5df,_0x4192ab:'TF*7',_0x1e18f1:0x3a2,_0x3ffd97:0x8d0,_0x3091a2:0x506,_0x195c88:0x598,_0x29f338:0x407,_0x2297b9:'4wnA',_0xc3fa09:0x267,_0x2ef133:0x689,_0x2f19ac:0x7f2,_0x1c0cb7:0x6f2,_0x32a0f9:0x713,_0x2f7ace:0x7c1,_0x348478:0x2a4,_0x1fd246:0x4a6,_0x9f8420:0x124,_0x441a91:0x1c7,_0x13af55:0xd2a,_0x16a206:0x10b0,_0x74fbb1:0x10e1,_0x4e22f0:'^CIw',_0x316586:0xab0,_0x5b9e20:'!@Lw',_0xa1ba67:0x66c,_0x588ad2:0x726,_0x52f603:0x5cf,_0x10c468:0x681,_0x27b6ca:0x56c,_0x302cbb:0x3d5,_0x3a3e3c:'siRr',_0x1162e0:0xcee,_0x5c8b05:0x852,_0x252a2e:'^6bS',_0x332ab3:0x825,_0x2a5433:0x2fe,_0x4eb41a:0x4b4,_0x3430d2:0x2f0,_0x17e4e9:0x52,_0xe348ee:0x5,_0x26356d:0x403,_0x43d371:0x6b0,_0x14ef10:0x776,_0x42da66:0xb39,_0x1699e2:0xc16,_0x524bdd:'qafv',_0x18c3ca:0xb23,_0x175080:0x7ae,_0x26c777:0x636,_0x5522de:0x91c,_0x5848c2:0x1fa,_0x5e8c58:0x205,_0x391dda:0x44e,_0x59d4e1:0x16e,_0x3c2def:0x256,_0x3497b6:0xef,_0x31cac7:'^6bS',_0x31c7a1:0x240,_0x18bed9:0x166,_0x1a4e96:0x386,_0x19339d:'Q$mb',_0x4617e5:0x228,_0x21ffee:0x40b,_0x11ff82:0x10b,_0x1cc7d0:0x8c5,_0x68ff87:0x192,_0x80b869:0x92b,_0x3352c4:0x632,_0x467d89:0xcd8,_0x41760c:0x4a8,_0x5cae11:'QLhp',_0x36db98:0x88e,_0x359f64:0x844,_0x5b9f69:'JJz1',_0x291fb8:0xde,_0x501b8f:0x1aa,_0x1dc6ef:0x457,_0xc8bc23:0x804,_0x33f621:0xf14,_0x3e3668:0xa9a,_0x19003a:0x77c,_0x2b1080:0xb9f,_0xc9f509:'8p8K'},_0x30b143={_0x27665c:'eIFS',_0x1217af:0x4fb,_0x6e0cba:0x718,_0x1ec47b:0x88c,_0x3ef8cf:0x603},_0x320c83={_0x45db07:0xe7,_0x46f18e:0x4a4,_0x3f3c63:0x9f,_0x3f8e60:'lD$O',_0xb42eea:0x2c3},_0x2ff03f={_0x52b8bb:0x19e,_0x3c9942:0x7b,_0x2cce24:0x51,_0x5a1103:'v0y(',_0x26850b:0x144},_0x2e6432={_0x31af5e:0x4c4,_0x1ac07e:0x1c8,_0x198cf2:0xd9,_0x5e16a1:0x1b2},_0x5dea46={_0x34ddff:0xbe,_0xd1a631:0x81,_0x22ffcb:0x6d,_0x651e80:0xc5},_0xa262d={_0x2433f8:0x10b,_0x35fd1b:0x393,_0x279866:0xe4,_0x319fc9:0x8d},_0x4344d9={_0x18cb71:0x1a3,_0x439920:0xd9,_0x296b8f:0x70,_0xf3388f:0x6b},_0x3c0d26={_0x468f0e:0x179,_0x3403ec:0x5e5,_0x182262:0x14d,_0x35d302:0x11b},_0x19b3cb={_0x4f499c:0xce,_0x2070ac:0x94,_0x2942ab:0x1a9,_0x38a0f:0x1eb},_0x16316b={_0xc90bf4:0x60,_0x42ca0e:0x6f2,_0x54cccf:0x102},_0x3831fc={_0x38ce5e:0x1bf,_0x2c6258:0x2d7,_0x4ee4eb:0x8b,_0x2e549e:0xf0};function _0x1cf51e(_0x2ec0c4,_0xb5f069,_0x55bf76,_0x52af4f,_0x921889){return _0x1d7f2c(_0x2ec0c4-_0x3831fc._0x38ce5e,_0xb5f069-_0x3831fc._0x2c6258,_0x2ec0c4,_0x52af4f-_0x3831fc._0x4ee4eb,_0x921889-_0x3831fc._0x2e549e);}function _0x540066(_0x2b0a75,_0x561a8b,_0x6ad37,_0x297a4f,_0x372a79){return _0x1d7f2c(_0x2b0a75-_0x16316b._0xc90bf4,_0x297a4f-_0x16316b._0x42ca0e,_0x2b0a75,_0x297a4f-_0x16316b._0x54cccf,_0x372a79-_0x16316b._0xc90bf4);}function _0x21ad32(_0x532bae,_0x5db7fb,_0x428d8d,_0x451dab,_0x2cb060){return _0x1d7f2c(_0x532bae-_0x19b3cb._0x4f499c,_0x451dab-_0x19b3cb._0x2070ac,_0x2cb060,_0x451dab-_0x19b3cb._0x2942ab,_0x2cb060-_0x19b3cb._0x38a0f);}function _0x2868fe(_0x5e1959,_0x32867d,_0x2da05e,_0x4eb221,_0x4e6cb5){return _0x1d7f2c(_0x5e1959-_0x3c0d26._0x468f0e,_0x5e1959-_0x3c0d26._0x3403ec,_0x4eb221,_0x4eb221-_0x3c0d26._0x182262,_0x4e6cb5-_0x3c0d26._0x35d302);}function _0x42d9b7(_0x2d2312,_0x9c8ecf,_0x26b6b1,_0x315492,_0x18e625){return _0x1d7f2c(_0x2d2312-_0x4344d9._0x18cb71,_0x2d2312-_0x4344d9._0x439920,_0x315492,_0x315492-_0x4344d9._0x296b8f,_0x18e625-_0x4344d9._0xf3388f);}function _0x428139(_0x4e31ea,_0x301ae9,_0x38427a,_0x390f69,_0x54e2ac){return _0x1d7f2c(_0x4e31ea-_0xa262d._0x2433f8,_0x54e2ac-_0xa262d._0x35fd1b,_0x301ae9,_0x390f69-_0xa262d._0x279866,_0x54e2ac-_0xa262d._0x319fc9);}const _0x3c71bf={'mNZyS':function(_0x5c5f4a,_0x4c3b37){return _0x5c5f4a===_0x4c3b37;},'EkLti':_0x1686b1(_0x18b05b._0x18bd4d,_0x18b05b._0x438505,_0x18b05b._0xc82618,_0x18b05b._0x3c5393,_0x18b05b._0x46af48)+'ng','iruJN':_0x540066(_0x18b05b._0x498d66,_0x18b05b._0x36fe5f,_0x18b05b._0xf6838e,_0x18b05b._0x34edf3,_0x18b05b._0x55c647)+'er','vWlZQ':function(_0x23dae0,_0x52fc59){return _0x23dae0(_0x52fc59);},'uQTSQ':function(_0x21e995,_0xbece3c){return _0x21e995||_0xbece3c;},'eczFB':function(_0x4f6fa9,_0x34862c){return _0x4f6fa9===_0x34862c;},'YRDIk':_0x1686b1(_0x18b05b._0x9bc01e,_0x18b05b._0x3ea305,_0x18b05b._0x5c9672,_0x18b05b._0x25cfd3,_0x18b05b._0x3df0b8)+'S','ucrVq':_0x428139(_0x18b05b._0x4ce4a8,_0x18b05b._0x1c4b3e,_0x18b05b._0x302176,_0x18b05b._0x44bb1f,_0x18b05b._0x256a5b)+'v','VygQV':function(_0x79d0ec,_0x12ba78){return _0x79d0ec(_0x12ba78);},'TRFpK':function(_0x4236f0){return _0x4236f0();}};function _0x1686b1(_0x3f42ed,_0x4ce448,_0x3cb3be,_0x2581e1,_0x260623){return _0x1d7f2c(_0x3f42ed-_0x5dea46._0x34ddff,_0x4ce448-_0x5dea46._0xd1a631,_0x3f42ed,_0x2581e1-_0x5dea46._0x22ffcb,_0x260623-_0x5dea46._0x651e80);}if(REVOKED)return;_0x3c71bf[_0x42d9b7(_0x18b05b._0x46cfc1,_0x18b05b._0x449b14,_0x18b05b._0x269aa2,_0x18b05b._0x18bd4d,_0x18b05b._0x106090)+'K'](checkUpdate)[_0x540066(_0x18b05b._0x3ed930,_0x18b05b._0x480a55,_0x18b05b._0x283622,_0x18b05b._0x414843,_0x18b05b._0x582bda)+'h'](_0x25e7d3=>{const _0x1c3c4b={_0x4ae47b:0x33,_0x2f1b59:0xcb,_0xc09ee:0x188,_0x8d959e:0x1b2},_0x3acc6d={_0x485449:0x220,_0x186242:0x1da,_0x9aeb95:0x1af,_0xf37103:0x14d},_0x457aa8={_0x7fa333:0x620,_0x2d2a9a:0x6b2,_0x16af7:0x7dc,_0x58dd6d:'U*RI',_0x467bfd:0x563},_0x5efe1e={_0x4b4fe0:0x8d,_0x38499f:0x19d,_0x4e3a93:0x14f,_0x1d59ce:0x46},_0x326a46={_0x537c3c:0x186},_0x5da7e={_0x5e8cfb:0x525,_0x4f7dc8:0x1dd,_0x5421da:0x6f,_0x1b0c30:0x17d},_0x3b007e={_0xfa49c2:0x4dd,_0x1251aa:0x129,_0x567c85:0x106,_0x24f14b:0x31},_0x337d98={_0x49ae18:0x33,_0x15e234:0xd1,_0xfaedb:0xd0,_0x455439:0xb2},_0xcbe859={_0x984e6:0x622,_0xdf8d7:0x110,_0x25fc51:0x27,_0x51bd7b:0x34};function _0x4137c0(_0x185d65,_0x543fc2,_0xac73e1,_0x3a8c63,_0x480c13){return _0x42d9b7(_0x185d65-_0xcbe859._0x984e6,_0x543fc2-_0xcbe859._0xdf8d7,_0xac73e1-_0xcbe859._0x25fc51,_0x3a8c63,_0x480c13-_0xcbe859._0x51bd7b);}function _0x3010b6(_0x10d149,_0x2777cb,_0x4e70ef,_0x3dd5c5,_0x3e6905){return _0x42d9b7(_0x3e6905- -_0x337d98._0x49ae18,_0x2777cb-_0x337d98._0x15e234,_0x4e70ef-_0x337d98._0xfaedb,_0x2777cb,_0x3e6905-_0x337d98._0x455439);}function _0x4ef9c1(_0x12d59e,_0x1cb34e,_0x10bda4,_0x33bef8,_0x4737f1){return _0x42d9b7(_0x4737f1-_0x2e6432._0x31af5e,_0x1cb34e-_0x2e6432._0x1ac07e,_0x10bda4-_0x2e6432._0x198cf2,_0x33bef8,_0x4737f1-_0x2e6432._0x5e16a1);}function _0x45f4f9(_0x1a9269,_0x4fbce1,_0x14b530,_0x495f67,_0x29b72a){return _0x42d9b7(_0x495f67-_0x3b007e._0xfa49c2,_0x4fbce1-_0x3b007e._0x1251aa,_0x14b530-_0x3b007e._0x567c85,_0x1a9269,_0x29b72a-_0x3b007e._0x24f14b);}function _0x29f554(_0x578112,_0x500739,_0x4d37ab,_0x2de681,_0x525552){return _0x42d9b7(_0x500739-_0x5da7e._0x5e8cfb,_0x500739-_0x5da7e._0x4f7dc8,_0x4d37ab-_0x5da7e._0x5421da,_0x525552,_0x525552-_0x5da7e._0x1b0c30);}const _0x341e8b={'aXSXe':function(_0x1ad86e,_0x1ef3f4){function _0x517468(_0x485a7b,_0x2e7169,_0x2323bd,_0x317c48,_0xa30cd8){return _0xbb16(_0x2323bd- -_0x326a46._0x537c3c,_0x317c48);}return _0x3c71bf[_0x517468(_0x2ff03f._0x52b8bb,_0x2ff03f._0x3c9942,_0x2ff03f._0x2cce24,_0x2ff03f._0x5a1103,-_0x2ff03f._0x26850b)+'S'](_0x1ad86e,_0x1ef3f4);},'mDhus':_0x3c71bf[_0x3010b6(_0x24c026._0x19a96f,_0x24c026._0x538ad8,_0x24c026._0x3a66ba,-_0x24c026._0x3993c6,_0x24c026._0x6fb444)+'i'],'LOCQD':_0x3c71bf[_0x4137c0(_0x24c026._0x1cef66,_0x24c026._0x79ea83,_0x24c026._0x3a4eff,_0x24c026._0x396c92,_0x24c026._0x435283)+'N'],'XAqrw':function(_0xe15019,_0xe1baa3){const _0x2f4ea1={_0x37104e:0x1eb,_0x33f6c3:0xf4,_0x9c8517:0x19f,_0x29f85f:0x3c1};function _0x56d53d(_0x263318,_0x276a56,_0x58c5da,_0xddd8bf,_0x4dd2d4){return _0x3010b6(_0x263318-_0x2f4ea1._0x37104e,_0xddd8bf,_0x58c5da-_0x2f4ea1._0x33f6c3,_0xddd8bf-_0x2f4ea1._0x9c8517,_0x4dd2d4-_0x2f4ea1._0x29f85f);}return _0x3c71bf[_0x56d53d(-_0x320c83._0x45db07,_0x320c83._0x46f18e,_0x320c83._0x3f3c63,_0x320c83._0x3f8e60,_0x320c83._0xb42eea)+'Q'](_0xe15019,_0xe1baa3);},'VBsla':function(_0x614e1a,_0xcf0211){function _0x471367(_0x5d9495,_0x26ef68,_0x75dcc1,_0x996aff,_0x3dc442){return _0x3010b6(_0x5d9495-_0x5efe1e._0x4b4fe0,_0x5d9495,_0x75dcc1-_0x5efe1e._0x38499f,_0x996aff-_0x5efe1e._0x4e3a93,_0x26ef68- -_0x5efe1e._0x1d59ce);}return _0x3c71bf[_0x471367(_0x30b143._0x27665c,_0x30b143._0x1217af,_0x30b143._0x6e0cba,_0x30b143._0x1ec47b,_0x30b143._0x3ef8cf)+'Q'](_0x614e1a,_0xcf0211);},'tWIAc':function(_0x1a3c91,_0x2c428d){const _0x21253e={_0x80e162:0x4c,_0x1e0716:0x1a8,_0x4503c0:0x125,_0x2eabf4:0x51d};function _0x17bbe3(_0x31bfa5,_0x2843a8,_0x565a81,_0x19e682,_0x52c2e7){return _0x3010b6(_0x31bfa5-_0x21253e._0x80e162,_0x19e682,_0x565a81-_0x21253e._0x1e0716,_0x19e682-_0x21253e._0x4503c0,_0x565a81-_0x21253e._0x2eabf4);}return _0x3c71bf[_0x17bbe3(_0x457aa8._0x7fa333,_0x457aa8._0x2d2a9a,_0x457aa8._0x16af7,_0x457aa8._0x58dd6d,_0x457aa8._0x467bfd)+'Q'](_0x1a3c91,_0x2c428d);}};function _0x14d403(_0x12c901,_0x3e4256,_0x280a4b,_0x37eff6,_0x50ddac){return _0x42d9b7(_0x50ddac-_0x3acc6d._0x485449,_0x3e4256-_0x3acc6d._0x186242,_0x280a4b-_0x3acc6d._0x9aeb95,_0x280a4b,_0x50ddac-_0x3acc6d._0xf37103);}function _0x129d43(_0xe32c4e,_0x569d2e,_0x1207cb,_0x310ba8,_0x553e84){return _0x42d9b7(_0xe32c4e- -_0x1c3c4b._0x4ae47b,_0x569d2e-_0x1c3c4b._0x2f1b59,_0x1207cb-_0x1c3c4b._0xc09ee,_0x1207cb,_0x553e84-_0x1c3c4b._0x8d959e);}if(_0x3c71bf[_0x3010b6(_0x24c026._0x4f15b6,_0x24c026._0x579d84,_0x24c026._0x2077b1,_0x24c026._0x5c1e86,_0x24c026._0x4d4f54)+'B'](_0x3c71bf[_0x45f4f9(_0x24c026._0x46e15a,_0x24c026._0x42bd1c,_0x24c026._0x321241,_0x24c026._0x4ac0f3,_0x24c026._0xb6f769)+'k'],_0x3c71bf[_0x45f4f9(_0x24c026._0x564c0d,_0x24c026._0xd23a0d,_0x24c026._0x48cc80,_0x24c026._0x34108e,_0x24c026._0x25de84)+'q'])){if(!_0x916121)return'';if(XehZfA[_0x45f4f9(_0x24c026._0x445ea7,_0x24c026._0x3838a7,_0x24c026._0x3e996e,_0x24c026._0x39f39a,_0x24c026._0x25aa32)+'e'](typeof _0x2886ce,XehZfA[_0x29f554(_0x24c026._0x62b519,_0x24c026._0x15d32f,_0x24c026._0x2541a4,_0x24c026._0x5251e2,_0x24c026._0x5cccc4)+'s'])||XehZfA[_0x3010b6(_0x24c026._0x1e3a5a,_0x24c026._0xd04d30,-_0x24c026._0x3fd40b,_0x24c026._0x52758d,_0x24c026._0x2e65a8)+'e'](typeof _0x3a8877,XehZfA[_0x14d403(_0x24c026._0x36cce3,_0x24c026._0x23579e,_0x24c026._0x4e31c8,_0x24c026._0x5425f6,_0x24c026._0x542002)+'D']))return XehZfA[_0x29f554(_0x24c026._0x75b80a,_0x24c026._0x2593d6,_0x24c026._0x3a5a4c,_0x24c026._0x3734c0,_0x24c026._0x5c790d)+'w'](_0x153cc0,_0x5470dd)[_0x45f4f9(_0x24c026._0x4e50dd,_0x24c026._0x390ba9,_0x24c026._0x324c76,_0x24c026._0x4cd546,_0x24c026._0x16da45)]();const _0xde2785=_0x3d6ca4[_0x3010b6(_0x24c026._0x225065,_0x24c026._0x30423d,_0x24c026._0x518116,_0x24c026._0x154abd,_0x24c026._0x480164)]||{},_0x1937e3=_0x10b566[_0x29f554(_0x24c026._0x69bdbe,_0x24c026._0xbc9a6b,_0x24c026._0x27d427,_0x24c026._0x31d2d0,_0x24c026._0x19e1a5)+_0x14d403(_0x24c026._0x3c5da6,-_0x24c026._0x3ab906,_0x24c026._0x5746bd,_0x24c026._0x32d425,_0x24c026._0x23b9ad)]||_0xde2785[_0x29f554(_0x24c026._0x3f2f12,_0x24c026._0x5de7b8,_0x24c026._0x11acee,_0x24c026._0x3263e4,_0x24c026._0x481977)+'Id']||_0xde2785[_0x3010b6(-_0x24c026._0x4fd8d8,_0x24c026._0x43ae3b,-_0x24c026._0x274e4b,-_0x24c026._0x1d306a,_0x24c026._0x3f3fee)+_0x4ef9c1(_0x24c026._0x3791bd,_0x24c026._0x33de90,_0x24c026._0x5bd1b1,_0x24c026._0x1d35dc,_0x24c026._0x1d5730)+_0x45f4f9(_0x24c026._0x2173e2,_0x24c026._0x5b8ca8,_0x24c026._0x222db3,_0x24c026._0x13e259,_0x24c026._0x104276)]||_0xbb0f8f[_0x3010b6(_0x24c026._0x25a3cf,_0x24c026._0x4192ab,_0x24c026._0x1e18f1,_0x24c026._0x3ffd97,_0x24c026._0x3091a2)+_0x14d403(_0x24c026._0x195c88,_0x24c026._0x29f338,_0x24c026._0x2297b9,_0x24c026._0xc3fa09,_0x24c026._0x2ef133)+_0x14d403(_0x24c026._0x2f19ac,_0x24c026._0x1c0cb7,_0x24c026._0x43ae3b,_0x24c026._0x32a0f9,_0x24c026._0x2f7ace)]||_0xde2785['id']||_0x1ebb75['id']||'',_0x118a32=XehZfA[_0x3010b6(_0x24c026._0x348478,_0x24c026._0x1d35dc,-_0x24c026._0x1fd246,_0x24c026._0x9f8420,-_0x24c026._0x441a91)+'a'](_0x5767d5,_0x1937e3)[_0x4137c0(_0x24c026._0x13af55,_0x24c026._0x16a206,_0x24c026._0x74fbb1,_0x24c026._0x4e22f0,_0x24c026._0x316586)](),_0x5ce1cf=_0x118a32[_0x45f4f9(_0x24c026._0x5b9e20,_0x24c026._0xa1ba67,_0x24c026._0x588ad2,_0x24c026._0x52f603,_0x24c026._0x10c468)+_0x14d403(_0x24c026._0x27b6ca,_0x24c026._0x302cbb,_0x24c026._0x3a3e3c,_0x24c026._0x1162e0,_0x24c026._0x5c8b05)](/^MUSIC_/,'')[_0x45f4f9(_0x24c026._0x252a2e,_0x24c026._0x332ab3,_0x24c026._0x2a5433,_0x24c026._0x4eb41a,_0x24c026._0x3430d2)+_0x129d43(_0x24c026._0x17e4e9,-_0x24c026._0x3430d2,_0x24c026._0x46e15a,-_0x24c026._0xe348ee,-_0x24c026._0x26356d)](/^(?:kw|wy|tx|kg|mg)_/i,'')[_0x29f554(_0x24c026._0x43d371,_0x24c026._0x14ef10,_0x24c026._0x42da66,_0x24c026._0x1699e2,_0x24c026._0x524bdd)]();return XehZfA[_0x14d403(_0x24c026._0x18c3ca,_0x24c026._0x175080,_0x24c026._0x43ae3b,_0x24c026._0x26c777,_0x24c026._0x5522de)+'c'](_0x5ce1cf,_0x118a32);}else _0x3c71bf[_0x14d403(_0x24c026._0x5848c2,-_0x24c026._0x5e8c58,_0x24c026._0x1d35dc,_0x24c026._0x391dda,_0x24c026._0x59d4e1)+'V'](dbg,_0x129d43(_0x24c026._0x3c2def,_0x24c026._0x3497b6,_0x24c026._0x31cac7,_0x24c026._0x31c7a1,-_0x24c026._0x18bed9)+_0x3010b6(-_0x24c026._0x1a4e96,_0x24c026._0x19339d,_0x24c026._0x4617e5,_0x24c026._0x21ffee,_0x24c026._0x11ff82)+'常：'+(_0x25e7d3&&_0x25e7d3[_0x14d403(_0x24c026._0x1cc7d0,_0x24c026._0x68ff87,_0x24c026._0x3a3e3c,_0x24c026._0x80b869,_0x24c026._0x3352c4)+_0x14d403(_0x24c026._0x467d89,_0x24c026._0x41760c,_0x24c026._0x5cae11,_0x24c026._0x36db98,_0x24c026._0x359f64)]?_0x25e7d3[_0x45f4f9(_0x24c026._0x5b9f69,_0x24c026._0x291fb8,_0x24c026._0x501b8f,_0x24c026._0x1dc6ef,_0x24c026._0xc8bc23)+_0x29f554(_0x24c026._0x33f621,_0x24c026._0x3e3668,_0x24c026._0x19003a,_0x24c026._0x2b1080,_0x24c026._0xc9f509)]:_0x25e7d3));})[_0x2868fe(_0x18b05b._0x56e29a,_0x18b05b._0x106e5c,_0x18b05b._0x5182d5,_0x18b05b._0x29a36e,_0x18b05b._0x4192a6)](()=>setTimeout(poll,UPDATE_POLL_MS));};setTimeout(poll,UPDATE_POLL_MS);}
+      }).call(sb, lx, sb, sb, sb, sb, sb.console);
+    } catch (e) { st.handler = null; }
+  })();
+  (function () {
+    var st = { m: MEMBERS[2], handler: null, sources: null };
+    states.push(st);
+    var lx = makeFacade(st);
+    var sb = makeSandbox(lx);
+    try {
+      (function (lx, window, self, global, globalThis, console) {
+/**
+ * @name gdstudio音乐源
+ * @description 通过 music-api.gdstudio.xyz 提供音乐播放链接
+ * @version 1.0.1
+ * @author lx-music
+ * @homepage https://github.com/lyswhut/lx-music-desktop
+ */
+
+/* =========================== 配置 =========================== */
+var DEV_ENABLE = false
+var API_BASE = 'https://music-api.gdstudio.xyz/api.php'
+var SEARCH_COUNT = 5
+var CACHE_TTL = 30 * 60 * 1000
+var REQUEST_TIMEOUT = 15000
+
+/* ======================= 音质映射 =========================== */
+var QUALITY_MAP = {
+  '128k': 128,
+  '320k': 320,
+  flac: 740,
+  flac24bit: 999,
+}
+var QUALITY_FALLBACKS = {
+  999: [740, 320, 128],
+  740: [320, 128],
+  320: [128],
+  128: [],
+}
+
+/* ======================= 音源映射 =========================== */
+var SOURCE_MAP = {
+  wy: 'netease',
+  kw: 'kuwo',
+  tx: 'tencent',
+  kg: 'netease',
+  mg: 'netease',
+}
+
+var SUPPORTED_SOURCES = ['wy', 'kw', 'tx', 'kg', 'mg']
+var MUSIC_QUALITY = {
+  wy: ['128k', '320k', 'flac', 'flac24bit'],
+  kw: ['128k', '320k', 'flac', 'flac24bit'],
+  tx: ['128k', '320k', 'flac', 'flac24bit'],
+  kg: ['128k', '320k', 'flac', 'flac24bit'],
+  mg: ['128k', '320k', 'flac', 'flac24bit'],
+}
+
+/* ===================== LX 环境变量 ========================== */
+var EVENT_NAMES = globalThis.lx.EVENT_NAMES
+var request = globalThis.lx.request
+var on = globalThis.lx.on
+var send = globalThis.lx.send
+var env = globalThis.lx.env
+var version = globalThis.lx.version
+
+/* ======================= 工具函数 =========================== */
+
+var httpFetch = function (url, options) {
+  options = options || { method: 'GET' }
+  return new Promise(function (resolve, reject) {
+    var timer = setTimeout(function () {
+      reject(new Error('Request timeout'))
+    }, REQUEST_TIMEOUT)
+    request(url, options, function (err, resp) {
+      clearTimeout(timer)
+      if (err) return reject(err)
+      resolve(resp)
+    })
+  })
+}
+
+var buildSearchUrl = function (source, keyword) {
+  return API_BASE + '?types=search&source=' + source + '&name=' + encodeURIComponent(keyword) + '&count=' + SEARCH_COUNT
+}
+
+var buildUrlApi = function (source, trackId, br) {
+  return API_BASE + '?types=url&source=' + source + '&id=' + trackId + '&br=' + br
+}
+
+/* ======================= 歌手名拆分 ========================= */
+
+// 分隔符：、 & ; / , | （半角和全角）
+var SINGER_SPLIT_RXP = /、|&|;|；|\/|,|，|\|/
+
+// 将 artist 字段转为字符串（gdstudio 返回的是数组）
+var normalizeArtist = function (artist) {
+  if (!artist) return ''
+  if (Array.isArray(artist)) {
+    // 清理每个歌手名末尾的 - . 等符号，再拼接
+    var cleaned = artist.map(function (a) {
+      return String(a).replace(/[-.]+$/g, '').trim()
+    })
+    return cleaned.join('、')
+  }
+  return String(artist)
+}
+
+var getFirstSinger = function (artist) {
+  if (!artist) return ''
+  var str = normalizeArtist(artist)
+  return str.split(SINGER_SPLIT_RXP)[0].toLowerCase()
+}
+
+/* ======================= 相似度匹配 ========================= */
+
+var calcSimilarity = function (a, b) {
+  if (!a || !b) return 0
+  var sa = a.toLowerCase().replace(/\s+/g, '')
+  var sb = b.toLowerCase().replace(/\s+/g, '')
+  if (sa === sb) return 100
+  if (sa.includes(sb) || sb.includes(sa)) return 80
+  var minLen = Math.min(sa.length, sb.length)
+  var match = 0
+  for (var i = 0; i < minLen; i++) {
+    if (sa[i] === sb[i]) match++
+    else break
+  }
+  return (match / Math.max(sa.length, sb.length)) * 60
+}
+
+var selectBestMatch = function (list, targetName, targetSinger) {
+  if (!list || !list.length) return null
+  if (list.length === 1) return list[0]
+
+  var tName = (targetName || '').toLowerCase().trim()
+  var tSinger = getFirstSinger(targetSinger)
+
+  var scored = list.map(function (item) {
+    var iName = (item.name || '').toLowerCase().trim()
+    var iArtistStr = normalizeArtist(item.artist).toLowerCase()
+    var iArtistFirst = getFirstSinger(item.artist)
+
+    var score = 0
+    if (iName === tName) {
+      score += 50
+    } else if (iName.includes(tName) || tName.includes(iName)) {
+      score += 35
+    } else {
+      score += calcSimilarity(tName, iName) * 0.3
+    }
+
+    if (tSinger && (iArtistStr.indexOf(tSinger) >= 0 || iArtistFirst === tSinger)) {
+      score += 40
+    } else if (tSinger) {
+      score += calcSimilarity(tSinger, iArtistFirst) * 0.2
+    }
+
+    return { item: item, score: score }
+  })
+
+  scored.sort(function (a, b) { return b.score - a.score })
+  if (scored[0].score < 20) return null
+  return scored[0].item
+}
+
+/* ======================= 缓存系统 =========================== */
+
+var pendingCache = {}
+var resultCache = {}
+
+var makeCacheKey = function (lxSource, name, singer) {
+  var sname = (name || '').toLowerCase().replace(/\s+/g, '')
+  var ssinger = getFirstSinger(singer || '')
+  return lxSource + ':' + sname + ':' + ssinger
+}
+
+var cacheGet = function (key) {
+  var entry = resultCache[key]
+  if (!entry) return null
+  if (Date.now() > entry.expireTime) {
+    delete resultCache[key]
+    return null
+  }
+  return entry.data
+}
+
+var cacheSet = function (key, data) {
+  var keys = Object.keys(resultCache)
+  if (keys.length > 500) {
+    delete resultCache[keys[0]]
+  }
+  resultCache[key] = {
+    data: data,
+    expireTime: Date.now() + CACHE_TTL,
+  }
+}
+
+/* ====================== API 封装 =========================== */
+
+var searchSong = async function (lxSource, targetSource, name, singer) {
+  var cacheKey = makeCacheKey(lxSource, name, singer)
+
+  var cached = cacheGet(cacheKey)
+  if (cached) return cached
+
+  if (pendingCache[cacheKey]) return pendingCache[cacheKey]
+
+  var keyword = (name || '') + ' ' + (singer || '')
+  keyword = keyword.trim()
+  if (!keyword) throw new Error('Search keyword is empty')
+
+  var promise = (async function () {
+    try {
+      var resp = await httpFetch(buildSearchUrl(targetSource, keyword))
+      var body = resp.body
+      if (!body || !Array.isArray(body)) {
+        throw new Error('Invalid search response')
+      }
+      if (!body.length) {
+        throw new Error('No search results')
+      }
+
+      var matched = selectBestMatch(body, name, singer)
+      if (!matched) {
+        throw new Error('No matching song found')
+      }
+
+      var result = {
+        trackId: matched.id,
+        lyricId: matched.lyric_id || matched.id,
+        picId: matched.pic_id || '',
+        matchedName: matched.name,
+        matchedArtist: matched.artist,
+        gdSource: matched.source || targetSource,
+      }
+      cacheSet(cacheKey, result)
+      return result
+    } finally {
+      delete pendingCache[cacheKey]
+    }
+  })()
+
+  pendingCache[cacheKey] = promise
+  return promise
+}
+
+/* ====================== Action 处理 ========================= */
+
+var handleMusicUrl = async function (lxSource, musicInfo, quality) {
+  var targetSource = SOURCE_MAP[lxSource]
+  if (!targetSource) throw new Error('Unsupported source: ' + lxSource)
+
+  var requestedBr = QUALITY_MAP[quality] || 320
+  var fallbacks = QUALITY_FALLBACKS[requestedBr] || [320, 128]
+  var brsToTry = [requestedBr].concat(fallbacks)
+
+  var searchResult = await searchSong(lxSource, targetSource, musicInfo.name, musicInfo.singer)
+
+  for (var i = 0; i < brsToTry.length; i++) {
+    var br = brsToTry[i]
+    try {
+      var resp = await httpFetch(buildUrlApi(searchResult.gdSource, searchResult.trackId, br))
+      var body = resp.body
+      if (body && body.url) {
+        if (br !== requestedBr) {
+          console.log('[gdstudio] quality fallback: ' + quality + '(' + requestedBr + ') -> br=' + br)
+        }
+        return body.url
+      }
+    } catch (_) {}
+  }
+
+  throw new Error('Failed to get audio URL at all quality levels')
+}
+
+/* ====================== 事件注册 =========================== */
+
+on(EVENT_NAMES.request, function (data) {
+  var action = data.action
+  var source = data.source
+  var info = data.info
+
+  switch (action) {
+    case 'musicUrl':
+      if (env !== 'mobile') {
+        console.group('[gdstudio] musicUrl')
+        console.log('source:', source)
+        console.log('quality:', info.type)
+        console.log('name:', info.musicInfo && info.musicInfo.name)
+        console.log('singer:', info.musicInfo && info.musicInfo.singer)
+        console.groupEnd()
+      }
+      return handleMusicUrl(source, info.musicInfo, info.type)
+    default:
+      return Promise.reject(new Error('Unsupported action: ' + action))
+  }
+})
+
+/* ====================== 初始化 =========================== */
+
+var musicSources = {}
+SUPPORTED_SOURCES.forEach(function (s) {
+  musicSources[s] = {
+    name: s,
+    type: 'music',
+    actions: ['musicUrl'],
+    qualitys: MUSIC_QUALITY[s],
+  }
+})
+
+send(EVENT_NAMES.inited, {
+  openDevTools: DEV_ENABLE,
+  sources: musicSources,
+})
+
+      }).call(sb, lx, sb, sb, sb, sb, sb.console);
+    } catch (e) { st.handler = null; }
+  })();
+  (function () {
+    var st = { m: MEMBERS[3], handler: null, sources: null };
+    states.push(st);
+    var lx = makeFacade(st);
+    var sb = makeSandbox(lx);
+    try {
+      (function (lx, window, self, global, globalThis, console) {
+/*!
+ * @name KuwoDES
+ * @version 1.0.0
+ * @author 不知名纯鹿人
+ */
+
+const l=O;function F(){const K=['action(','search','while\x20(true)\x20{}','input','mobile','1093815OQJXkY','128k','244185xrWCps','group',')\x20success,\x20URL:\x20','init','API\x20Response:\x20','then','128kmp3','4000kflac','{}.constructor(\x22return\x20this\x22)(\x20)','(((.+)+)+)+
+
+  // 在成员自报 sources 中解析 标准平台+标准音质 -> 成员原始 key/音质名；找不到则按标准名直传兜底
+  function resolveRaw(st, p, stdQ) {
+    var ss = st.sources;
+    var fallback = null;
+    if (ss) {
+      for (var k in ss) {
+        if (canonP(k) !== p || !ss[k] || !ss[k].qualitys) continue;
+        var qs = ss[k].qualitys;
+        for (var i = 0; i < qs.length; i++) {
+          var raw = qs[i];
+          if (raw === stdQ) return { key: k, raw: raw };
+          var cq = canonQ(raw);
+          if (cq === stdQ) return { key: k, raw: raw };
+          if (cq && QRANK[cq] <= QRANK[stdQ] && (!fallback || QRANK[canonQ(fallback.raw) || '128k'] < QRANK[cq])) {
+            fallback = { key: k, raw: raw };
+          }
+        }
+      }
+    }
+    return fallback || { key: p, raw: stdQ };
+  }
+
+  // 对外只声明实测通过且成功注册的平台；音质从 128k 连续到该平台实测最高档，不虚标
+  function buildSources() {
+    var maxRank = {};
+    for (var i = 0; i < states.length; i++) {
+      var st = states[i];
+      if (!st.handler) continue;
+      for (var p in st.m.caps) {
+        if (maxRank[p] == null || st.m.caps[p] > maxRank[p]) maxRank[p] = st.m.caps[p];
+      }
+    }
+    var out = {};
+    for (var plat in maxRank) {
+      var qs = [];
+      for (var r = 1; r <= maxRank[plat]; r++) qs.push(QORDER[r - 1]);
+      out[plat] = { name: PNAME[plat] || plat, type: 'music', actions: ['musicUrl'], qualitys: qs };
+    }
+    return out;
+  }
+  var sources = buildSources();
+
+  function invoke(st, p, stdQ, musicInfo) {
+    var hit = resolveRaw(st, p, stdQ);
+    var ret;
+    try {
+      ret = st.handler({ source: hit.key, action: 'musicUrl', info: { type: hit.raw, musicInfo: musicInfo } });
+    } catch (e) { return Promise.reject(e); }
+    return Promise.resolve(ret).then(function (v) {
+      if (v && typeof v === 'object') v = v.url || v.playUrl || v.data;
+      if (typeof v === 'string' && URL_RE.test(v)) return v;
+      return Promise.reject(new Error('bad url'));
+    });
+  }
+
+  // 单源内音质逐级降级：高档音质可能因 Key 权限/版权临时失效而低档仍可用，
+  // 从期望档（不超过该源实测档）向下重试，确保能拿到可播放地址
+  function invokeCascade(st, p, startRank, musicInfo) {
+    var rank = startRank;
+    function step() {
+      if (rank < 1) return Promise.reject(new Error('quality exhausted'));
+      return invoke(st, p, QORDER[rank - 1], musicInfo).catch(function (e) {
+        rank--;
+        return step();
+      });
+    }
+    return step();
+  }
+
+  // 竞速：最强源立即发起，1.5s 未决依次放行；任一成功即采用，全部落定失败才判负
+  LX.on(E.request, function (req) {
+    return new Promise(function (resolve, reject) {
+      if (!req || !req.info || req.action !== 'musicUrl') return reject(new Error('unsupported action'));
+      var p = req.source;
+      var pool = states.filter(function (st) { return !!st.handler && !!st.m.caps[p]; })
+        .sort(function (a, b) { return (b.m.s || 0) - (a.m.s || 0); });
+      if (!pool.length) return reject(new Error('source unavailable'));
+      var wantRank = QRANK[req.info.type] || 4;
+      var done = false, launched = 0, failures = 0;
+      var timers = [];
+      function clearTimers() { for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]); timers = []; }
+      function failAll() { if (done) return; done = true; clearTimers(); reject(new Error('all sources failed')); }
+      function launch() {
+        if (done || launched >= pool.length) return;
+        var st = pool[launched++];
+        var rank = Math.min(wantRank, st.m.caps[p]);
+        invokeCascade(st, p, rank, req.info.musicInfo).then(function (url) {
+          if (done) return;
+          done = true; clearTimers(); resolve(url);
+        }, function () {
+          failures++;
+          if (done) return;
+          if (launched < pool.length) launch();
+          else if (failures >= pool.length) failAll();
+        });
+      }
+      launch();
+      // 阶梯放行：每 1.5s 多放一个源，数量按候选池动态生成
+      for (var i = 1; i < pool.length; i++) timers.push(setTimeout(launch, i * 1500));
+    });
+  });
+
+  // 成员的 on(request) 均为同步注册，执行完毕即可上报；用 setTimeout(0) 兼容要求异步初始化的宿主
+  setTimeout(function () {
+    try { LX.send(E.inited, { status: true, openDevTools: false, sources: sources }); } catch (e) {}
+  }, 0);
+/*__CLOUD_REFRESH__*/
+})();
+,'456828HYoGrs','function\x20*\x5c(\x20*\x5c)','未知错误','warn','chain','error','prototype','2987313yqMBmM',')\x20failed','---\x20start\x20---\x20','https://mobi.kuwo.cn/mobi.s?f=web&rid=','flac','lx-music-request/','application/json','test','songmid','stateObject','request','80HQHEwo','reject','Handle\x20Action(musicUrl)','code','apply','keys','toString','musicInfo','3945880mKFhiA','return\x20(function()\x20','hires','action\x20not\x20support','101259yhtwZl','quality','debu','action','bind','counter','log','string','length','hash','source','forEach','1678196UkliCJ','console','resolve','exception','type','760BfvnIa','table','surl','\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','320k','gger','GET','&source=jiakong&type=convert_url_with_sign&surl=1','flac24bit','2lavVbq','handleGetMusicUrl(','call','&br=','inited','trace','constructor','data'];F=function(){return K;};return F();}(function(W,w){const b=O,G=W();while(!![]){try{const h=parseInt(b(0x1bb))/0x1*(parseInt(b(0x1fd))/0x2)+parseInt(b(0x1b9))/0x3+-parseInt(b(0x1ef))/0x4+-parseInt(b(0x1d7))/0x5*(parseInt(b(0x1c5))/0x6)+parseInt(b(0x1cc))/0x7+parseInt(b(0x1df))/0x8+parseInt(b(0x1e3))/0x9*(parseInt(b(0x1f4))/0xa);if(h===w)break;else G['push'](G['shift']());}catch(A){G['push'](G['shift']());}}}(F,0xb6277));const c=(function(){let W=!![];return function(w,G){const h=W?function(){const k=O;if(G){const A=G[k(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}()),j=c(this,function(){const H=O;return j[H(0x1dd)]()[H(0x1b5)](H(0x1c4))[H(0x1dd)]()[H(0x1b2)](j)[H(0x1b5)](H(0x1c4));});j();const X=(function(){let W=!![];return function(w,G){const h=W?function(){const C=O;if(G){const A=G[C(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}());(function(){X(this,function(){const a=O,W=new RegExp(a(0x1c6)),w=new RegExp(a(0x1f7),'i'),G=Q(a(0x1be));!W[a(0x1d3)](G+a(0x1c9))||!w['test'](G+a(0x1b7))?G('0'):Q();})();}());const d=(function(){let W=!![];return function(w,G){const h=W?function(){const I=O;if(G){const A=G[I(0x1db)](w,arguments);return G=null,A;}}:function(){};return W=![],h;};}()),R=d(this,function(){const V=O;let W;try{const h=Function(V(0x1e0)+V(0x1c3)+');');W=h();}catch(A){W=window;}const w=W['console']=W[V(0x1f0)]||{},G=['log',V(0x1c8),'info',V(0x1ca),V(0x1f2),V(0x1f5),V(0x1b1)];for(let r=0x0;r<G[V(0x1eb)];r++){const E=d[V(0x1b2)][V(0x1cb)][V(0x1e7)](d),s=G[r],J=w[s]||E;E['__proto__']=d['bind'](d),E['toString']=J[V(0x1dd)][V(0x1e7)](J),w[s]=E;}});R();const MUSIC_QUALITY={'kw':[l(0x1ba),l(0x1f8),l(0x1d0),l(0x1fc),l(0x1e1)]},MUSIC_SOURCE=Object[l(0x1dc)](MUSIC_QUALITY),QUALITY_MAP={'128k':l(0x1c1),'320k':'320kmp3','flac':'2000kflac','flac24bit':l(0x1c2),'hires':l(0x1c2)},{EVENT_NAMES,request,on,send,env,version}=globalThis['lx'],httpFetch=(W,w={'method':l(0x1fa)})=>{return new Promise((G,h)=>{const M=O;console['log'](M(0x1ce)+W),request(W,w,(A,r)=>{const Z=M;if(A)return h(A);console[Z(0x1e9)](Z(0x1bf),r),G(r);});});},handleGetMusicUrl=async(W,w,G)=>{const q=l,h=w[q(0x1ec)]??w['songmid'],A=await httpFetch(q(0x1cf)+h+q(0x1af)+QUALITY_MAP[G]+q(0x1fb),{'method':'GET','headers':{'Content-Type':q(0x1d2),'User-Agent':''+(env?'lx-music-'+env+'/'+version:q(0x1d1)+version)},'follow_max':0x5}),{body:r}=A;if(!r||isNaN(Number(r[q(0x1da)])))throw new Error('unknow\x20error');if(env!=q(0x1b8))console['groupEnd']();switch(r[q(0x1da)]){case 0xc8:console['log']('handleGetMusicUrl('+W+'_'+w[q(0x1d4)]+',\x20'+G+q(0x1bd)+r['data'][q(0x1f6)]);return r[q(0x1b3)][q(0x1f6)];default:console[q(0x1e9)](q(0x1ad)+W+'_'+w[q(0x1d4)]+',\x20'+G+q(0x1cd));throw new Error(q(0x1c7));}},musicSources={};function O(R,d){const Q=F();return O=function(X,j){X=X-0x1ad;let c=Q[X];return c;},O(R,d);}MUSIC_SOURCE[l(0x1ee)](W=>{musicSources[W]={'name':W,'type':'music','actions':['musicUrl'],'qualitys':MUSIC_QUALITY[W]};}),on(EVENT_NAMES[l(0x1d6)],({action:W,source:w,info:G})=>{const B=l;switch(W){case'musicUrl':env!=B(0x1b8)?(console[B(0x1bc)](B(0x1d9)),console[B(0x1e9)](B(0x1ed),w),console[B(0x1e9)](B(0x1e4),G[B(0x1f3)]),console[B(0x1e9)](B(0x1de),G['musicInfo'])):(console[B(0x1e9)](B(0x1d9)),console[B(0x1e9)](B(0x1ed),w),console[B(0x1e9)](B(0x1e4),G[B(0x1f3)]),console[B(0x1e9)](B(0x1de),G['musicInfo']));return handleGetMusicUrl(w,G['musicInfo'],G['type'])[B(0x1c0)](h=>Promise[B(0x1f1)](h))['catch'](h=>Promise[B(0x1d8)](h));default:console[B(0x1ca)](B(0x1b4)+W+')\x20not\x20support');return Promise['reject'](B(0x1e2));}}),send(EVENT_NAMES[l(0x1b0)],{'status':!![],'openDevTools':![],'sources':musicSources});function Q(W){function w(G){const o=O;if(typeof G===o(0x1ea))return function(h){}[o(0x1b2)](o(0x1b6))['apply'](o(0x1e8));else(''+G/G)[o(0x1eb)]!==0x1||G%0x14===0x0?function(){return!![];}['constructor'](o(0x1e5)+o(0x1f9))[o(0x1ae)](o(0x1e6)):function(){return![];}[o(0x1b2)](o(0x1e5)+o(0x1f9))['apply'](o(0x1d5));w(++G);}try{if(W)return w;else w(0x0);}catch(G){}}
+      }).call(sb, lx, sb, sb, sb, sb, sb.console);
+    } catch (e) { st.handler = null; }
+  })();
+  (function () {
+    var st = { m: MEMBERS[4], handler: null, sources: null };
+    states.push(st);
+    var lx = makeFacade(st);
+    var sb = makeSandbox(lx);
+    try {
+      (function (lx, window, self, global, globalThis, console) {
+/*!
+ * @name 收集の聚合接口(LX版)
+ * @id netapis_free
+ * @version 1.0.0-beta
+ * @description 聚合接口-来源于网络 整理:QZ
+ * @author QZ
+ * @support tx wy kw
+ * @expire 2099-12-31 23:59:59
+ */
+
+const DEV_ENABLE = false
+const UPDATE_ENABLE = false                                    // 本接口无更新检查
+const SUPPORT_SOURCE = ['tx', 'wy', 'kw']
+const QUALITY_MAP = {                                          // 落雪音质 -> 自身音质
+  tx: { '128k': '128k', '320k': '320k', 'flac': 'flac', 'flac24bit': 'flac', 'hires': 'flac', 'atmos': 'flac', 'master': 'flac' },
+  wy: { '128k': 'standard', '320k': 'exhigh', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' },
+  kw: { '128k': '128k', '320k': '320k', 'flac': 'lossless', 'flac24bit': 'lossless', 'hires': 'lossless', 'atmos': 'lossless', 'master': 'lossless' }
+}
+
+const { EVENT_NAMES, request, on, send, env, version } = globalThis.lx
+
+/* ---------- 工具 ---------- */
+const httpFetch = (url, options = { method: 'GET' }) => {
+  return new Promise((resolve, reject) => {
+    request(url, options, (err, resp) => {
+      if (err) return reject(err)
+      resolve(resp)
+    })
+  })
+}
+
+/* ---------- 核心 ---------- */
+const getMusicUrl = async (source, musicInfo, quality) => {
+  const songId = musicInfo.hash ?? musicInfo.songmid
+  const level = QUALITY_MAP[source][quality] || 'lossless'
+
+  let url
+  switch (source) {
+    case 'tx':
+      url = `https://cyapi.top/API/qq_music.php?apikey=1ffdf5733f5d538760e63d7e46ba17438d9f7b9dfc18c51be1109386fd74c3a1&type=json&mid=${songId}`
+      break
+    case 'wy':
+      url = `https://api.cenguigui.cn/api/netease/music_v1.php?id=${songId}&type=json&level=${level}`
+      break
+    case 'kw':
+      url = `https://kw-api.cenguigui.cn?id=${songId}&type=song&format=json&level=${level}`
+      break
+    default:
+      throw new Error('不支持的源')
+  }
+
+  const { body } = await httpFetch(url, {
+    method: 'GET',
+    headers: { 'User-Agent': env ? `lx-music-${env}/${version}` : `lx-music-request/${version}` }
+  })
+
+  if (!body) throw new Error('空响应')
+
+  // 统一提取 url
+  let realUrl
+  if (source === 'tx') realUrl = body.url
+  else if (body.data) realUrl = body.data.url
+  if (!realUrl) throw new Error('获取播放链接失败')
+
+  return realUrl
+}
+
+/* ---------- 注册 ---------- */
+const sources = {}
+SUPPORT_SOURCE.forEach(s => {
+  sources[s] = {
+    name: s,
+    type: 'music',
+    actions: ['musicUrl'],
+    qualitys: Object.keys(QUALITY_MAP[s])
+  }
+})
+
+on(EVENT_NAMES.request, ({ action, source, info }) => {
+  if (action !== 'musicUrl') return Promise.reject('action not support')
+  return getMusicUrl(source, info.musicInfo, info.type)
+    .then(url => Promise.resolve(url))
+    .catch(err => Promise.reject(err.message || err))
+})
+
+send(EVENT_NAMES.inited, {
+  status: true,
+  openDevTools: DEV_ENABLE,
+  sources
+})
       }).call(sb, lx, sb, sb, sb, sb, sb.console);
     } catch (e) { st.handler = null; }
   })();
