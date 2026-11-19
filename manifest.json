@@ -1,16 +1,16 @@
 {
-  "v": 202611190700,
-  "updated": "2026-11-19 07:00:04",
+  "v": 202611191300,
+  "updated": "2026-11-19 13:00:03",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 46.83,
+      "s": 44.83,
       "caps": {
         "kw": 4,
         "kg": 4,
-        "tx": 4,
+        "tx": 3,
         "wy": 4,
         "mg": 3
       },
@@ -21,9 +21,9 @@
       "n": "fish_music",
       "v": "1.9.0",
       "a": "大鱼吃小鱼",
-      "s": 46.48,
+      "s": 42.49,
       "caps": {
-        "kw": 3,
+        "kw": 1,
         "kg": 4,
         "tx": 4,
         "wy": 3,
@@ -36,7 +36,7 @@
       "n": "杰翔聚合音源",
       "v": "2.3.0",
       "a": "https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi",
-      "s": 39.3,
+      "s": 39.31,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -44,7 +44,7 @@
         "wy": 3
       },
       "f": "members/jiexiangjuhesource.js",
-      "md5": "210781c06a445e5f4719dc1391bc46ae"
+      "md5": "14ecab3e75fdedba3743558b4f7dac51"
     }
   ]
 }
