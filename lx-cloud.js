@@ -8,9 +8,9 @@
  * 固定导入地址（永久有效）：https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js
  * 运行时配置通道（按序回退）：raw.githubusercontent / cdn.jsdelivr / fastly.jsdelivr / gh-proxy / ghproxy
  *
- * 由 ql-lx-source 1.3.2 于 2026-11-19 13:00:03 自动生成
+ * 由 ql-lx-source 1.3.2 于 2026-11-19 19:00:03 自动生成
  * 成员仅收录当轮五平台真实取链成功者（平台:实测最高音质）：
- *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.8分）
+ *   1. 𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac/网易云:flac24bit/咪咕:flac，44.5分）
  *   2. fish_music（实测 酷我:128k/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac/咪咕:flac24bit，42.5分）
  *   3. 杰翔聚合音源（实测 酷我:flac24bit/酷狗:flac24bit/QQ音乐:flac24bit/网易云:flac，39.3分）
  */
@@ -25,7 +25,7 @@
   var Q_ALIAS = { hires: 'flac24bit', master: 'flac24bit', zida: 'flac', atmos: 'flac', dolby: 'flac' };
   var PNAME = { kw: '酷我音乐', kg: '酷狗音乐', tx: 'QQ音乐', wy: '网易云音乐', mg: '咪咕音乐' };
   var URL_RE = new RegExp('^https?://', 'i');
-  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.83,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":42.49,"caps":{"kw":1,"kg":4,"tx":4,"wy":3,"mg":4}},{"n":"杰翔聚合音源","v":"2.3.0","a":"https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi","s":39.31,"caps":{"kw":4,"kg":4,"tx":4,"wy":3}}];
+  var MEMBERS = [{"n":"𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ","v":"260925","a":"hello world","s":44.54,"caps":{"kw":4,"kg":4,"tx":3,"wy":4,"mg":3}},{"n":"fish_music","v":"1.9.0","a":"大鱼吃小鱼","s":42.51,"caps":{"kw":1,"kg":4,"tx":4,"wy":3,"mg":4}},{"n":"杰翔聚合音源","v":"2.3.0","a":"https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi","s":39.3,"caps":{"kw":4,"kg":4,"tx":4,"wy":3}}];
   var REAL_GLOBAL = globalThis;
   var states = [];
 
@@ -129,7 +129,7 @@ const CONFIG = {
         }
       },
 {
-  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_6.6.6.6_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
+  api: 'http://nmobi.kuwo.cn/mobi.s?f=web&user=0&source=kwplayerhd_ar_1.1.4.5_tianbao_T1A_qirui.apk&type=convert_url_with_sign&rid={id}&br={quality}',
   idField: ['rid', 'hash', 'songId', 'id', 'songmid'],
   urlField: ['data.url'],
   quality: {
@@ -769,8 +769,8 @@ send(EVENT_NAMES.inited, { openDevTools: false, sources });
 
   // ==================== 云更新（构建期注入） ====================
   var CLOUD_CHANNELS = ["https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://cdn.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://fastly.jsdelivr.net/gh/moxi5445/lx-music-cloud@main/","https://gh-proxy.com/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/","https://ghproxy.net/https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/"];
-  var CLOUD_VERSION = 202611191300;
-  var CLOUD_VERSION_TEXT = "2026-11-19 13:00:03";
+  var CLOUD_VERSION = 202611191900;
+  var CLOUD_VERSION_TEXT = "2026-11-19 19:00:03";
   var CLOUD_UPDATE_URL = "https://raw.githubusercontent.com/moxi5445/lx-music-cloud/main/lx-cloud.js";
 
   function cloudHttpGet(u, ms) {
