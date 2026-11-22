@@ -1,12 +1,12 @@
 {
-  "v": 202611220700,
-  "updated": "2026-11-22 07:00:04",
+  "v": 202611221300,
+  "updated": "2026-11-22 13:00:03",
   "sources": [
     {
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 44.86,
+      "s": 45.04,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -14,20 +14,20 @@
         "wy": 4,
         "mg": 3
       },
-      "f": "members/lx-music-source-260925-43bec2.js",
-      "md5": "43bec2edc7a75dfae0f5f990ab04cf41"
+      "f": "members/fuguang-music-helloworldsource-e093f5.js",
+      "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
       "n": "fish_music",
       "v": "1.9.0",
       "a": "大鱼吃小鱼",
-      "s": 40.3,
+      "s": 42.52,
       "caps": {
-        "kw": 3,
+        "kw": 1,
         "kg": 4,
         "tx": 4,
         "wy": 3,
-        "mg": 1
+        "mg": 4
       },
       "f": "members/fish-music.js",
       "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
