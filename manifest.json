@@ -1,27 +1,27 @@
 {
-  "v": 202611251300,
-  "updated": "2026-11-25 13:00:03",
+  "v": 202611251900,
+  "updated": "2026-11-25 19:00:03",
   "sources": [
     {
-      "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
-      "v": "260925",
-      "a": "hello world",
-      "s": 40.81,
+      "n": "fish_music",
+      "v": "1.9.0",
+      "a": "大鱼吃小鱼",
+      "s": 40.5,
       "caps": {
-        "kw": 4,
+        "kw": 1,
         "kg": 4,
-        "tx": 1,
-        "wy": 4,
-        "mg": 3
+        "tx": 3,
+        "wy": 3,
+        "mg": 4
       },
-      "f": "members/lxmusic-source-all-helloworldsource-e093f5.js",
-      "md5": "e093f5d0c64bedad446c522b052a1c43"
+      "f": "members/fish-music.js",
+      "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
     },
     {
       "n": "杰翔聚合音源",
       "v": "2.3.0",
       "a": "https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi",
-      "s": 39.32,
+      "s": 39.3,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -32,19 +32,29 @@
       "md5": "210781c06a445e5f4719dc1391bc46ae"
     },
     {
-      "n": "fish_music",
-      "v": "1.9.0",
-      "a": "大鱼吃小鱼",
-      "s": 34.5,
+      "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
+      "v": "260925",
+      "a": "hello world",
+      "s": 37.77,
       "caps": {
-        "kw": 1,
+        "kw": 4,
         "kg": 4,
-        "tx": 3,
-        "wy": 3,
-        "mg": 1
+        "wy": 4,
+        "mg": 3
       },
-      "f": "members/fish-music.js",
-      "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
+      "f": "members/lxmusic-source-all-helloworldsource-e093f5.js",
+      "md5": "e093f5d0c64bedad446c522b052a1c43"
+    },
+    {
+      "n": "收集の聚合接口(LX版)",
+      "v": "1.0.0-beta",
+      "a": "QZ",
+      "s": 6.62,
+      "caps": {
+        "tx": 1
+      },
+      "f": "members/shouji-juheapi-lx.js",
+      "md5": "19d5f3a511c18d60820949f3037bd9f4"
     }
   ]
 }
