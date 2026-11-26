@@ -1,18 +1,18 @@
 {
-  "v": 202611262300,
-  "updated": "2026-11-26 23:00:03",
+  "v": 202611270700,
+  "updated": "2026-11-27 07:00:06",
   "sources": [
     {
       "n": "fish_music",
       "v": "1.9.0",
       "a": "大鱼吃小鱼",
-      "s": 38.51,
+      "s": 40.52,
       "caps": {
-        "kw": 3,
+        "kw": 1,
         "kg": 4,
         "tx": 3,
         "wy": 3,
-        "mg": 1
+        "mg": 4
       },
       "f": "members/fish-music.js",
       "md5": "f1a0e1d1f23cb14f3815171930ff8a26"
@@ -21,21 +21,21 @@
       "n": "𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ",
       "v": "260925",
       "a": "hello world",
-      "s": 37.74,
+      "s": 37.77,
       "caps": {
         "kw": 4,
         "kg": 4,
         "wy": 4,
         "mg": 3
       },
-      "f": "members/lx-music-source-260925-43bec2.js",
-      "md5": "43bec2edc7a75dfae0f5f990ab04cf41"
+      "f": "members/lxmusic-source-all-helloworldsource-e093f5.js",
+      "md5": "e093f5d0c64bedad446c522b052a1c43"
     },
     {
       "n": "杰翔聚合音源",
       "v": "2.3.0",
       "a": "https://qm.qq.com/cgi-bin/qm/qr?k=dEBGYbmu1lIRp7bAgHFim0W1uDsYl9v5&jump_from=webapi&authKey=fmTG96MhfqDQ5KARA/OvnuWAigCAloClvYhtSiEQd0jQneXmGons54BwlAh1+bUi",
-      "s": 32.96,
+      "s": 32.97,
       "caps": {
         "kw": 4,
         "kg": 4,
@@ -46,15 +46,15 @@
       "md5": "210781c06a445e5f4719dc1391bc46ae"
     },
     {
-      "n": "稳定版音源 v1.0.2-debug",
-      "v": "1.0.2-debug",
-      "a": "LX",
+      "n": "收集の聚合接口(LX版)",
+      "v": "1.0.0-beta",
+      "a": "QZ",
       "s": 6.62,
       "caps": {
         "tx": 1
       },
-      "f": "members/source-v1-0-2-debug.js",
-      "md5": "f1e24e24ae232b58b1fd5f4989a857a3"
+      "f": "members/shouji-juheapi-lx.js",
+      "md5": "19d5f3a511c18d60820949f3037bd9f4"
     }
   ]
 }
